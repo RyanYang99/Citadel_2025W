@@ -9,14 +9,30 @@ namespace Citadel
 {
     public sealed class Inventory : MonoBehaviour
     {
-        [SerializeField, Tooltip("게임을 처음 시작할 때 플레이어가 가지는 것")] private List<ItemAmount> startingResources;
-        
+        private float _timer;
         private readonly Dictionary<Item, int> _resourcesCount = new();
+        
+        [SerializeField] private GameManager gameManager;
+        
+        [SerializeField, Tooltip("게임을 처음 시작할 때 플레이어가 가지는 것")] private List<ItemAmount> startingResources;
+
+        public event Action OnTick; 
         
         private void Awake()
         {
             foreach (ItemAmount startingResource in startingResources)
                 Add(startingResource.item, startingResource.amount);
+        }
+        
+        private void Update()
+        {
+            _timer += Time.deltaTime;
+
+            if (_timer < 1.0f)
+                return;
+
+            _timer = 0f;
+            OnTick?.Invoke();
         }
         
         public int GetAmount(Item item)
