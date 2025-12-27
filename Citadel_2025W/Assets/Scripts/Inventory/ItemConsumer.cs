@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -73,7 +74,7 @@ namespace Citadel
         public void ConsumeReadyItems()
         {
             foreach (ItemAmount item in itemsUsed)
-                _currentItems[item.item] -= item.amount;
+                _currentItems[item.item] = Math.Clamp(_currentItems[item.item] - item.amount, 0, item.amount);
         }
     }
 }
