@@ -4,7 +4,9 @@ using UnityEngine;
 public class BuildingData
 {
     public GameObject prefab;
-    public float yOffset;
+    public Sprite icon;
+    public float yOffset = 1f;
+    public BuildingCategory category;
 }
 
 public class BuildingManager : MonoBehaviour
@@ -27,6 +29,9 @@ public class BuildingManager : MonoBehaviour
 
     public void SelectBuilding(int index)
     {
+        if (index < 0 || index >= buildings.Length)
+            return;
+
         CurrentIndex = index;
         Debug.Log($"선택된 건물 인덱스: {index}");
     }
