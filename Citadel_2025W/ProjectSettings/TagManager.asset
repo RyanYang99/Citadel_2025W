@@ -5,12 +5,12 @@ TagManager:
   serializedVersion: 3
   tags:
   - BackGround
-  - BaseBuilding
+  - Ground
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
   - 
