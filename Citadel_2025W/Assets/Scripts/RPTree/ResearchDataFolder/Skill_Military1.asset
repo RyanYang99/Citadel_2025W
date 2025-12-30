@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f61015b788c63847a895c09f350263f, type: 3}
+  m_Name: Skill_Military1
+  m_EditorClassIdentifier: Assembly-CSharp::ResearchData
+  researchName: "\uAD70\uC0AC\uB825 1Lvl"
+  explanation: "\uC804\uD22C\uB825 +5%"
+  cost: -1
+  requiredResearches:
+  - {fileID: 11400000, guid: 6aa288af920e19140ba92ce8d6a1d974, type: 2}
+  effects:
+  - type: 3
+    value: 5
