@@ -1043,46 +1043,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingManager
   buildings:
-  - prefab: {fileID: 4283302137605695339, guid: cae79b5c625f3924ba8e47f515ce7328, type: 3}
-    icon: {fileID: 21300000, guid: c08b541683b956d4c88eac9f236a89bf, type: 2}
-    yOffset: 1
-    category: 0
-  - prefab: {fileID: 919132149155446097, guid: 89a60659e286c7941b8ac475d748d531, type: 3}
-    icon: {fileID: 8729290809107288482, guid: 15d05de9aac531b48a67db34569ad1fa, type: 3}
-    yOffset: 1
-    category: 0
-  - prefab: {fileID: 226678208712358659, guid: 14795146591cf9447aac4efd44656035, type: 3}
-    icon: {fileID: 2680834505231656606, guid: bc682a2e0e9b59a49b79e1affafff561, type: 3}
-    yOffset: 1
-    category: 0
-  - prefab: {fileID: 5333005139596611789, guid: d158cc923e0c2c2449cf7f5ac6c60599, type: 3}
-    icon: {fileID: -8007513456833087658, guid: f6647ce3c4929f14f8b2a32d8bf50fb3, type: 3}
-    yOffset: 1
-    category: 0
-  - prefab: {fileID: 919132149155446097, guid: d5cfb521c11bbe54c834f0cf2dc8f223, type: 3}
-    icon: {fileID: -765150924802650856, guid: 631bf3a02407d394e99763f546ac9f3a, type: 3}
-    yOffset: 1
-    category: 3
-  - prefab: {fileID: 919132149155446097, guid: e07cecb77e5c60b47aa0416c07be4583, type: 3}
-    icon: {fileID: -2429919002490121231, guid: 15b6a7f59ba47fc4aa51baee5f9382f3, type: 3}
-    yOffset: 1
-    category: 3
-  - prefab: {fileID: 919132149155446097, guid: 9fb3ae4694e9c034ea74d7e2f0645f07, type: 3}
-    icon: {fileID: 7776578450426523408, guid: fc8a6c9136016554e9f46ddc81292cd8, type: 3}
-    yOffset: 1
-    category: 3
-  - prefab: {fileID: 7197781265647871001, guid: 81d1e05a742425c418cb6a7280a68b32, type: 3}
-    icon: {fileID: 7932798033344189819, guid: 91b4035fd5eaabe4b99d654ea7b9f322, type: 3}
-    yOffset: 1
-    category: 3
-  - prefab: {fileID: 8414948440561021924, guid: 0753406e2e4780e4b860603ddc121fb6, type: 3}
-    icon: {fileID: -8667466294985060184, guid: d51c8812acc72ed4f8b10258ab27601d, type: 3}
-    yOffset: 1
-    category: 3
-  - prefab: {fileID: 730628655188707287, guid: 17d1e25c5c701f8468cf443d879f1602, type: 3}
-    icon: {fileID: 5399216258242481651, guid: 5137c45de28b11a44a588e499e361656, type: 3}
-    yOffset: 1
-    category: 3
+  - {fileID: 11400000, guid: 3341891b63eb9f747ac938a8356ccfc0, type: 2}
 --- !u!1 &404740571
 GameObject:
   m_ObjectHideFlags: 0
@@ -3627,7 +3588,7 @@ Transform:
   m_GameObject: {fileID: 1460531971}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 130.24599, y: 868.888, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4765,7 +4726,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1982270753
 MonoBehaviour:
   m_ObjectHideFlags: 0
