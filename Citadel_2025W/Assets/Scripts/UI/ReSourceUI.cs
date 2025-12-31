@@ -1,33 +1,14 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+using Citadel;
 
-
-
-
-namespace Citadel
+[System.Serializable]
+public class ResourceUI
 {
-    public class ResourceUI : MonoBehaviour
-    {
-        [SerializeField] Inventory inventory;
-        [SerializeField] Item item;
-        [SerializeField] TMP_Text amountText;
+    public Item item;
+    public Image iconImage;        // 아이콘 위치
+    public TMP_Text amountText;    // 수량 텍스트
 
-        void OnEnable()
-        {
-            Refresh();
-        }
-
-        void Start()
-        {
-            Refresh();
-        }
-
-        public void Refresh()
-        {
-            int amount = inventory.GetAmount(item);
-            amountText.text = amount.ToString();
-
-            Debug.Log($"{item} amount = {amount}");
-        }
-    }
+    [HideInInspector] public int lastValue = -1;
 }
