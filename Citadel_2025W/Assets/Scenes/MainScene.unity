@@ -3442,6 +3442,7 @@ GameObject:
   - component: {fileID: 1334907389}
   - component: {fileID: 1334907392}
   - component: {fileID: 1334907391}
+  - component: {fileID: 1334907393}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -3536,6 +3537,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingManager
   buildings: {fileID: 11400000, guid: dc7bc133d6e37094aa445d8496a570cb, type: 2}
+--- !u!114 &1334907393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334907388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2ee6c2a248e28a4fa16bdcc1defe495, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.SaveLoadManager
+  buildingsReference: {fileID: 11400000, guid: dc7bc133d6e37094aa445d8496a570cb, type: 2}
+  buildingManager: {fileID: 1334907392}
 --- !u!1 &1469602352
 GameObject:
   m_ObjectHideFlags: 0

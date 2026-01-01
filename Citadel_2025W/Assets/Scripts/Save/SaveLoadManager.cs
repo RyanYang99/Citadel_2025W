@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Citadel
@@ -8,16 +9,16 @@ namespace Citadel
     public sealed class SaveLoadManager : MonoBehaviour
     {
         [Serializable]
-        private struct SerializableBuilding
+        private class SerializableBuilding
         {
             public string uniqueName;
-            public Vector3 position, rotation;
+            public CleanVector3 position, rotation;
 
             public SerializableBuilding(string uniqueName, Vector3 position, Vector3 rotation)
             {
                 this.uniqueName = uniqueName;
-                this.position = position;
-                this.rotation = rotation;
+                this.position = new CleanVector3(position);
+                this.rotation = new CleanVector3(rotation);
             }
         }
         
@@ -41,32 +42,22 @@ namespace Citadel
         {
             List<SerializableBuilding> serializableBuildings = new(); 
             foreach (PlacedBuilding placedBuilding in buildingManager.PlacedBuildings)
-            {
                 serializableBuildings.Add(new SerializableBuilding(placedBuilding.UniqueName, placedBuilding.Position, placedBuilding.Rotation));
-            }
             
-            //File.WriteAllText(
-            //    path,
-            //    JsonUtility.ToJson(new Serialization<BuildingData>(dataList), true)
-            //);
+            File.WriteAllText(path, JsonConvert.SerializeObject(serializableBuildings, Formatting.Indented));
+            
+            Debug.Log($"Saved to {path}.");
         }
 
-        void Load()
+        private void Load()
         {
-            if (!File.Exists(path)) return;
-
-            //string json = File.ReadAllText(path);
-            //var data = JsonUtility.FromJson<Serialization<BuildingData>>(json);
-
-            //foreach (var d in data.items)
-            //    Instantiate(prefabs[d.prefabIndex], d.position, Quaternion.identity);
+            if (!File.Exists(path))
+                return;
+            
+            List<SerializableBuilding> serializableBuildings = JsonConvert.DeserializeObject<List<SerializableBuilding>>(File.ReadAllText(path));
+            
+            foreach (SerializableBuilding serializableBuilding in serializableBuildings)
+                buildingManager.PlaceBuilding(serializableBuilding.uniqueName, serializableBuilding.position.ToVector3(), serializableBuilding.rotation.ToVector3());
         }
-    }
-
-    [System.Serializable]
-    public class Serialization<T>
-    {
-        public List<T> items;
-        public Serialization(List<T> items) => this.items = items;
     }
 }

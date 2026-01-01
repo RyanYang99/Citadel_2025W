@@ -70,7 +70,7 @@ namespace Citadel
             if (placedBuilding != null)
                 PlacedBuildings.Remove(placedBuilding);
         }
-
+        
         public void PlaceBuilding(Vector3 position)
         {
             BuildingMetaData buildingMetaData = CurrentBuilding;
@@ -87,6 +87,15 @@ namespace Citadel
             AddPlacedBuilding(new PlacedBuilding(buildingMetaData.uniqueName, _gameObject, position, _gameObject.transform.rotation.eulerAngles));
         }
 
+        public void PlaceBuilding(string uniqueName, Vector3 position, Vector3 rotation)
+        {
+            BuildingMetaData buildingMetaData = buildings.list.Find(bmd => bmd.uniqueName == uniqueName);
+            if (buildingMetaData == null)
+                return;
+            
+            AddPlacedBuilding(new PlacedBuilding(uniqueName, Instantiate(buildingMetaData.prefab, position, Quaternion.Euler(rotation)),position, rotation));
+        }
+
         public void RotateBuilding(GameObject _gameObject)
         {
             _gameObject.transform.Rotate(Vector3.up, 90f);
@@ -100,6 +109,12 @@ namespace Citadel
         {
             RemovePlacedBuilding(_gameObject);
             Destroy(_gameObject);
+        }
+
+        public void RemoveAllBuildings()
+        {
+            foreach (PlacedBuilding placedBuilding in PlacedBuildings)
+                RemoveBuilding(placedBuilding._GameObject);
         }
     }
 }
