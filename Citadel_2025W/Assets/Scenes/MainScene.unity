@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 0}
+  m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -432,7 +432,7 @@ GameObject:
   - component: {fileID: 191902319}
   - component: {fileID: 191902318}
   m_Layer: 0
-  m_Name: Init_Inventory
+  m_Name: Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -771,7 +771,7 @@ GameObject:
   - component: {fileID: 393139653}
   - component: {fileID: 393139652}
   m_Layer: 5
-  m_Name: Button_Close
+  m_Name: CloseButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1227,82 +1227,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
   m_Asset: {fileID: -944628639613478452, guid: 496078b01b138614b922587db7899f71, type: 3}
   m_ActionId: 93ff3e91-0921-4479-8468-f8633215c75e
---- !u!1 &636406615
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 636406617}
-  - component: {fileID: 636406616}
-  m_Layer: 0
-  m_Name: TimeManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &636406616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 636406615}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3558d76926551ab40a63d1b4d992e1c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Citadel.TimeManager
-  minutesPerOneGameDay: 2
-  ambientLight:
-    serializedVersion: 2
-    key0: {r: 1, g: 1, b: 1, a: 0}
-    key1: {r: 1, g: 0.7657259, b: 0.4198113, a: 0.5019608}
-    key2: {r: 1, g: 1, b: 1, a: 1}
-    key3: {r: 1, g: 1, b: 1, a: 1}
-    key4: {r: 0.8867924, g: 0.3602374, b: 0.26352793, a: 0}
-    key5: {r: 0, g: 0, b: 0, a: 0}
-    key6: {r: 0, g: 0, b: 0, a: 0}
-    key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 0
-    ctime1: 13107
-    ctime2: 19661
-    ctime3: 42598
-    ctime4: 49151
-    ctime5: 0
-    ctime6: 0
-    ctime7: 0
-    atime0: 0
-    atime1: 13107
-    atime2: 19661
-    atime3: 49151
-    atime4: 52428
-    atime5: 65535
-    atime6: 0
-    atime7: 0
-    m_Mode: 0
-    m_ColorSpace: -1
-    m_NumColorKeys: 5
-    m_NumAlphaKeys: 6
-  dayPercent: 0
---- !u!4 &636406617
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 636406615}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &655104657
 GameObject:
   m_ObjectHideFlags: 0
@@ -1720,7 +1644,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 667053985}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.6532815, y: 0.27059808, z: 0.27059808, w: 0.6532815}
+  m_LocalRotation: {x: 0.6532815, y: 0.27059808, z: -0.27059808, w: 0.6532815}
   m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2468,8 +2392,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2833,7 +2757,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1372303780}
   - {fileID: 1256469121}
   - {fileID: 1908467907}
   - {fileID: 1105581883}
@@ -2874,7 +2797,7 @@ GameObject:
   - component: {fileID: 1187079196}
   - component: {fileID: 1187079195}
   m_Layer: 5
-  m_Name: Button_Road
+  m_Name: RoadButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3008,7 +2931,7 @@ GameObject:
   - component: {fileID: 1256469123}
   - component: {fileID: 1256469122}
   m_Layer: 5
-  m_Name: OpenBuildButton
+  m_Name: BuildButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3447,10 +3370,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87a0ca4d09794f64ead558f42c88a87e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildScrollController
-  buildingManager: {fileID: 1372303781}
-  content: {fileID: 1314932780}
+  _transform: {fileID: 1314932780}
+  buildingManager: {fileID: 1334907392}
   itemPrefab: {fileID: 3304387485370116069, guid: 8c853b02b76babf41ab87e79dbbbb6b3, type: 3}
-  currentCategory: 0
 --- !u!224 &1314932780
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3508,7 +3430,7 @@ MonoBehaviour:
   m_Spacing: {x: 10, y: 10}
   m_Constraint: 1
   m_ConstraintCount: 10
---- !u!1 &1372303779
+--- !u!1 &1334907388
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3516,74 +3438,104 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1372303780}
-  - component: {fileID: 1372303783}
-  - component: {fileID: 1372303782}
-  - component: {fileID: 1372303781}
+  - component: {fileID: 1334907390}
+  - component: {fileID: 1334907389}
+  - component: {fileID: 1334907392}
+  - component: {fileID: 1334907391}
   m_Layer: 0
-  m_Name: BuildingManager
+  m_Name: Managers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1372303780
+--- !u!114 &1334907389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334907388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3558d76926551ab40a63d1b4d992e1c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.TimeManager
+  minutesPerOneGameDay: 2
+  ambientLight:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 0.11764706}
+    key1: {r: 1, g: 0.7657259, b: 0.4198113, a: 0.5019608}
+    key2: {r: 1, g: 1, b: 1, a: 1}
+    key3: {r: 1, g: 1, b: 1, a: 1}
+    key4: {r: 0.8867924, g: 0.3602374, b: 0.26352793, a: 0.11764706}
+    key5: {r: 0, g: 0, b: 0, a: 0.11764706}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 13107
+    ctime2: 19661
+    ctime3: 42598
+    ctime4: 49151
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 13107
+    atime2: 19661
+    atime3: 49151
+    atime4: 52428
+    atime5: 65535
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 5
+    m_NumAlphaKeys: 6
+  dayPercent: 0.5
+--- !u!4 &1334907390
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1372303779}
+  m_GameObject: {fileID: 1334907388}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1167567409}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1372303781
+--- !u!114 &1334907391
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1372303779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83027b8f4f8be174aa3f4da32cf8de82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BuildingManager
-  buildings:
-  - {fileID: 11400000, guid: 3341891b63eb9f747ac938a8356ccfc0, type: 2}
---- !u!114 &1372303782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1372303779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2ee6c2a248e28a4fa16bdcc1defe495, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Citadel.SaveLoadManager
-  prefabs: []
---- !u!114 &1372303783
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1372303779}
+  m_GameObject: {fileID: 1334907388}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a9321ecf3b0c2c4ea989f16b3447bbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.BuildingPlacer
-  buildingManager: {fileID: 1372303781}
-  buildingPrefabs:
-  - {fileID: 4283302137605695339, guid: cae79b5c625f3924ba8e47f515ce7328, type: 3}
+  _camera: {fileID: 1557674955}
+  buildScrollView: {fileID: 1908467906}
+  buildingManager: {fileID: 1334907392}
+--- !u!114 &1334907392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334907388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83027b8f4f8be174aa3f4da32cf8de82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingManager
+  buildings: {fileID: 11400000, guid: dc7bc133d6e37094aa445d8496a570cb, type: 2}
 --- !u!1 &1469602352
 GameObject:
   m_ObjectHideFlags: 0
@@ -3687,8 +3639,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190084
-  m_fontColor: {r: 0.01509428, g: 0, b: 0, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3785,6 +3737,7 @@ GameObject:
   - component: {fileID: 1557674955}
   - component: {fileID: 1557674954}
   - component: {fileID: 1557674953}
+  - component: {fileID: 1557674957}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -3883,6 +3836,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1590095081}
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+--- !u!114 &1557674957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557674952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!1 &1589079077
 GameObject:
   m_ObjectHideFlags: 0
@@ -3896,7 +3893,7 @@ GameObject:
   - component: {fileID: 1589079080}
   - component: {fileID: 1589079079}
   m_Layer: 5
-  m_Name: Button_Function
+  m_Name: FunctionButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4198,7 +4195,7 @@ GameObject:
   - component: {fileID: 1872741375}
   - component: {fileID: 1872741374}
   m_Layer: 5
-  m_Name: Button_Building
+  m_Name: BuildingButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4331,7 +4328,7 @@ GameObject:
   - component: {fileID: 1908467909}
   - component: {fileID: 1908467908}
   m_Layer: 5
-  m_Name: Scroll View
+  m_Name: BuildScrollView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4444,7 +4441,7 @@ GameObject:
   - component: {fileID: 1922267590}
   - component: {fileID: 1922267589}
   m_Layer: 5
-  m_Name: Button_Tile
+  m_Name: TileButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4658,9 +4655,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1590095081}
-  - {fileID: 636406617}
+  - {fileID: 1334907390}
+  - {fileID: 191902319}
   - {fileID: 667053987}
   - {fileID: 351714633}
-  - {fileID: 191902319}
   - {fileID: 1134489262}
   - {fileID: 1167567409}
