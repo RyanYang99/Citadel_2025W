@@ -16,8 +16,8 @@ public class LineDraw : MonoBehaviour
     public RectTransform parent;
     public SkillConnection[] connections;
 
-    public Color lockedColor = Color.gray;
-    public Color unlockedColor = Color.green;
+    private Color lockedColor = Color.gray;
+    private Color unlockedColor = Color.cyan;
 
 
     void Start()

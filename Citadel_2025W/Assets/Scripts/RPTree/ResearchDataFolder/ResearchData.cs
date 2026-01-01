@@ -1,7 +1,7 @@
 using UnityEngine;
-using System.Collections.Generic; // List를 쓰기 위해 반드시 필요
+using System.Collections.Generic;
 
-// 1. 타입을 정의 (이건 파일 안에 같이 있어도 됩니다)
+
 public enum ResearchType
 {
     Gold,
@@ -10,7 +10,7 @@ public enum ResearchType
     Attack
 }
 
-// 2. 개별 효과를 담는 클래스 (반드시 [System.Serializable]이 있어야 인스펙터에 보입니다)
+// 2. 개별 효과를 담는 클래스
 [System.Serializable]
 public class ResearchEffect
 {
@@ -18,7 +18,7 @@ public class ResearchEffect
     public float value;
 }
 
-// 3. 실제 데이터 파일이 될 클래스 (파일 이름과 동일해야 함)
+// 3. 실제 데이터 파일 클래스
 [CreateAssetMenu(fileName = "New Research", menuName = "Research/Research Data")]
 public class ResearchData : ScriptableObject
 {

@@ -10,41 +10,45 @@ public class ResearchSlot : MonoBehaviour
     [Header("UI Manager 연결")]
     [SerializeField] private ResearchUIManager uiManager;
 
-    private Button btn;
+    private Button treeBtn;
+
 
     private void Start()
     {
-        btn = GetComponent<Button>();
+        treeBtn = GetComponent<Button>();
         // 버튼 클릭 시 내 데이터를 매니저에게 전달함
-        btn.onClick.AddListener(() => uiManager.ShowContent(data,this));
+        treeBtn.onClick.AddListener(() => uiManager.ShowContent(data,this));
         RefreshUI();
     }
 
     // 버튼의 상태(잠금, 완료, 클릭가능)를 갱신하는 함수
     public void RefreshUI()
     {
-        if (data == null || btn == null) return;
+        if (data == null || treeBtn == null) return;
 
-        // 1. 이미 완료된 연구라면? -> 비활성화
-        if (data.isUnlocked)
-        {
-            btn.interactable = false;
-            //이후 완료 ->이어진 선(이미지)의 색상 변경 처리 예정
-            return;
-        }
+        treeBtn.interactable = true;
 
-        // 2. 선행 연구가 모두 완료되었는지 확인
-        bool canUnlock = true;
+        if (data.isUnlocked) SetButtonColor(Color.yellow); //이미 해금된 버튼
+        else if (!CheckCanUnlock()) SetButtonColor(Color.gray); //잠긴 버튼
+        else SetButtonColor(Color.white); //해금 가능한 버튼
+
+    }
+
+    private void SetButtonColor(Color color)
+    {
+        var colors = treeBtn.colors;
+        colors.normalColor = color;
+        colors.highlightedColor = color * 1.2f;
+        treeBtn.colors = colors;
+    }
+
+    // 선행 연구 완료 여부 확인함수
+    public bool CheckCanUnlock()
+    {
         foreach (var req in data.requiredResearches)
         {
-            if (req != null && !req.isUnlocked)
-            {
-                canUnlock = false;
-                break;
-            }
+            if (req != null && !req.isUnlocked) return false;
         }
-
-        // 선행 연구가 완료 안 됐으면 버튼 클릭 불가
-        btn.interactable = canUnlock;
+        return true;
     }
 }

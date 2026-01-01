@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ResearchData
   researchName: "\uBB38\uD654 2Lvl"
   explanation: "\uB9CC\uC871\uB3C4 +10\n\uC778\uAD6C\uC218 +10%"
-  cost: -2
+  cost: 2
   requiredResearches:
   - {fileID: 11400000, guid: ec2df353d4038b747b43b45d8de20076, type: 2}
   effects:

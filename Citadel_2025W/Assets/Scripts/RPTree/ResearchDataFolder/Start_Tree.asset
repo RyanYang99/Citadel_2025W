@@ -15,6 +15,7 @@ MonoBehaviour:
   researchName: "\uAE30\uBCF8 \uC5F0\uAD6C"
   explanation: "\uACE8\uB4DC\uC218\uAE09 +5%\n\uC778\uAD6C\uC218 +5%"
   cost: 2
+  requiredResearches: []
   effects:
   - type: 0
     value: 5
