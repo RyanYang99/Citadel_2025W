@@ -1994,6 +1994,151 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 515908742}
   m_CullTransparentMesh: 1
+--- !u!1 &524958764
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 524958767}
+  - component: {fileID: 524958766}
+  - component: {fileID: 524958765}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &524958765
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524958764}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &524958766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524958764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f74cff804cef8742ac68b8fa2d4217c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundManager
+  bgSound: {fileID: 524958765}
+  bglist:
+  - {fileID: 8300000, guid: b6cd2e307ce2eda45b2523bc4bd9658b, type: 3}
+--- !u!4 &524958767
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524958764}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &555265289
 GameObject:
   m_ObjectHideFlags: 0
@@ -6597,10 +6742,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87a0ca4d09794f64ead558f42c88a87e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildScrollController
+  _transform: {fileID: 0}
   buildingManager: {fileID: 1372303781}
-  content: {fileID: 1314932780}
   itemPrefab: {fileID: 3304387485370116069, guid: 8c853b02b76babf41ab87e79dbbbb6b3, type: 3}
-  currentCategory: 0
 --- !u!224 &1314932780
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6854,8 +6998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83027b8f4f8be174aa3f4da32cf8de82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingManager
-  buildings:
-  - {fileID: 11400000, guid: 3341891b63eb9f747ac938a8356ccfc0, type: 2}
+  buildings: {fileID: 0}
 --- !u!114 &1372303782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6868,7 +7011,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2ee6c2a248e28a4fa16bdcc1defe495, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.SaveLoadManager
-  prefabs: []
+  buildingsReference: {fileID: 0}
+  buildingManager: {fileID: 0}
 --- !u!114 &1372303783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6881,9 +7025,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9321ecf3b0c2c4ea989f16b3447bbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.BuildingPlacer
+  _camera: {fileID: 0}
+  buildScrollView: {fileID: 0}
   buildingManager: {fileID: 1372303781}
-  buildingPrefabs:
-  - {fileID: 4283302137605695339, guid: cae79b5c625f3924ba8e47f515ce7328, type: 3}
 --- !u!1 &1423476263
 GameObject:
   m_ObjectHideFlags: 0
@@ -8613,21 +8757,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a1044548dd50404b9027ef7d4d5308d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ReSourceUIController
-  inventory: {fileID: 191902318}
-  iconTable: {fileID: 655104663}
   slots:
-  - item: 0
-    iconImage: {fileID: 555265291}
-    amountText: {fileID: 639779784}
-    lastValue: 0
-  - item: 1
-    iconImage: {fileID: 627568872}
-    amountText: {fileID: 1595808479}
-    lastValue: 0
-  - item: 2
-    iconImage: {fileID: 1462313605}
-    amountText: {fileID: 676831827}
-    lastValue: 0
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &1872741372
 GameObject:
   m_ObjectHideFlags: 0
@@ -9516,10 +9649,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab253fcbd414ad3429200bd21fe7dac4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.ResourceUI
-  iconImage: {fileID: 0}
-  amountText: {fileID: 639779784}
   inventory: {fileID: 0}
   item: 0
+  amountText: {fileID: 639779784}
+  iconImage: {fileID: 0}
 --- !u!1 &2002624125
 GameObject:
   m_ObjectHideFlags: 0
@@ -10221,3 +10354,4 @@ SceneRoots:
   - {fileID: 191902319}
   - {fileID: 1134489262}
   - {fileID: 1167567409}
+  - {fileID: 524958767}
