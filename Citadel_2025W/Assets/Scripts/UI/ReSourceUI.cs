@@ -1,7 +1,8 @@
+using Citadel;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using Citadel;
 
 namespace Citadel
 {
@@ -10,6 +11,8 @@ namespace Citadel
         [SerializeField] private Inventory inventory;
         [SerializeField] private Item item;
         [SerializeField] private TMP_Text amountText;
+        [SerializeField] private Image iconImage;
+
 
         private void OnEnable()
         {
