@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1061112a5eea7b340bc45808d88f5b6f, type: 3}
-  m_Name: Test1
+  m_Name: Tree
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.BuildingMetaData
-  prefab: {fileID: 919132149155446097, guid: 124a0aa464a51cb4e91064af9a27dcad, type: 3}
-  icon: {fileID: -4736646664266758987, guid: 25e1d26114483f145a974fcecd407b22, type: 3}
-  category: 1
+  uniqueName: Tree
+  prefab: {fileID: 919132149155446097, guid: 5679096c5cc74484785cb446aa3e0378, type: 3}
+  icon: {fileID: -8667466294985060184, guid: d51c8812acc72ed4f8b10258ab27601d, type: 3}
+  category: 0
   yOffset: 1
