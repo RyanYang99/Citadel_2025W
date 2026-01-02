@@ -1,44 +1,59 @@
 using UnityEngine;
+using Citadel;
 
-
-
-
-namespace Citadel
+public class ReSourceUIController : MonoBehaviour
 {
+    [Header("Data")]
+    public Inventory inventory;
+    public ItemIconTable iconTable;
 
-    public class ResourceUIController : MonoBehaviour
+    [Header("Slots")]
+    public ResourceUI[] slots;
+
+    void Start()
     {
-        [Header("항상 보이는 자원")]
-        [SerializeField] GameObject[] basicResourceUI;
+        InitIcons();
+        ForceRefresh();
+    }
 
-        [Header("업그레이드 상위 자원")]
-        [SerializeField] GameObject[] upgradeResourceUI;
+    void Update()
+    {
+        UpdateIfChanged();
+    }
 
-        void Start()
+    // 아이콘 1회 세팅
+    void InitIcons()
+    {
+        foreach (var slot in slots)
         {
-            ShowBasicOnly();
-        }
-
-        public void ShowBasicOnly()
-        {
-            foreach (var go in basicResourceUI)
-                go.SetActive(true);
-
-            foreach (var go in upgradeResourceUI)
-                go.SetActive(false);
-        }
-
-        public void ShowExtraResources()
-        {
-            foreach (var go in upgradeResourceUI)
-                go.SetActive(true);
-        }
-
-        public void HideExtraResources()
-        {
-            foreach (var go in upgradeResourceUI)
-                go.SetActive(false);
+            var data = iconTable.Get(slot.item);
+            slot.iconImage.sprite = data.icon;
         }
     }
 
+    // 값 변경 감지
+    void UpdateIfChanged()
+    {
+        foreach (var slot in slots)
+        {
+            int current = inventory.GetAmount(slot.item);
+
+            if (slot.lastValue != current)
+            {
+                slot.lastValue = current;
+                slot.amountText.text = current.ToString();
+            }
+        }
+    }
+
+    // 강제 갱신
+    void ForceRefresh()
+    {
+        foreach (var slot in slots)
+        {
+            int value = inventory.GetAmount(slot.item);
+            slot.lastValue = value;
+            slot.amountText.text = value.ToString();
+        }
+    }
 }
