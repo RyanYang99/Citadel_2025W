@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.TerrainTools;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
+    public AudioClip buttonClickClip;
+    public AudioMixer mixer;
     public AudioSource bgSound;
     public AudioClip[] bglist;
     public static SoundManager Instance;
@@ -36,6 +39,7 @@ public class SoundManager : MonoBehaviour
     {
         GameObject go = new GameObject(sfxName + "Sound");
         AudioSource audioSource = go.AddComponent<AudioSource>();
+        audioSource.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
         audioSource.clip = clip;
         audioSource.Play();
 
@@ -44,9 +48,17 @@ public class SoundManager : MonoBehaviour
 
     public void BgSoundPlay(AudioClip clip)
     { 
+    bgSound.outputAudioMixerGroup = mixer.FindMatchingGroups("BgSound")[0];
     bgSound.clip = clip; 
     bgSound.loop = true;
     bgSound.volume = 1.0f;
         bgSound.Play();
     }
+
+    public void PlayButtonClick()
+    {
+        SFXXPlay("Button", buttonClickClip);
+    }
+
+
 }
