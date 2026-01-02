@@ -7,10 +7,10 @@ using TMPro;
 
 public class InventoryUIController : MonoBehaviour
 {
-    [Header("ÀÎº¥Åä¸® µ¥ÀÌÅÍ")]
+    [Header("ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")]
     public Inventory inventory;
 
-    [Header("¾ÆÀÌÄÜ / Ä«Å×°í¸® Å×ÀÌºí")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ / Ä«ï¿½×°ï¿½ ï¿½ï¿½ï¿½Ìºï¿½")]
     public ItemIconTable iconTable;
 
     [Header("UI")]
@@ -62,24 +62,26 @@ public class InventoryUIController : MonoBehaviour
 
     void BuildUI()
     {
-        // ±âÁ¸ UI Á¤¸®
+        // ï¿½ï¿½ï¿½ï¿½ UI ï¿½ï¿½ï¿½ï¿½
         foreach (Transform child in contentParent)
             Destroy(child.gameObject);
 
-        // Item enum ÀüÃ¼ ¼øÈ¸
+        // Item enum ï¿½ï¿½Ã¼ ï¿½ï¿½È¸
         foreach (Item item in Enum.GetValues(typeof(Item)))
         {
             GameObject row = Instantiate(resourceRowPrefab, contentParent);
 
-            //¼ö·® ÅØ½ºÆ®
+            //ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Æ®
             TMP_Text[] texts = row.GetComponentsInChildren<TMP_Text>();
             texts[0].text = item.ToString();
             texts[1].text = inventory.GetAmount(item).ToString();
 
-            //¾ÆÀÌÄÜ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             Image iconImage = row.transform.Find("IconImage").GetComponent<Image>();
             var data = iconTable.Get(item);
-            iconImage.sprite = data.icon;
+            
+            if (data != null)
+                iconImage.sprite = data.icon;
 
         }
     }

@@ -3,12 +3,26 @@ using UnityEngine;
 using UnityEngine.UI;
 using Citadel;
 
-[System.Serializable]
-public class ResourceUI
+namespace Citadel
 {
-    public Item item;
-    public Image iconImage;        // 아이콘 위치
-    public TMP_Text amountText;    // 수량 텍스트
+    public sealed class ResourceUI : MonoBehaviour
+    {
+        [SerializeField] private Inventory inventory;
+        [SerializeField] private Item item;
+        [SerializeField] private TMP_Text amountText;
 
-    [HideInInspector] public int lastValue = -1;
+        private void OnEnable()
+        {
+            inventory.OnItemChange += OnItemChange;
+            ForceRefresh();
+        }
+
+        private void OnDisable() => inventory.OnItemChange -= OnItemChange;
+
+        private void ForceRefresh() => Refresh(inventory.GetAmount(item));
+        
+        private void OnItemChange(Item _, int amount) => Refresh(amount);
+
+        private void Refresh(int amount) => amountText.text = amount.ToString();
+    }
 }
