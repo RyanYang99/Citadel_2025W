@@ -8,7 +8,7 @@ namespace Citadel
         private float _factor;
         
         [SerializeField] private int minutesPerOneGameDay = 2;
-        [SerializeField] private Gradient ambientLight;
+        [SerializeField, Tooltip("알파 = 밝기 (-2 ~ 0)")] private Gradient ambientLight;
         [SerializeField, Range(0f, 1f)] private float dayPercent;
         
         public DateTime TimeElapsed { get; private set; } = DateTime.MinValue + new TimeSpan(12, 0, 0);
@@ -33,7 +33,9 @@ namespace Citadel
 
         private void UpdateLightning()
         {
-            RenderSettings.ambientLight = ambientLight.Evaluate(dayPercent);
+            Color newAmbientLight = ambientLight.Evaluate(dayPercent);
+
+            RenderSettings.ambientLight = newAmbientLight.linear * newAmbientLight.a;
             RenderSettings.sun.transform.rotation = Quaternion.Euler(360f * dayPercent - 90f, 45f, 0f);
         }
 
