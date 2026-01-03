@@ -7,18 +7,21 @@ namespace Citadel
     {
         public int index;
         public BuildingManager buildingManager;
+        public BuildingPlacer buildingPlacer;
         public Image icon;
 
-        public void Init(int idx, BuildingManager manager, Sprite sprite)
+        public void Init(int idx, BuildingManager manager, BuildingPlacer placer,Sprite sprite)
         {
             index = idx;
             buildingManager = manager;
             icon.sprite = sprite;
+            buildingPlacer = placer;
         }
 
         public void OnClick()
         {
             buildingManager.SelectBuilding(index);
+            buildingPlacer.SetBuildMode();
         }
     }
 }

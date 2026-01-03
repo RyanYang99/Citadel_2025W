@@ -7,9 +7,10 @@ namespace Citadel
         [SerializeField] private Transform _transform;
         [SerializeField] private BuildingManager buildingManager;
         [SerializeField] private BuildItemButton itemPrefab;
+        [SerializeField] private BuildingPlacer buildingPlacer;
 
         private BuildingCategory _currentCategory = BuildingCategory.Tile;
-
+        
         private void Start() => Refresh();
         
         private void SetCategory(BuildingCategory category)
@@ -17,7 +18,7 @@ namespace Citadel
             _currentCategory = category;
             Refresh();
         }
-        
+
         private void Refresh()
         {
             foreach (Transform child in _transform)
@@ -30,8 +31,8 @@ namespace Citadel
                     continue;
 
                 BuildItemButton item = Instantiate(itemPrefab, _transform);
-                item.Init(i, buildingManager, buildings.list[i].icon);
-            }
+                item.Init(i, buildingManager, buildingPlacer,buildings.list[i].icon);
+            } 
         }
         
         public void SetCategoryByIndex(int categoryIndex) => SetCategory((BuildingCategory)categoryIndex);

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tree
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.BuildingMetaData
   uniqueName: Tree
-  prefab: {fileID: 919132149155446097, guid: 5679096c5cc74484785cb446aa3e0378, type: 3}
+  prefab: {fileID: 5188724046597317718, guid: b0e4db2de9aa9124c89307deeb55a359, type: 3}
   icon: {fileID: -8667466294985060184, guid: d51c8812acc72ed4f8b10258ab27601d, type: 3}
-  category: 0
+  category: 3
   yOffset: 1

@@ -1,68 +1,89 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Citadel
 {
+    public enum BuildMode
+    {
+       Build,
+       Destroy
+    }
+
     public class BuildingPlacer : MonoBehaviour
     {
         [SerializeField] private Camera _camera;
         [SerializeField] private GameObject buildScrollView;
         [SerializeField] private BuildingManager buildingManager;
+        [SerializeField] private LayerMask buildingLayer;
+
+        private BuildMode currentMode = BuildMode.Build;
 
         private void Update()
         {
-            if (!buildScrollView.activeSelf)
+            if (EventSystem.current.IsPointerOverGameObject())
                 return;
-            
-            // 좌클릭: 배치
+
             if (Input.GetMouseButtonDown(0))
-                Place();
+            {
+                if (currentMode == BuildMode.Destroy)
+                    TryDestroyBuilding();
+                else
+                    Place();
+            }
 
-            // 우클릭: 회전
-            if (Input.GetMouseButtonDown(1))
-                RotateBuilding();
-
-            // DEL: 제거
-            if (Input.GetKeyDown(KeyCode.Delete))
-                Remove();
+            if(Input.GetMouseButtonDown(1))
+            {
+                Rotate();
+            }
+        }
+        public void SetDestroyMode()
+        {
+            currentMode = BuildMode.Destroy;
+            Debug.Log("철거 모드");
         }
 
-        private bool GetRaycastHitFromMouse(out RaycastHit raycastHit) => 
+        public void SetBuildMode()
+        {
+            currentMode = BuildMode.Build;
+            Debug.Log("설치 모드");
+        }
+
+        private bool GetRaycastHitFromMouse(out RaycastHit raycastHit) =>
             Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out raycastHit);
 
         private static bool IsGround(GameObject _gameObject) => _gameObject.CompareTag(Tags.Ground);
-
-        //우선은 땅위에만 지을 수 있도록
+      
         private void Place()
         {
-            if (!GetRaycastHitFromMouse(out RaycastHit raycastHit))
-                return;
+            if (!GetRaycastHitFromMouse(out RaycastHit hit)) return;
+            if (!IsGround(hit.transform.gameObject)) return;
 
-            if (!IsGround(raycastHit.transform.gameObject))
-                return;
-            
-            buildingManager.PlaceBuilding(raycastHit.transform.position);
+            buildingManager.PlaceBuilding(hit.transform.position);
         }
 
-        private void RotateBuilding()
+        private void Rotate()
         {
-            if (!GetRaycastHitFromMouse(out RaycastHit raycastHit))
-                return;
+            if (!GetRaycastHitFromMouse(out RaycastHit hit)) return;
+            if (IsGround(hit.transform.gameObject)) return;
 
-            if (IsGround(raycastHit.transform.gameObject))
-                return;
-            
-            buildingManager.RotateBuilding(raycastHit.transform.gameObject);
+            buildingManager.RotateBuilding(hit.transform.gameObject);
         }
 
-        private void Remove()
+        [SerializeField] private LayerMask destroyLayer;
+        private void TryDestroyBuilding()
         {
-            if (!GetRaycastHitFromMouse(out RaycastHit raycastHit))
-                return;
 
-            if (IsGround(raycastHit.transform.gameObject))
+            if (!Physics.Raycast(
+                _camera.ScreenPointToRay(Input.mousePosition),
+                out RaycastHit hit,
+                Mathf.Infinity,
+                destroyLayer))
+            {
+                Debug.Log("Raycast failed");
                 return;
-            
-            buildingManager.RemoveBuilding(raycastHit.transform.gameObject);
+            }
+
+            buildingManager.RemoveBuilding(hit.collider.transform.root.gameObject);
         }
     }
 }
