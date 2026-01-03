@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1061112a5eea7b340bc45808d88f5b6f, type: 3}
   m_Name: Wood
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.BuildingMetaData
+  uniqueName: Wood
   prefab: {fileID: 919132149155446097, guid: 4ea1e7546cc4132459d0d206ae8f8158, type: 3}
   icon: {fileID: -4736646664266758987, guid: 25e1d26114483f145a974fcecd407b22, type: 3}
-  category: 1
+  category: 2
   yOffset: 1

@@ -7,13 +7,10 @@ using TMPro;
 
 public class InventoryUIController : MonoBehaviour
 {
-    [Header("인벤토리 데이터")]
     public Inventory inventory;
 
-    [Header("아이콘 / 카테고리 테이블")]
     public ItemIconTable iconTable;
 
-    [Header("UI")]
     public GameObject inventoryPanel;
     public Transform contentParent;
     public GameObject resourceRowPrefab;
@@ -62,24 +59,23 @@ public class InventoryUIController : MonoBehaviour
 
     void BuildUI()
     {
-        // 기존 UI 정리
         foreach (Transform child in contentParent)
             Destroy(child.gameObject);
 
-        // Item enum 전체 순회
+
         foreach (Item item in Enum.GetValues(typeof(Item)))
         {
             GameObject row = Instantiate(resourceRowPrefab, contentParent);
 
-            //수량 텍스트
             TMP_Text[] texts = row.GetComponentsInChildren<TMP_Text>();
             texts[0].text = item.ToString();
             texts[1].text = inventory.GetAmount(item).ToString();
 
-            //아이콘
             Image iconImage = row.transform.Find("IconImage").GetComponent<Image>();
-            var data = iconTable.Get(item);
-            iconImage.sprite = data.icon;
+            
+            ItemIconPair data = iconTable.Get(item);
+            if (data != null)
+                iconImage.sprite = data.icon;
 
         }
     }
