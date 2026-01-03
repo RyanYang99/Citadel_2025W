@@ -10,8 +10,22 @@ namespace Citadel
         [SerializeField] private int minutesPerOneGameDay = 2;
         [SerializeField, Tooltip("알파 = 밝기 (-2 ~ 0)")] private Gradient ambientLight;
         [SerializeField, Range(0f, 1f)] private float dayPercent;
-        
-        public DateTime TimeElapsed { get; private set; } = DateTime.MinValue + new TimeSpan(12, 0, 0);
+
+        private DateTime _timeElapsed = DateTime.MinValue + new TimeSpan(12, 0, 0);
+
+        public DateTime TimeElapsed
+        {
+            get => _timeElapsed;
+
+            private set
+            {
+                int hourBefore = _timeElapsed.Hour;
+                _timeElapsed = value;
+                
+                if (hourBefore != _timeElapsed.Hour)
+                    OnHourChange?.Invoke(_timeElapsed.Hour);
+            }
+        }
 
         public event Action<float> OnTimeScaleChange;
         public event Action<int> OnHourChange;
@@ -22,10 +36,7 @@ namespace Citadel
 
         private void Update()
         {
-            int hourBefore = TimeElapsed.Hour;
             TimeElapsed = TimeElapsed.AddSeconds(Time.deltaTime * _factor);
-            if (hourBefore != TimeElapsed.Hour)
-                OnHourChange?.Invoke(TimeElapsed.Hour);
             
             dayPercent = (TimeElapsed.Hour * 60f + TimeElapsed.Minute) / 1440f;
             UpdateLightning();
@@ -44,5 +55,7 @@ namespace Citadel
             Time.timeScale = newTimeScale;
             OnTimeScaleChange?.Invoke(Time.timeScale);
         }
+
+        public void Load(DateTime dateTime) => TimeElapsed = dateTime;
     }
 }

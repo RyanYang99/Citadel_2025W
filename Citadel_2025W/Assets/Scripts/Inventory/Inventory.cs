@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -63,6 +64,16 @@ namespace Citadel
                 OnItemChange?.Invoke(item, after);
             }
             return consumableAmount;
+        }
+
+        public List<ItemAmount> ToList() => _resourcesCount.Select(item => new ItemAmount(item.Key, item.Value)).ToList();
+
+        public void Load(List<ItemAmount> items)
+        {
+            _resourcesCount.Clear();
+
+            foreach (ItemAmount item in items)
+                Add(item.item, item.amount);
         }
 
         [Conditional("UNITY_EDITOR"), Conditional("DEVELOPMENT_BUILD")]

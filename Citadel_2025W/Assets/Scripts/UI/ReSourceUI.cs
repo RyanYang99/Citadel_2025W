@@ -18,8 +18,12 @@ namespace Citadel
         private void OnDisable() => inventory.OnItemChange -= OnItemChange;
 
         private void ForceRefresh() => Refresh(inventory.GetAmount(item));
-        
-        private void OnItemChange(Item _, int amount) => Refresh(amount);
+
+        private void OnItemChange(Item itemChanged, int amount)
+        {
+            if (itemChanged == item)
+                Refresh(amount);
+        }
 
         private void Refresh(int amount) => amountText.text = amount.ToString();
     }

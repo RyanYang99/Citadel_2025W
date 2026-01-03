@@ -3549,8 +3549,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2ee6c2a248e28a4fa16bdcc1defe495, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.SaveLoadManager
+  timeManager: {fileID: 1334907389}
   buildingsReference: {fileID: 11400000, guid: dc7bc133d6e37094aa445d8496a570cb, type: 2}
   buildingManager: {fileID: 1334907392}
+  inventory: {fileID: 191902318}
 --- !u!1 &1469602352
 GameObject:
   m_ObjectHideFlags: 0
