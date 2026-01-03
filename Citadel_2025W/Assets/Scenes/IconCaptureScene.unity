@@ -637,8 +637,7 @@ MonoBehaviour:
   iconCamera: {fileID: 708657948}
   renderTexture: {fileID: 8400000, guid: cebcfbba00771464ca0d34e6db2e66a8, type: 2}
   prefabs:
-  - {fileID: 919132149155446097, guid: bbc7101736fb41d4ab8cc8b72ee688c5, type: 3}
-  - {fileID: 919132149155446097, guid: db552f0e353666641a88502d5529efb1, type: 3}
+  - {fileID: 919132149155446097, guid: 1a0292857af38274ab7145e1da47bc80, type: 3}
   saveFolder: Assets/Icons/Resource_icons/
 --- !u!4 &1606620453
 Transform:
