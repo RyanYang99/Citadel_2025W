@@ -39,7 +39,10 @@ namespace Citadel
 
             if(Input.GetMouseButtonDown(1))
             {
-                Rotate();
+                if (currentMode == BuildMode.Build)
+                    previewController.RotatePreview();
+                else if (currentMode == BuildMode.Destroy)
+                    Rotate();
             }
         }
         public void SetDestroyMode()
@@ -73,7 +76,8 @@ namespace Citadel
             if (!GetRaycastHitFromMouse(out RaycastHit hit)) return;
             if (!IsGround(hit.transform.gameObject)) return;
 
-            buildingManager.PlaceBuilding(hit.transform.position);
+            buildingManager.PlaceBuilding(hit.point,previewController.CurrentRotation); 
+
         }
 
         private void Rotate()

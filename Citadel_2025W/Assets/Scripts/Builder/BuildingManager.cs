@@ -105,6 +105,27 @@ namespace Citadel
         }
 
         //building 프리뷰 컨트롤러 
+
+        public void PlaceBuilding(Vector3 position, Quaternion rotation)
+        {
+            BuildingMetaData buildingMetaData = CurrentBuilding;
+            if (buildingMetaData == null)
+                return;
+
+            position.y += buildingMetaData.yOffset;
+
+            foreach (PlacedBuilding placedBuilding in PlacedBuildings)
+                if (placedBuilding.Position == position)
+                    return;
+
+            GameObject obj = Instantiate(buildingMetaData.prefab,position, rotation);
+
+            AddPlacedBuilding(
+                new PlacedBuilding(buildingMetaData.uniqueName,obj,position,rotation.eulerAngles));
+        }
+
+
+
         public bool CanPlaceBuildingAt(Vector3 position)
         {
             foreach (PlacedBuilding placed in PlacedBuildings)

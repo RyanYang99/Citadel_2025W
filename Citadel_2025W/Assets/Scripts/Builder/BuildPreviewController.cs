@@ -27,6 +27,13 @@ namespace Citadel
 
         private BuildMode currentMode = BuildMode.Build;
 
+        private int currentRotationIndex = 0;
+        private readonly float[] rotations = { 0f, 90f, 180f, 270f };
+
+        public Quaternion CurrentRotation => buildPreviewInstance != null
+        ? buildPreviewInstance.transform.rotation
+        : Quaternion.identity;
+
         void Update()
         {
             if (currentMode == BuildMode.Build)
@@ -101,6 +108,8 @@ namespace Citadel
         {
             ClearBuildPreview();
 
+            currentRotationIndex = 0;
+
             buildPreviewInstance = Instantiate(
                 buildingManager.CurrentBuilding.prefab,
                 Vector3.zero,
@@ -117,6 +126,18 @@ namespace Citadel
 
             Debug.Log("Preview created at " + buildPreviewInstance.transform.position);
         }
+
+        public void RotatePreview()
+        {
+            if (buildPreviewInstance == null)
+                return;
+
+            currentRotationIndex = (currentRotationIndex + 1) % rotations.Length;
+
+            buildPreviewInstance.transform.rotation =
+                Quaternion.Euler(0f, rotations[currentRotationIndex], 0f);
+        }
+
 
         private void ClearBuildPreview()
         {
