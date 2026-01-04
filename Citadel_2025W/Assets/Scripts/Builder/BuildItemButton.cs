@@ -8,6 +8,7 @@ namespace Citadel
         public int index;
         public BuildingManager buildingManager;
         public BuildingPlacer buildingPlacer;
+        public BuildPreviewController previewController;
         public Image icon;
 
         public void Init(int idx, BuildingManager manager, BuildingPlacer placer,Sprite sprite)

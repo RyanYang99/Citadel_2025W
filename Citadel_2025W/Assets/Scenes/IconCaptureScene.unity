@@ -451,7 +451,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 1
+  orthographic size: 1.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -475,13 +475,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708657946}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.22975294, y: -0, z: -0, w: 0.973249}
+  m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
   m_LocalPosition: {x: -960, y: -538.5, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1677024110}
-  m_LocalEulerAnglesHint: {x: 25, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
 --- !u!114 &708657950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -637,7 +637,7 @@ MonoBehaviour:
   iconCamera: {fileID: 708657948}
   renderTexture: {fileID: 8400000, guid: cebcfbba00771464ca0d34e6db2e66a8, type: 2}
   prefabs:
-  - {fileID: 919132149155446097, guid: 1a0292857af38274ab7145e1da47bc80, type: 3}
+  - {fileID: 2028700388628247539, guid: 0fa0fdcecd131f442ad1e6bbb91f1d74, type: 3}
   saveFolder: Assets/Icons/Resource_icons/
 --- !u!4 &1606620453
 Transform:

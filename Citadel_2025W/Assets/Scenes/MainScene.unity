@@ -1421,6 +1421,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1372303783}
+        m_TargetAssemblyTypeName: Citadel.BuildingPlacer, Assembly-CSharp
+        m_MethodName: SetIdleMode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &393139653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6927,9 +6939,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1372303780}
-  - component: {fileID: 1372303783}
-  - component: {fileID: 1372303782}
   - component: {fileID: 1372303781}
+  - component: {fileID: 1372303783}
+  - component: {fileID: 1372303784}
+  - component: {fileID: 1372303782}
   m_Layer: 0
   m_Name: BuildingManager
   m_TagString: Untagged
@@ -6997,9 +7010,32 @@ MonoBehaviour:
   buildingLayer:
     serializedVersion: 2
     m_Bits: 8
+  previewController: {fileID: 1372303784}
   destroyLayer:
     serializedVersion: 2
     m_Bits: 128
+--- !u!114 &1372303784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372303779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3f815ab7f33807418fc953a24303580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.BuildPreviewController
+  mainCamera: {fileID: 1557674955}
+  buildingManager: {fileID: 1372303781}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  buildingLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  previewValidMat: {fileID: 2100000, guid: 3ec8803dd7a0f514cb5e50a2e785714d, type: 2}
+  previewInvalidMat: {fileID: 2100000, guid: 58be4acc3c4e0a64d8a6a8338347a59f, type: 2}
 --- !u!1 &1423476263
 GameObject:
   m_ObjectHideFlags: 0
