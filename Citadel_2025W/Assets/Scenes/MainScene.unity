@@ -7209,6 +7209,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.BuildingUpgrade
   inventory: {fileID: 191902318}
+  upgradeParticlePrefab: {fileID: 3762134679150181828, guid: e44d4379aeca53444a570bab3c233dba, type: 3}
+  bounceDuration: 0.15
+  bounceScaleMultiplier: 1.2
   levelDataList:
   - subCategory: 1
     levelPrefabs:
