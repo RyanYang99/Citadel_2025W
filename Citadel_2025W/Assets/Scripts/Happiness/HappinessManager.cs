@@ -1,5 +1,5 @@
 using UnityEngine;
-using System; // 이벤트를 사용하기 위해 필요
+using System;
 
 //시대, 만족도 등급 구분
 public enum Era { Medieval, Industrial, Modern }
@@ -22,6 +22,11 @@ public class HappinessManager : MonoBehaviour
     [Header("Output Result")]
     [SerializeField] private float totalHappiness; // 최종 만족도
     public HappinessTier currentTier;              // 현재 만족도 등급
+
+
+    public float PopMultiplier { get; private set; } = 1f;
+    public float TaxMultiplier { get; private set; } = 1f;
+
 
     public float TotalHappiness => totalHappiness; //읽기전용
 
@@ -54,19 +59,19 @@ public class HappinessManager : MonoBehaviour
         switch (currentEra)
         {
             case Era.Medieval:
-                // 중세: 종교(50%), 음식(30%), 세금(20%), 환경(0%)
-                total = (religionScore * 0.5f) + (foodScore * 0.3f) + (taxScore * 0.2f);
+                // 중세: 음식(30%), 종교(50%), 환경(0%), 세금(20%)
+                total = (foodScore * 0.3f) + (religionScore * 0.5f)+ (ecoScore * 0f) + (taxScore * 0.2f);
                 break;
             case Era.Industrial:
-                // 산업: 세금(50%), 음식(30%), 환경(10%), 종교(10%)
-                total = (taxScore * 0.5f) + (foodScore * 0.3f) + (ecoScore * 0.1f) + (religionScore * 0.1f);
+                // 산업: 음식(30%), 종교(10%), 환경(10%), 세금(50%)
+                total = (foodScore * 0.3f) + (religionScore * 0.1f) + (ecoScore * 0.1f) + (taxScore * 0.5f);
                 break;
             case Era.Modern:
-                // 현대: 환경(40%), 세금(30%), 음식(20%), 종교(10%)
-                total = (ecoScore * 0.4f) + (taxScore * 0.3f) + (foodScore * 0.2f) + (religionScore * 0.1f);
+                // 현대: 음식(20%), 종교(10%), 환경(40%), 세금(30%)
+                total = (foodScore * 0.2f) + (religionScore * 0.1f) + (ecoScore * 0.4f) + (taxScore * 0.3f);
                 break;
         }
-        return Mathf.Clamp(total, 0f, 100f); // 0~100 사이로 강제 고정
+        return Mathf.Clamp(total, 0f, 100f);
     }
 
     // 점수에 따라 티어를 결정하는 로직
@@ -80,10 +85,32 @@ public class HappinessManager : MonoBehaviour
         else if (totalHappiness > 10) newTier = HappinessTier.NotWell;     //11~40
         else newTier = HappinessTier.worst;                                 //0~10
 
+        currentTier = newTier;
+
+        //만족도에 따른 배율 수치
+        switch (currentTier)
+        {
+            case HappinessTier.Happy:
+                PopMultiplier = 2.0f; TaxMultiplier = 1.2f;
+                break;
+            case HappinessTier.satisfied:
+                PopMultiplier = 1.3f; TaxMultiplier = 1.1f; 
+                break;
+            case HappinessTier.Normal:
+                PopMultiplier = 1.0f; TaxMultiplier = 1.0f; 
+                break;
+            case HappinessTier.NotWell:
+                PopMultiplier = 0.4f; TaxMultiplier = 0.8f; 
+                break;
+            case HappinessTier.worst:
+                PopMultiplier = -1.0f; TaxMultiplier = 0.4f;
+                break;
+        }
+
+
         // 티어가 이전과 달라졌다면
         if (newTier != previousTier)
         {
-            currentTier = newTier;
             previousTier = newTier;
 
             // "티어가 바뀜" 이벤트 알림
