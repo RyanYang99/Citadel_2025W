@@ -17,6 +17,8 @@ namespace Citadel
         [SerializeField, Tooltip("생산하는 자원, 필요한 자원이 존재할 때 생산")]
         private List<ItemAmount> itemsProduced;
 
+        //기초 자원 생산
+     
         private void OnValidate() => CheckParameters();
 
         private void Awake() => CheckParameters();

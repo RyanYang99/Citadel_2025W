@@ -45,6 +45,8 @@ namespace Citadel
         
         public readonly List<PlacedBuilding> PlacedBuildings = new();
 
+
+       
         public void SelectBuilding(int index)
         {
             if (index < 0 || index >= Buildings.list.Count)
@@ -78,53 +80,73 @@ namespace Citadel
             if (placedBuilding != null)
                 PlacedBuildings.Remove(placedBuilding);
         }
-        
+
+        private void PlaceInternal(
+    BuildingMetaData meta,
+    Vector3 position,
+    Quaternion rotation)
+        {
+            position.y += meta.yOffset;
+
+            foreach (PlacedBuilding placed in PlacedBuildings)
+                if (placed.Position == position)
+                    return;
+            GameObject obj = Instantiate(meta.prefab, position, rotation);
+            //초기화
+          
+            AddPlacedBuilding(
+                new PlacedBuilding(
+                    meta.uniqueName,
+                    obj,
+                    position,
+                    rotation.eulerAngles
+                )
+            );
+        }
+
+
+        //설치 전용
         public void PlaceBuilding(Vector3 position)
         {
-            BuildingMetaData buildingMetaData = CurrentBuilding;
-            if (buildingMetaData == null)
+            if (CurrentBuilding == null)
                 return;
 
-            position.y += buildingMetaData.yOffset;
-
-            foreach (PlacedBuilding placedBuilding in PlacedBuildings)
-                if (placedBuilding.Position == position)
-                    return;
-
-            GameObject _gameObject = Instantiate(buildingMetaData.prefab, position, Quaternion.identity);
-            AddPlacedBuilding(new PlacedBuilding(buildingMetaData.uniqueName, _gameObject, position, _gameObject.transform.rotation.eulerAngles));
+            PlaceInternal(
+                CurrentBuilding,
+                position,
+                Quaternion.identity
+            );
         }
 
+        //로드 전용 
         public void PlaceBuilding(string uniqueName, Vector3 position, Vector3 rotation)
         {
-            BuildingMetaData buildingMetaData = buildings.list.Find(bmd => bmd.uniqueName == uniqueName);
-            if (buildingMetaData == null)
+            BuildingMetaData meta =
+                buildings.list.Find(bmd => bmd.uniqueName == uniqueName);
+
+            if (meta == null)
                 return;
-            
-            AddPlacedBuilding(new PlacedBuilding(uniqueName, Instantiate(buildingMetaData.prefab, position, Quaternion.Euler(rotation)),position, rotation));
+
+            PlaceInternal(
+                meta,
+                position,
+                Quaternion.Euler(rotation)
+            );
         }
 
-        //building 프리뷰 컨트롤러 
 
+        //building 프리뷰 회전 설치
         public void PlaceBuilding(Vector3 position, Quaternion rotation)
         {
-            BuildingMetaData buildingMetaData = CurrentBuilding;
-            if (buildingMetaData == null)
+            if (CurrentBuilding == null)
                 return;
 
-            position.y += buildingMetaData.yOffset;
-
-            foreach (PlacedBuilding placedBuilding in PlacedBuildings)
-                if (placedBuilding.Position == position)
-                    return;
-
-            GameObject obj = Instantiate(buildingMetaData.prefab,position, rotation);
-
-            AddPlacedBuilding(
-                new PlacedBuilding(buildingMetaData.uniqueName,obj,position,rotation.eulerAngles));
+            PlaceInternal(
+                CurrentBuilding,
+                position,
+                rotation
+            );
         }
-
-
 
         public bool CanPlaceBuildingAt(Vector3 position)
         {

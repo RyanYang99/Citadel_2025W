@@ -13,6 +13,12 @@ namespace Citadel
         [SerializeField, Tooltip("필요한 자원")]
         private List<ItemAmount> itemsUsed;
 
+        //기초 자원 사용 확장 대비 
+        public void ApplyConsumerMeta(List<ItemAmount> items)
+        {
+            itemsUsed = items;
+        }
+
         private void OnValidate()
         {
             CheckUsage();

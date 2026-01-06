@@ -14,5 +14,7 @@ namespace Citadel
         public BuildingSubCategory subCategory; // 건물종류 카테고리 추가
 
         public float yOffset = 1f;
+
+     
     }
 }
