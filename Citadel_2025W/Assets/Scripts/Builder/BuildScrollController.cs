@@ -4,43 +4,37 @@ namespace Citadel
 {
     public sealed class BuildScrollController : MonoBehaviour
     {
-        public BuildingManager buildingManager;
-        public Transform content;
-        public BuildItemButton itemPrefab;
+        [SerializeField] private Transform _transform;
+        [SerializeField] private BuildingManager buildingManager;
+        [SerializeField] private BuildItemButton itemPrefab;
+        [SerializeField] private BuildingPlacer buildingPlacer;
 
-        public BuildingCategory currentCategory = BuildingCategory.Tile;
-
-        void Start()
+        private BuildingCategory _currentCategory = BuildingCategory.Tile;
+        
+        private void Start() => Refresh();
+        
+        private void SetCategory(BuildingCategory category)
         {
-            Refresh();
-        }
-        public void SetCategoryByIndex(int categoryIndex)
-        {
-            SetCategory((BuildingCategory)categoryIndex);
-        }
-
-        public void SetCategory(BuildingCategory category)
-        {
-            currentCategory = category;
+            _currentCategory = category;
             Refresh();
         }
 
-        void Refresh()
+        private void Refresh()
         {
-            // 기존 아이템 제거
-            foreach (Transform child in content)
+            foreach (Transform child in _transform)
                 Destroy(child.gameObject);
 
-            var buildings = buildingManager.buildings;
-
-            for (int i = 0; i < buildings.Length; i++)
+            BuildingMetaDataList buildings = buildingManager.Buildings;
+            for (int i = 0; i < buildings.list.Count; i++)
             {
-                if (buildings[i].category != currentCategory)
+                if (buildings.list[i].category != _currentCategory)
                     continue;
 
-                var item = Instantiate(itemPrefab, content);
-                item.Init(i, buildingManager, buildings[i].icon);
-            }
+                BuildItemButton item = Instantiate(itemPrefab, _transform);
+                item.Init(i, buildingManager, buildingPlacer,buildings.list[i].icon);
+            } 
         }
+        
+        public void SetCategoryByIndex(int categoryIndex) => SetCategory((BuildingCategory)categoryIndex);
     }
 }

@@ -1,33 +1,42 @@
-using UnityEngine;
+using Citadel;
+using System;
 using TMPro;
-
-
-
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Citadel
 {
-    public class ResourceUI : MonoBehaviour
+    public sealed class ResourceUI : MonoBehaviour
     {
-        [SerializeField] Inventory inventory;
-        [SerializeField] Item item;
-        [SerializeField] TMP_Text amountText;
+        [SerializeField] private Inventory inventory;
+        [SerializeField] private Item item;
+        [SerializeField] private TMP_Text amountText;
+        [SerializeField] private Image iconImage;
+        [SerializeField] private ItemIconTable iconTable;
 
-        void OnEnable()
+
+        private void OnEnable()
         {
-            Refresh();
+            inventory.OnItemChange += OnItemChange;
+
+            SetIcon();  
+            ForceRefresh();
         }
 
-        void Start()
+        private void SetIcon()
         {
-            Refresh();
+            var data = iconTable.Get(item);
+            if (data != null)
+                iconImage.sprite = data.icon;
         }
 
-        public void Refresh()
-        {
-            int amount = inventory.GetAmount(item);
-            amountText.text = amount.ToString();
+        private void OnDisable() => inventory.OnItemChange -= OnItemChange;
 
-            Debug.Log($"{item} amount = {amount}");
-        }
+        private void ForceRefresh() => Refresh(inventory.GetAmount(item));
+        
+        private void OnItemChange(Item _, int amount) => Refresh(amount);
+
+        private void Refresh(int amount) => amountText.text = amount.ToString();
     }
 }
