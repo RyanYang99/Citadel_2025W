@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1061112a5eea7b340bc45808d88f5b6f, type: 3}
-  m_Name: Wood
+  m_Name: Gold
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.BuildingMetaData
-  uniqueName: Wood
-  prefab: {fileID: 2028700388628247539, guid: 0fa0fdcecd131f442ad1e6bbb91f1d74, type: 3}
-  icon: {fileID: 1643940707197268809, guid: ea4649575f2cba846a0a8ff960522c32, type: 3}
+  uniqueName: Gold
+  prefab: {fileID: 730932315999764765, guid: fc8b7b3edd070424abfb6267c8f78cd2, type: 3}
+  icon: {fileID: -4664137885785806615, guid: 1931d8ea95023a9418bcbf4e12039c1e, type: 3}
   category: 2
   yOffset: 1
-  createMetaData: {fileID: 11400000, guid: 4d0337535669a014c979f66c5f557e39, type: 2}
+  createMetaData: {fileID: 11400000, guid: 8240a085dcc7b4c41a03338ed941d644, type: 2}

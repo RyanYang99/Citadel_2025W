@@ -13,5 +13,7 @@ namespace Citadel
         public BuildingCategory category;
 
         public float yOffset = 1f;
+
+     
     }
 }
