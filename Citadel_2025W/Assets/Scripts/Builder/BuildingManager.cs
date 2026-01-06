@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+//실제 배치 / 회전 / 제거 / 데이터 관리
 namespace Citadel
 {
     public class PlacedBuilding
@@ -20,6 +22,7 @@ namespace Citadel
     
     public sealed class BuildingManager : MonoBehaviour
     {
+        public event Action OnBuildingChanged;
         private int _currentIndex = -1;
 
         [SerializeField] private BuildingMetaDataList buildings;
@@ -41,13 +44,18 @@ namespace Citadel
         }
         
         public readonly List<PlacedBuilding> PlacedBuildings = new();
-        
+
         public void SelectBuilding(int index)
         {
             if (index < 0 || index >= Buildings.list.Count)
                 return;
 
+            if (_currentIndex == index) return;
+
             _currentIndex = index;
+
+            OnBuildingChanged?.Invoke();
+        
         }
         
         public PlacedBuilding FindPlacedBuilding(GameObject _gameObject) =>
@@ -94,6 +102,39 @@ namespace Citadel
                 return;
             
             AddPlacedBuilding(new PlacedBuilding(uniqueName, Instantiate(buildingMetaData.prefab, position, Quaternion.Euler(rotation)),position, rotation));
+        }
+
+        //building 프리뷰 컨트롤러 
+
+        public void PlaceBuilding(Vector3 position, Quaternion rotation)
+        {
+            BuildingMetaData buildingMetaData = CurrentBuilding;
+            if (buildingMetaData == null)
+                return;
+
+            position.y += buildingMetaData.yOffset;
+
+            foreach (PlacedBuilding placedBuilding in PlacedBuildings)
+                if (placedBuilding.Position == position)
+                    return;
+
+            GameObject obj = Instantiate(buildingMetaData.prefab,position, rotation);
+
+            AddPlacedBuilding(
+                new PlacedBuilding(buildingMetaData.uniqueName,obj,position,rotation.eulerAngles));
+        }
+
+
+
+        public bool CanPlaceBuildingAt(Vector3 position)
+        {
+            foreach (PlacedBuilding placed in PlacedBuildings)
+            {
+                if (placed.Position == position)
+                    return false;
+            }
+
+            return true;
         }
 
         public void RotateBuilding(GameObject _gameObject)
