@@ -2998,7 +2998,10 @@ GameObject:
   - component: {fileID: 668537141}
   - component: {fileID: 668537140}
   - component: {fileID: 668537139}
+<<<<<<< building-upgrade
   - component: {fileID: 668537142}
+=======
+>>>>>>> develop
   m_Layer: 0
   m_Name: Wood
   m_TagString: Untagged
@@ -3109,6 +3112,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 668537137}
   m_CullTransparentMesh: 1
+<<<<<<< building-upgrade
 --- !u!114 &668537142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3126,6 +3130,8 @@ MonoBehaviour:
   amountText: {fileID: 1595808479}
   iconImage: {fileID: 627568872}
   iconTable: {fileID: 1752273647}
+=======
+>>>>>>> develop
 --- !u!1 &676831825
 GameObject:
   m_ObjectHideFlags: 0
@@ -10239,11 +10245,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab253fcbd414ad3429200bd21fe7dac4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.ResourceUI
+<<<<<<< building-upgrade
   inventory: {fileID: 191902318}
   item: 0
   amountText: {fileID: 639779784}
   iconImage: {fileID: 555265291}
   iconTable: {fileID: 1752273647}
+=======
+  iconImage: {fileID: 0}
+  amountText: {fileID: 639779784}
+  inventory: {fileID: 0}
+  item: 0
+>>>>>>> develop
 --- !u!1 &2002624125
 GameObject:
   m_ObjectHideFlags: 0
@@ -10254,7 +10267,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2002624126}
   - component: {fileID: 2002624129}
+<<<<<<< building-upgrade
   - component: {fileID: 2002624130}
+=======
+>>>>>>> develop
   - component: {fileID: 2002624128}
   - component: {fileID: 2002624127}
   m_Layer: 0
