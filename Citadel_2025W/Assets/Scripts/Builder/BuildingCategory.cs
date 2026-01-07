@@ -1,9 +1,10 @@
-using UnityEngine;
-public enum BuildingCategory
+namespace Citadel
 {
-    Tile,
-    Road,
-    Building,
-    function
+    public enum BuildingCategory
+    {
+        Tile,
+        Road,
+        Building,
+        Function
+    }
 }
-

@@ -9,14 +9,29 @@ namespace Citadel
 {
     public sealed class Inventory : MonoBehaviour
     {
-        [SerializeField, Tooltip("게임을 처음 시작할 때 플레이어가 가지는 것")] private List<ItemAmount> startingResources;
-        
+        private float _timer;
         private readonly Dictionary<Item, int> _resourcesCount = new();
+        
+        [SerializeField, Tooltip("게임을 처음 시작할 때 플레이어가 가지는 것")] private List<ItemAmount> startingResources;
+
+        public event Action OnTick;
+        public event Action<Item, int> OnItemChange;
         
         private void Awake()
         {
             foreach (ItemAmount startingResource in startingResources)
                 Add(startingResource.item, startingResource.amount);
+        }
+        
+        private void Update()
+        {
+            _timer += Time.deltaTime;
+
+            if (_timer < 1.0f)
+                return;
+
+            _timer = 0f;
+            OnTick?.Invoke();
         }
         
         public int GetAmount(Item item)
@@ -25,25 +40,28 @@ namespace Citadel
             return _resourcesCount[item];
         }
 
-        public void Add(Item item, int amount) => _resourcesCount[item] = GetAmount(item) + amount;
+        public void Add(Item item, int amount)
+        {
+            int before = GetAmount(item), after = before + amount;
+
+            if (before != after)
+            {
+                _resourcesCount[item] = after;
+                OnItemChange?.Invoke(item, amount);
+            }
+        }
 
         public int Consume(Item item, int amount)
         {
-            int currentAmount = GetAmount(item);
+            int before = GetAmount(item),
+                consumableAmount = Math.Clamp(amount, 0, before),
+                after = before - consumableAmount;
             
-            /*
-            만약 대출 시스템을 추가할 경우
-            if (item == Item.Money)
+            if (before != after)
             {
-                _resourcesCount[item] = currentAmount - amount;
-                return amount;
+                _resourcesCount[item] = after;
+                OnItemChange?.Invoke(item, after);
             }
-            */
-            
-            int consumableAmount = Math.Clamp(amount, 0, currentAmount);
-            currentAmount -= consumableAmount;
-            _resourcesCount[item] = currentAmount;
-
             return consumableAmount;
         }
 

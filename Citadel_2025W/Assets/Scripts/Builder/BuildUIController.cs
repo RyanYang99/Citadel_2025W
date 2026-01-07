@@ -1,18 +1,13 @@
 using UnityEngine;
 
-public class BuildUIController : MonoBehaviour
+namespace Citadel
 {
-    public GameObject buildPanel;
-
-    public void Open()
+    public sealed class BuildUIController : MonoBehaviour
     {
-        buildPanel.SetActive(true);
+        [SerializeField] private GameObject buildPanel;
+
+        public void Open() => buildPanel.SetActive(true);
+
+        public void Close() => buildPanel.SetActive(false);
     }
-
-    public void Close()
-    {
-        buildPanel.SetActive(false);
-    }
-
-
 }
