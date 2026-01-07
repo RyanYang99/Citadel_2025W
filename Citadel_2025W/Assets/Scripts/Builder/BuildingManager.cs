@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 //실제 배치 / 회전 / 제거 / 데이터 관리
@@ -176,8 +177,18 @@ namespace Citadel
 
         public void RemoveAllBuildings()
         {
-            foreach (PlacedBuilding placedBuilding in PlacedBuildings)
+            List<PlacedBuilding> copy = new(PlacedBuildings);
+            
+            foreach (PlacedBuilding placedBuilding in copy)
                 RemoveBuilding(placedBuilding._GameObject);
+        }
+
+        public void Load(List<SerializableBuilding> serializableBuildings)
+        {
+            RemoveAllBuildings();
+            
+            foreach (SerializableBuilding serializableBuilding in serializableBuildings)
+                PlaceBuilding(serializableBuilding.uniqueName, serializableBuilding.position.ToVector3(), serializableBuilding.rotation.ToVector3());
         }
     }
 }
