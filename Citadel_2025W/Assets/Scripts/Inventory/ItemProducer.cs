@@ -47,6 +47,8 @@ namespace Citadel
         [SerializeField, Tooltip("공급하는 자원, 필요한 자원이 존재할 때 공급")]
         private List<RangeResourceAmount> rangeResourceProvided = new();
 
+        public Action<ItemAmount> OnItemProduced;
+
         private void OnValidate() => CheckParameters();
 
         private void Awake()
@@ -116,7 +118,10 @@ namespace Citadel
         private void Produce()
         {
             foreach (ItemAmount item in itemsProduced)
+            {
                 inventory.Add(item.item, item.amount);
+                OnItemProduced?.Invoke(item);
+            }
 
             foreach (RangeResourceAmount duration in _rangeResourceDurations)
                 duration.tickDuration = _originalRangeResourceDurations.Find(rangeResourceAmount => rangeResourceAmount.rangeResource == duration.rangeResource).tickDuration;
