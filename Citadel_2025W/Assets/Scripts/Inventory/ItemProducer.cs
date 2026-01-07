@@ -49,6 +49,8 @@ namespace Citadel
 
         public Action<ItemAmount> OnItemProduced;
 
+        //기초 자원 생산
+     
         private void OnValidate() => CheckParameters();
 
         private void Awake()

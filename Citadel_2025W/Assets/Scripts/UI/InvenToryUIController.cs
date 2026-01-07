@@ -7,13 +7,10 @@ using TMPro;
 
 public class InventoryUIController : MonoBehaviour
 {
-    [Header("�κ��丮 ������")]
     public Inventory inventory;
 
-    [Header("������ / ī�װ� ���̺�")]
     public ItemIconTable iconTable;
 
-    [Header("UI")]
     public GameObject inventoryPanel;
     public Transform contentParent;
     public GameObject resourceRowPrefab;
@@ -62,24 +59,21 @@ public class InventoryUIController : MonoBehaviour
 
     void BuildUI()
     {
-        // ���� UI ����
         foreach (Transform child in contentParent)
             Destroy(child.gameObject);
 
-        // Item enum ��ü ��ȸ
+
         foreach (Item item in Enum.GetValues(typeof(Item)))
         {
             GameObject row = Instantiate(resourceRowPrefab, contentParent);
 
-            //���� �ؽ�Ʈ
             TMP_Text[] texts = row.GetComponentsInChildren<TMP_Text>();
             texts[0].text = item.ToString();
             texts[1].text = inventory.GetAmount(item).ToString();
 
-            //������
             Image iconImage = row.transform.Find("IconImage").GetComponent<Image>();
-            var data = iconTable.Get(item);
             
+            ItemIconPair data = iconTable.Get(item);
             if (data != null)
                 iconImage.sprite = data.icon;
 

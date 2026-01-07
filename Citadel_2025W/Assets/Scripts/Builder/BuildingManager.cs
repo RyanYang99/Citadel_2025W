@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+//실제 배치 / 회전 / 제거 / 데이터 관리
 namespace Citadel
 {
     public class PlacedBuilding
@@ -21,6 +23,7 @@ namespace Citadel
     
     public sealed class BuildingManager : MonoBehaviour
     {
+        public event Action OnBuildingChanged;
         private int _currentIndex = -1;
 
         [SerializeField] private BuildingMetaDataList buildings;
@@ -42,13 +45,20 @@ namespace Citadel
         }
         
         public readonly List<PlacedBuilding> PlacedBuildings = new();
-        
+
+
+       
         public void SelectBuilding(int index)
         {
             if (index < 0 || index >= Buildings.list.Count)
                 return;
 
+            if (_currentIndex == index) return;
+
             _currentIndex = index;
+
+            OnBuildingChanged?.Invoke();
+        
         }
         
         public PlacedBuilding FindPlacedBuilding(GameObject _gameObject) =>
@@ -71,30 +81,83 @@ namespace Citadel
             if (placedBuilding != null)
                 PlacedBuildings.Remove(placedBuilding);
         }
-        
-        public void PlaceBuilding(Vector3 position)
+
+        private void PlaceInternal(
+    BuildingMetaData meta,
+    Vector3 position,
+    Quaternion rotation)
         {
-            BuildingMetaData buildingMetaData = CurrentBuilding;
-            if (buildingMetaData == null)
-                return;
+            position.y += meta.yOffset;
 
-            position.y += buildingMetaData.yOffset;
-
-            foreach (PlacedBuilding placedBuilding in PlacedBuildings)
-                if (placedBuilding.Position == position)
+            foreach (PlacedBuilding placed in PlacedBuildings)
+                if (placed.Position == position)
                     return;
-
-            GameObject _gameObject = Instantiate(buildingMetaData.prefab, position, Quaternion.identity);
-            AddPlacedBuilding(new PlacedBuilding(buildingMetaData.uniqueName, _gameObject, position, _gameObject.transform.rotation.eulerAngles));
+            GameObject obj = Instantiate(meta.prefab, position, rotation);
+            //초기화
+          
+            AddPlacedBuilding(
+                new PlacedBuilding(
+                    meta.uniqueName,
+                    obj,
+                    position,
+                    rotation.eulerAngles
+                )
+            );
         }
 
+
+        //설치 전용
+        public void PlaceBuilding(Vector3 position)
+        {
+            if (CurrentBuilding == null)
+                return;
+
+            PlaceInternal(
+                CurrentBuilding,
+                position,
+                Quaternion.identity
+            );
+        }
+
+        //로드 전용 
         public void PlaceBuilding(string uniqueName, Vector3 position, Vector3 rotation)
         {
-            BuildingMetaData buildingMetaData = buildings.list.Find(bmd => bmd.uniqueName == uniqueName);
-            if (buildingMetaData == null)
+            BuildingMetaData meta =
+                buildings.list.Find(bmd => bmd.uniqueName == uniqueName);
+
+            if (meta == null)
                 return;
-            
-            AddPlacedBuilding(new PlacedBuilding(uniqueName, Instantiate(buildingMetaData.prefab, position, Quaternion.Euler(rotation)),position, rotation));
+
+            PlaceInternal(
+                meta,
+                position,
+                Quaternion.Euler(rotation)
+            );
+        }
+
+
+        //building 프리뷰 회전 설치
+        public void PlaceBuilding(Vector3 position, Quaternion rotation)
+        {
+            if (CurrentBuilding == null)
+                return;
+
+            PlaceInternal(
+                CurrentBuilding,
+                position,
+                rotation
+            );
+        }
+
+        public bool CanPlaceBuildingAt(Vector3 position)
+        {
+            foreach (PlacedBuilding placed in PlacedBuildings)
+            {
+                if (placed.Position == position)
+                    return false;
+            }
+
+            return true;
         }
 
         public void RotateBuilding(GameObject _gameObject)
