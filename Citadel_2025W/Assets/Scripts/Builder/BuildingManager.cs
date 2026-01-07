@@ -22,6 +22,8 @@ namespace Citadel
     
     public sealed class BuildingManager : MonoBehaviour
     {
+        public bool IsReady { get; private set; }
+
         public event Action OnBuildingChanged;
         private int _currentIndex = -1;
 
@@ -45,8 +47,12 @@ namespace Citadel
         
         public readonly List<PlacedBuilding> PlacedBuildings = new();
 
+        private void Start()
+        {
+            IsReady = true; 
+        }
 
-       
+
         public void SelectBuilding(int index)
         {
             if (index < 0 || index >= Buildings.list.Count)

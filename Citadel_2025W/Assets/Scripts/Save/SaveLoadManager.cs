@@ -27,7 +27,13 @@ namespace Citadel
         
         private string path;
 
-        private void Awake() => path = Application.persistentDataPath + "/map.json";
+        // private void Awake() => path = Application.persistentDataPath + "/map.json";
+
+        private void Awake()
+        {
+            path = Application.persistentDataPath + "/map.json";
+            SaveGame.Instance.Register(this);
+        }
 
         private void Update()
         {
