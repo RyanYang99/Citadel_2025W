@@ -1,22 +1,25 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Citadel
 {
     public sealed class ItemConsumer : MonoBehaviour
     {
+        public static readonly List<ItemConsumer> ActiveItemConsumers = new();
+        
         private readonly Dictionary<Item, int> _currentItems = new();
+        private readonly Dictionary<ItemProducer, List<RangeResource>> _providedRangeResources = new();
         
         [SerializeField] private Inventory inventory;
         
         [SerializeField, Tooltip("필요한 자원")]
-        private List<ItemAmount> itemsUsed;
+        private List<ItemAmount> itemsUsed = new();
 
-        private void OnValidate()
-        {
-            CheckUsage();
-        }
+        [SerializeField] private List<RangeResource> rangeResourcesUsed = new();
+
+        private void OnValidate() => CheckUsage();
 
         private void Awake()
         {
@@ -29,11 +32,13 @@ namespace Citadel
         private void OnEnable()
         {
             inventory.OnTick += Tick;
+            ActiveItemConsumers.Add(this);
         }
-        
+
         private void OnDisable()
         {
             inventory.OnTick -= Tick;
+            ActiveItemConsumers.Remove(this);
         }
 
         private void CheckUsage()
@@ -64,17 +69,47 @@ namespace Citadel
 
         public bool AreItemsReady()
         {
-            foreach (ItemAmount item in itemsUsed)
-                if (_currentItems[item.item] < item.amount)
-                    return false;
+            if (itemsUsed.Any(item => _currentItems[item.item] < item.amount))
+                return false;
 
-            return true;
+            List<RangeResource> provided = new();
+            foreach (List<RangeResource> rangeResources in _providedRangeResources.Values)
+                foreach (RangeResource rangeResource in rangeResources)
+                    if (!provided.Contains(rangeResource) && rangeResourcesUsed.Contains(rangeResource))
+                        provided.Add(rangeResource);
+
+            return provided.Count >= rangeResourcesUsed.Count;
         }
 
         public void ConsumeReadyItems()
         {
             foreach (ItemAmount item in itemsUsed)
-                _currentItems[item.item] = Math.Clamp(_currentItems[item.item] - item.amount, 0, item.amount);
+                _currentItems[item.item] = Math.Max(0, _currentItems[item.item] - item.amount);
+        }
+
+        public void UpdateRangeResource(ItemProducer provider, RangeResource rangeResource, bool provided)
+        {
+            if (!rangeResourcesUsed.Contains(rangeResource))
+                return;
+
+            _providedRangeResources.TryAdd(provider, new List<RangeResource>());
+
+            List<RangeResource> list = _providedRangeResources[provider];
+            bool contains = list.Contains(rangeResource);
+            
+            if (provided)
+            {
+                if (!contains)
+                    list.Add(rangeResource);
+            }
+            else
+            {
+                if (contains)
+                    list.Remove(rangeResource);
+
+                if (list.Count == 0)
+                    _providedRangeResources.Remove(provider);
+            }
         }
     }
 }
