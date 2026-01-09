@@ -64,11 +64,11 @@ namespace Citadel
             }
         }
 
-        private void OnEnable() => inventory.OnTick += Tick;
+        private void OnEnable() => inventory.OnTick += OnTick;
 
         private void OnDisable()
         {
-            inventory.OnTick -= Tick;
+            inventory.OnTick -= OnTick;
             
             UpdateRange();
             UpdateRangeResource(false);
@@ -94,7 +94,7 @@ namespace Citadel
             }
         }
 
-        private void Tick()
+        private void OnTick()
         {
             UpdateRange();
             foreach (RangeResourceAmount rangeResourceAmount in _rangeResourceDurations.Where(rangeResourceAmount => rangeResourceAmount.tickDuration > 0))
