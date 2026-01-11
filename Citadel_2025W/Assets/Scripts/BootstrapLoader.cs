@@ -14,10 +14,7 @@ namespace Citadel
             if (bootstrapped)
                 return;
 
-            if (SaveGame.Instance == null)
-            {
-                Instantiate(bootstrapPrefab);
-            }
+          
 
             bootstrapped = true;
         }

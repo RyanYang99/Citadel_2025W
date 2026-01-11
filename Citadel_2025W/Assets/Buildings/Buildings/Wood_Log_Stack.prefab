@@ -107,5 +107,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemProducer
   inventory: {fileID: 0}
   itemConsumer: {fileID: 0}
-  ticksNeeded: 0
-  itemsProduced: []
+  ticksNeeded: 5
+  itemsProduced:
+  - item: 1
+    amount: 50
+  range: 0
+  rangeResourceProvided: []

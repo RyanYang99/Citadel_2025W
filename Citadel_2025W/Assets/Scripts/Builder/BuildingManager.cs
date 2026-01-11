@@ -29,6 +29,8 @@ namespace Citadel
         private int _currentIndex = -1;
 
         [SerializeField] private BuildingMetaDataList buildings;
+        [SerializeField] private Inventory inventory;
+
         public BuildingMetaDataList Buildings
         {
             get => buildings;
@@ -100,7 +102,15 @@ namespace Citadel
                     return;
             GameObject obj = Instantiate(meta.prefab, position, rotation);
             //√ ±‚»≠
-          
+
+            ItemProducer producer = obj.GetComponent<ItemProducer>();
+            if (producer != null)
+            {
+                producer.BindInventory(inventory);
+            }
+
+
+
             AddPlacedBuilding(
                 new PlacedBuilding(
                     meta.uniqueName,

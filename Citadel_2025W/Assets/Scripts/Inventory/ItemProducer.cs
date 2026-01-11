@@ -55,6 +55,7 @@ namespace Citadel
 
         private void Awake()
         {
+
             CheckParameters();
 
             foreach (RangeResourceAmount rangeResourceAmount in rangeResourceProvided)
@@ -62,6 +63,13 @@ namespace Citadel
                 _originalRangeResourceDurations.Add(new RangeResourceAmount(rangeResourceAmount));
                 _rangeResourceDurations.Add(new RangeResourceAmount(rangeResourceAmount));
             }
+        }
+        public void BindInventory(Inventory inv)
+        {
+            inventory = inv;
+
+            inventory.OnTick -= Tick; // 중복 방지
+            inventory.OnTick += Tick;
         }
 
         private void OnEnable() => inventory.OnTick += Tick;
@@ -119,8 +127,11 @@ namespace Citadel
         
         private void Produce()
         {
+            Debug.Log($"[Produce] {name} 생산 시도, 아이템 수: {itemsProduced.Count}");
+
             foreach (ItemAmount item in itemsProduced)
             {
+
                 inventory.Add(item.item, item.amount);
                 OnItemProduced?.Invoke(item);
             }

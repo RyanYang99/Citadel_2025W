@@ -29,7 +29,6 @@ namespace Citadel
             if (scene.name != MainSceneName)
                 return;
             SceneManager.sceneLoaded -= OnSceneLoaded;
-            SaveGame.Instance.Load();
             isLoadRequested = false;
         }
 

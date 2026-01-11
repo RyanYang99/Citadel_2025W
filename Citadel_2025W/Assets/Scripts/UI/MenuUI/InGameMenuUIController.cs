@@ -43,7 +43,6 @@ namespace Citadel
         //저장하고 메인화면으로
         public void OnClickSaveAndExit()
         {
-            SaveGame.Instance.Save();
             SceneManager.LoadScene("MainMenu");
         }    
     }
