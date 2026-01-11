@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: DefaultImportances
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.SatisfactionImportance
   itemImportances:
-  - item: 7
+  - item: 0
     importance: 0.5
   rangeResourceImportances: []
