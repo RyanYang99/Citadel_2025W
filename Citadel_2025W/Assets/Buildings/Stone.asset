@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.BuildingMetaData
   uniqueName: Stone
   prefab: {fileID: 8539307895412738096, guid: 02b2c115b6de0c844a64c6715086d123, type: 3}
-  icon: {fileID: 6768481765403260889, guid: fd6ba01097237484da90c5fa25473610, type: 3}
+  icon: {fileID: 2511511656977860655, guid: bbe62fb517c21894d9e18d01d2446156, type: 3}
   category: 2
   subCategory: 0
   yOffset: 1

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.BuildingMetaData
   uniqueName: Gold
   prefab: {fileID: 730932315999764765, guid: fc8b7b3edd070424abfb6267c8f78cd2, type: 3}
-  icon: {fileID: -4664137885785806615, guid: 1931d8ea95023a9418bcbf4e12039c1e, type: 3}
+  icon: {fileID: 6876968974295739292, guid: e0f1a4c7d50b3bb4d9f74fd7a08c4e4c, type: 3}
   category: 2
   subCategory: 0
   yOffset: 1

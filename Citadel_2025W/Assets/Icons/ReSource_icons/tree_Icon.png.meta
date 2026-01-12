@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 87c6c4ffdb6ccbf489ba05273f28769a
+guid: 0f394ed5fb0da3549aef8f3f01fba164
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 549373592803041862
-    second: Iron_Bars_Icon_0
+      213: -3963592884136529334
+    second: tree_Icon_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Iron_Bars_Icon_0
+      name: tree_Icon_0
       rect:
         serializedVersion: 2
-        x: 46
-        y: 105
-        width: 164
-        height: 128
+        x: 92
+        y: 63
+        width: 71
+        height: 129
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 64261083f54cf9700800000000000000
-      internalID: 549373592803041862
+      spriteID: a42b6ca954d7ef8c0800000000000000
+      internalID: -3963592884136529334
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Iron_Bars_Icon_0: 549373592803041862
+      tree_Icon_0: -3963592884136529334
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
