@@ -27,6 +27,7 @@ namespace Citadel
         private int _currentIndex = -1;
 
         [SerializeField] private BuildingMetaDataList buildings;
+        [SerializeField] private SFXLooper SFXLooper;
         public BuildingMetaDataList Buildings
         {
             get => buildings;
@@ -80,6 +81,8 @@ namespace Citadel
             PlacedBuilding placedBuilding = FindPlacedBuilding(_gameObject);
             if (placedBuilding != null)
                 PlacedBuildings.Remove(placedBuilding);
+            SFXLooper.PlayOneSecond();
+
         }
 
         private void PlaceInternal(

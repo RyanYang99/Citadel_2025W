@@ -15,6 +15,7 @@ public class SFXLooper : MonoBehaviour
         loopRoutine = StartCoroutine(LoopCoroutine(duration, pitch));
     }
 
+
     private IEnumerator LoopCoroutine(float duration, float pitch)
     {
         sfx.pitch = pitch;
@@ -26,5 +27,21 @@ public class SFXLooper : MonoBehaviour
             sfx.Play();
             yield return new WaitForSeconds(1f / pitch);
         }
+    }
+
+    public void PlayOneSecond()
+    {
+        StartCoroutine(PlayOneSecondRoutine());
+    }
+
+    private IEnumerator PlayOneSecondRoutine()
+    {
+        double t = AudioSettings.dspTime;
+
+        sfx.PlayScheduled(t);
+        sfx.SetScheduledEndTime(t + 1.9f);
+
+
+        yield return new WaitForSeconds(1f);
     }
 }
