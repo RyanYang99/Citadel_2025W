@@ -20,12 +20,13 @@ namespace Citadel
             Rotation = rotation;
         }
     }
-    
+
     public sealed class BuildingManager : MonoBehaviour
     {
         public bool IsReady { get; private set; }
 
         public event Action OnBuildingChanged;
+        public event Action OnPlacedBuildingChanged;
         private int _currentIndex = -1;
 
         [SerializeField] private BuildingMetaDataList buildings;
@@ -36,7 +37,7 @@ namespace Citadel
             get => buildings;
             private set => buildings = value;
         }
-        
+
         public BuildingMetaData CurrentBuilding
         {
             get
@@ -47,14 +48,26 @@ namespace Citadel
                 return Buildings.list[_currentIndex];
             }
         }
-        
+
         public readonly List<PlacedBuilding> PlacedBuildings = new();
 
         private void Start()
         {
-            IsReady = true; 
+            IsReady = true;
         }
 
+        public int GetPlacedCount(string uniqueName)
+        {
+            int count = 0;
+
+            foreach (var placed in PlacedBuildings)
+            {
+                if (placed.UniqueName == uniqueName)
+                    count++;
+            }
+
+            return count;
+        }
 
         public void SelectBuilding(int index)
         {
@@ -66,12 +79,12 @@ namespace Citadel
             _currentIndex = index;
 
             OnBuildingChanged?.Invoke();
-        
+
         }
-        
+
         public PlacedBuilding FindPlacedBuilding(GameObject _gameObject) =>
             PlacedBuildings.Find(placedBuilding => placedBuilding._GameObject == _gameObject);
-        
+
         private void AddPlacedBuilding(PlacedBuilding placedBuilding)
         {
             if (FindPlacedBuilding(placedBuilding._GameObject) != null)
@@ -81,13 +94,17 @@ namespace Citadel
             }
 
             PlacedBuildings.Add(placedBuilding);
+            OnPlacedBuildingChanged?.Invoke();
         }
 
         private void RemovePlacedBuilding(GameObject _gameObject)
         {
             PlacedBuilding placedBuilding = FindPlacedBuilding(_gameObject);
             if (placedBuilding != null)
+            {
                 PlacedBuildings.Remove(placedBuilding);
+            }
+                OnPlacedBuildingChanged?.Invoke();
         }
 
         private void PlaceInternal(
@@ -121,6 +138,17 @@ namespace Citadel
             );
         }
 
+        public bool CanBuild(BuildingMetaData meta)
+        {
+            if (meta == null)
+                return false;
+
+            if (meta.maxBuildCount < 0)
+                return true;
+
+            int current = GetPlacedCount(meta.uniqueName);
+            return current < meta.maxBuildCount;
+        }
 
         //설치 전용
         public void PlaceBuilding(Vector3 position)
@@ -179,7 +207,7 @@ namespace Citadel
         public void RotateBuilding(GameObject _gameObject)
         {
             _gameObject.transform.Rotate(Vector3.up, 90f);
-            
+
             PlacedBuilding placedBuilding = FindPlacedBuilding(_gameObject);
             if (placedBuilding != null)
                 placedBuilding.Rotation = _gameObject.transform.eulerAngles;
@@ -194,7 +222,7 @@ namespace Citadel
         public void RemoveAllBuildings()
         {
             List<PlacedBuilding> copy = new(PlacedBuildings);
-            
+
             foreach (PlacedBuilding placedBuilding in copy)
                 RemoveBuilding(placedBuilding._GameObject);
         }
@@ -202,7 +230,7 @@ namespace Citadel
         public void Load(List<SerializableBuilding> serializableBuildings)
         {
             RemoveAllBuildings();
-            
+
             foreach (SerializableBuilding serializableBuilding in serializableBuildings)
                 PlaceBuilding(serializableBuilding.uniqueName, serializableBuilding.position.ToVector3(), serializableBuilding.rotation.ToVector3());
         }

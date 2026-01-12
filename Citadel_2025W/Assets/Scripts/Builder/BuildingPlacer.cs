@@ -20,7 +20,6 @@ namespace Citadel
         [SerializeField] private BuildPreviewController previewController;
 
         private BuildMode currentMode = BuildMode.Build;
-
         private void Update()
         {
             if (currentMode == BuildMode.None)
@@ -73,6 +72,9 @@ namespace Citadel
       
         private void Place()
         {
+            if (!buildingManager.CanBuild(buildingManager.CurrentBuilding))
+                return;
+
             if (!GetRaycastHitFromMouse(out RaycastHit hit)) return;
             if (!IsGround(hit.transform.gameObject)) return;
 
