@@ -327,7 +327,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &509564346
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -430,6 +430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemProducer
   inventory: {fileID: 107485640}
+  bonusManager: {fileID: 107485641}
   itemConsumer: {fileID: 509564349}
   ticksNeeded: 5
   itemsProduced:
@@ -554,15 +555,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1068608425}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 652f762aed6f39f45a6a5835a2105e5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemProducer
   inventory: {fileID: 107485640}
+  bonusManager: {fileID: 107485641}
   itemConsumer: {fileID: 1068608426}
   ticksNeeded: 2
-  itemsProduced: []
+  itemsProduced:
+  - item: 1
+    amount: 10
   range: 0
   rangeResourceProvided:
   - rangeResource: 0
@@ -586,10 +590,10 @@ MonoBehaviour:
   satisfactionImportanceOverride: {fileID: 0}
   threshold: 0.5
   itemBonuses:
-  - targetItem: 0
+  - targetItem: 1
     bonusValue:
       flat: 100
-      percentage: 0.67
+      percentage: 2
   rangeResourceBonuses:
   - targetRangeResource: 0
     bonusValue:

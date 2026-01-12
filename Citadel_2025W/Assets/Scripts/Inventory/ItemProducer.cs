@@ -30,9 +30,10 @@ namespace Citadel
         
         private readonly List<RangeResourceAmount> _originalRangeResourceDurations = new();
         private readonly List<RangeResourceAmount> _rangeResourceDurations = new();
-        private List<ItemConsumer> _itemConsumersInRange = new();
+        private readonly Dictionary<RangeResource, List<ItemConsumer>> _itemConsumersInRange = new();
         
         [SerializeField] private Inventory inventory;
+        [SerializeField] private BonusManager bonusManager;
         
         [SerializeField, Tooltip("만약 없을 시, ticksNeeded 마다 자원 생산")]
         private ItemConsumer itemConsumer;
@@ -112,17 +113,30 @@ namespace Citadel
                 itemConsumer.ConsumeReadyItems();
         }
 
-        private void UpdateRange() =>
-            _itemConsumersInRange = ItemConsumer.ActiveItemConsumers
-                                                .Where(_itemConsumer => Vector3.Distance(transform.position, _itemConsumer.transform.position) <= range)
-                                                .ToList();
-        
+        private void UpdateRange()
+        {
+            foreach (RangeResource rangeResource in rangeResourceProvided.Select(rangeResourceAmount => rangeResourceAmount.rangeResource))
+            {
+                float result = range;
+                if (bonusManager.GetRangeResourceBonuses().TryGetValue(rangeResource, out BonusValue bonusValue))
+                    result = result + bonusValue.flat + (result * bonusValue.percentage);
+                
+                _itemConsumersInRange[rangeResource] = ItemConsumer.ActiveItemConsumers
+                                                                   .Where(_itemConsumer => Vector3.Distance(transform.position, _itemConsumer.transform.position) <= result)
+                                                                   .ToList();
+            }
+        }
+
         private void Produce()
         {
             foreach (ItemAmount item in itemsProduced)
             {
-                inventory.Add(item.item, item.amount);
-                OnItemProduced?.Invoke(item);
+                int result = item.amount;
+                if (bonusManager.GetItemBonuses().TryGetValue(item.item, out BonusValue bonusValue))
+                    result = result + bonusValue.flat + (int)Math.Round(result * bonusValue.percentage);
+                
+                inventory.Add(item.item, result);
+                OnItemProduced?.Invoke(new ItemAmount(item.item, result));
             }
 
             foreach (RangeResourceAmount duration in _rangeResourceDurations)
@@ -139,7 +153,7 @@ namespace Citadel
 
         private void UpdateRangeResource(RangeResource rangeResource, bool provided)
         {
-            foreach (ItemConsumer _itemConsumer in _itemConsumersInRange)
+            foreach (ItemConsumer _itemConsumer in _itemConsumersInRange[rangeResource])
                 _itemConsumer.UpdateRangeResource(this, rangeResource, provided);
         }
     }
