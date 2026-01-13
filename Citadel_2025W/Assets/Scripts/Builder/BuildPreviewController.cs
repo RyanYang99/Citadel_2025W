@@ -98,9 +98,15 @@ namespace Citadel
             buildPreviewInstance.transform.position = hit.point;
             buildPreviewInstance.SetActive(true);
 
-            bool canPlace = buildingManager.CanPlaceBuildingAt(pos);
-            ApplyMaterial(buildPreviewRenderers,
-                canPlace ? previewValidMat : previewInvalidMat);
+            bool canPlacePos = buildingManager.CanPlaceBuildingAt(pos);
+            bool canBuildCount = buildingManager.CanBuild(buildingManager.CurrentBuilding);
+
+            bool canBuildFinal = canPlacePos && canBuildCount;
+            ApplyMaterial(
+                buildPreviewRenderers,
+                canBuildFinal ? previewValidMat : previewInvalidMat
+            );
+
 
         }
 

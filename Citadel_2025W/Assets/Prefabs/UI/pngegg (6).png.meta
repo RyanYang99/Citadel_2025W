@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: fd6ba01097237484da90c5fa25473610
+guid: a000c583dbf1d6d43a2fb415e95d608a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6768481765403260889
-    second: Stone_Chunks_Large_Icon_0
+      213: 3386207531088809118
+    second: pngegg (6)_0
+  - first:
+      213: -309589981646414578
+    second: pngegg (6)_1
+  - first:
+      213: 5457838842129572859
+    second: pngegg (6)_2
+  - first:
+      213: 4511536388912753924
+    second: pngegg (6)_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +84,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 3
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,13 +109,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Stone_Chunks_Large_Icon_0
+      name: pngegg (6)_0
       rect:
         serializedVersion: 2
-        x: 33
-        y: 89
-        width: 194
-        height: 159
+        x: 0
+        y: 66
+        width: 233
+        height: 381
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +124,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9d7f19ffd4a7eed50800000000000000
-      internalID: 6768481765403260889
+      spriteID: e9c0d420fc93efe20800000000000000
+      internalID: 3386207531088809118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pngegg (6)_1
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 139
+        width: 80
+        height: 235
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0d12fd4d8d14bbf0800000000000000
+      internalID: -309589981646414578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pngegg (6)_2
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 81
+        width: 104
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf3667292832ebb40800000000000000
+      internalID: 5457838842129572859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pngegg (6)_3
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 23
+        width: 126
+        height: 467
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40da46c41723c9e30800000000000000
+      internalID: 4511536388912753924
       vertices: []
       indices: 
       edges: []
@@ -125,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +210,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Stone_Chunks_Large_Icon_0: 6768481765403260889
+      pngegg (6)_0: 3386207531088809118
+      pngegg (6)_1: -309589981646414578
+      pngegg (6)_2: 5457838842129572859
+      pngegg (6)_3: 4511536388912753924
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
