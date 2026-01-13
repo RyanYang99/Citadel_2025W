@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 273bf60b1c9c97149947b11566461aa2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 717.632
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 273bf60b1c9c97149947b11566461aa2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 808.87146
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 273bf60b1c9c97149947b11566461aa2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -108,7 +108,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 652f762aed6f39f45a6a5835a2105e5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemProducer
-  inventory: {fileID: 0}
   itemConsumer: {fileID: 0}
   ticksNeeded: 1
   itemsProduced:
