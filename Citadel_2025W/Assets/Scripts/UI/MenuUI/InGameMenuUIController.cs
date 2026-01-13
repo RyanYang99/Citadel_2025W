@@ -8,10 +8,14 @@ namespace Citadel
         [Header("Menu Panel")]
         [SerializeField] private GameObject menuPanel;
 
+        private SaveLoadManager saveLoadManager;
+
         private bool isOpen;
+
 
         private void Awake()
         {
+            saveLoadManager = FindAnyObjectByType<SaveLoadManager>();
             if (menuPanel != null)
                 menuPanel.SetActive(false);
         }
@@ -43,6 +47,7 @@ namespace Citadel
         //저장하고 메인화면으로
         public void OnClickSaveAndExit()
         {
+            saveLoadManager.Save();
             SceneManager.LoadScene("MainMenu");
         }    
     }
