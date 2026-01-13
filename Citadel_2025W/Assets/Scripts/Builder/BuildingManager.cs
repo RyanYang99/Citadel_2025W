@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-//½ÇÁ¦ ¹èÄ¡ / È¸Àü / Á¦°Å / µ¥ÀÌÅÍ °ü¸®
+//ì‹¤ì œ ë°°ì¹˜ / íšŒì „ / ì œê±° / ë°ì´í„° ê´€ë¦¬
 namespace Citadel
 {
     public class PlacedBuilding
@@ -32,6 +32,7 @@ namespace Citadel
         [SerializeField] private BuildingMetaDataList buildings;
         [SerializeField] private Inventory inventory;
 
+        [SerializeField] private SFXLooper SFXLooper;
         public BuildingMetaDataList Buildings
         {
             get => buildings;
@@ -105,6 +106,8 @@ namespace Citadel
                 PlacedBuildings.Remove(placedBuilding);
             }
                 OnPlacedBuildingChanged?.Invoke();
+            SFXLooper.PlayOneSecond();
+
         }
 
         private void PlaceInternal(
@@ -118,7 +121,7 @@ namespace Citadel
                 if (placed.Position == position)
                     return;
             GameObject obj = Instantiate(meta.prefab, position, rotation);
-            //ÃÊ±âÈ­
+            //ì´ˆê¸°í™”
 
             ItemProducer producer = obj.GetComponent<ItemProducer>();
             if (producer != null)
@@ -150,7 +153,7 @@ namespace Citadel
             return current < meta.maxBuildCount;
         }
 
-        //¼³Ä¡ Àü¿ë
+        //ì„¤ì¹˜ ì „ìš©
         public void PlaceBuilding(Vector3 position)
         {
             if (CurrentBuilding == null)
@@ -163,7 +166,7 @@ namespace Citadel
             );
         }
 
-        //·Îµå Àü¿ë 
+        //ë¡œë“œ ì „ìš© 
         public void PlaceBuilding(string uniqueName, Vector3 position, Vector3 rotation)
         {
             BuildingMetaData meta =
@@ -180,7 +183,7 @@ namespace Citadel
         }
 
 
-        //building ÇÁ¸®ºä È¸Àü ¼³Ä¡
+        //building í”„ë¦¬ë·° íšŒì „ ì„¤ì¹˜
         public void PlaceBuilding(Vector3 position, Quaternion rotation)
         {
             if (CurrentBuilding == null)

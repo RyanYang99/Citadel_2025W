@@ -34,14 +34,14 @@ namespace Citadel
             if (_timer < 1.0f)
                 return;
 
-            Debug.Log($"[{nameof(Inventory)}] === Start Tick {_tick} ===");
+            //Debug.Log($"[{nameof(Inventory)}] === Start Tick {_tick} ===");
             
             _timer = 0f;
             OnTick?.Invoke();
             
-            PrintInventory();
+            //PrintInventory();
             
-            Debug.Log($"[{nameof(Inventory)}] === End Tick {_tick++} ===");
+            //Debug.Log($"[{nameof(Inventory)}] === End Tick {_tick++} ===");
         }
         
         public int GetAmount(Item item)
