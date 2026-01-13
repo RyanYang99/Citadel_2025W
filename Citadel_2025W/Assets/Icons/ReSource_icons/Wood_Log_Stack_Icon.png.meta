@@ -103,10 +103,10 @@ TextureImporter:
       name: Wood_Log_Stack_Icon_0
       rect:
         serializedVersion: 2
-        x: 20
-        y: 86
-        width: 217
-        height: 170
+        x: 74
+        y: 58
+        width: 109
+        height: 111
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -18,9 +18,9 @@ namespace Citadel
         [SerializeField] private BuildingManager buildingManager;
         [SerializeField] private LayerMask buildingLayer;
         [SerializeField] private BuildPreviewController previewController;
+        [SerializeField] private SFXLooper SFXLooper;
 
         private BuildMode currentMode = BuildMode.Build;
-
         private void Update()
         {
             if (currentMode == BuildMode.None)
@@ -73,10 +73,16 @@ namespace Citadel
       
         private void Place()
         {
+            if (!buildingManager.CanBuild(buildingManager.CurrentBuilding))
+                return;
+
             if (!GetRaycastHitFromMouse(out RaycastHit hit)) return;
             if (!IsGround(hit.transform.gameObject)) return;
 
-            buildingManager.PlaceBuilding(hit.point,previewController.CurrentRotation); 
+
+            buildingManager.PlaceBuilding(hit.point,previewController.CurrentRotation);
+
+            SFXLooper.PlayLoop(1.5f, 2.0f);
 
         }
 

@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.IO;
+using UnityEngine.Rendering;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -27,11 +29,11 @@ public class PrefabIconRenderer : MonoBehaviour
             }
         }
 
-    
-
-
+    private Color prevAmbient;
+    private AmbientMode prevAmbientMode;
     public Sprite RenderAndSave(GameObject prefab)
     {
+
         // 기존 자식 제거
         foreach (Transform child in transform)
             DestroyImmediate(child.gameObject);
@@ -58,7 +60,7 @@ public class PrefabIconRenderer : MonoBehaviour
         );
         tex.Apply();
         RenderTexture.active = null;
-
+        
 #if UNITY_EDITOR
         // 저장 폴더 보장
         if (!Directory.Exists(saveFolder))
