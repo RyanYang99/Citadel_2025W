@@ -123,14 +123,6 @@ namespace Citadel
             GameObject obj = Instantiate(meta.prefab, position, rotation);
             //초기화
 
-            ItemProducer producer = obj.GetComponent<ItemProducer>();
-            if (producer != null)
-            {
-                producer.BindInventory(inventory);
-            }
-
-
-
             AddPlacedBuilding(
                 new PlacedBuilding(
                     meta.uniqueName,
