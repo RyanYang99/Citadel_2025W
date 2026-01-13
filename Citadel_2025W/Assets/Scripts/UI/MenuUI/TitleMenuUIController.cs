@@ -8,6 +8,7 @@ namespace Citadel
         private const string MainSceneName = "MainScene";
         private bool isLoadRequested;
 
+
         public void OnClickNewGame()
         {
             Debug.Log($"Loading {MainSceneName}");
@@ -30,6 +31,7 @@ namespace Citadel
                 return;
             SceneManager.sceneLoaded -= OnSceneLoaded;
             isLoadRequested = false;
+            FindAnyObjectByType<SaveLoadManager>().Load();
         }
 
         public void OnClickOption()
