@@ -38,7 +38,7 @@ namespace Citadel
                 Load();
         }
 
-        private void Save()
+        public void Save()
         {
             SaveFile saveFile = new()
             {
@@ -55,7 +55,7 @@ namespace Citadel
             Debug.Log($"Saved to {path}.");
         }
 
-        private void Load()
+        public void Load()
         {
             if (!File.Exists(path))
                 return;
