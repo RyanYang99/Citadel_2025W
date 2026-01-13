@@ -7,10 +7,22 @@ namespace Citadel
 {
     public sealed class ItemConsumer : MonoBehaviour
     {
+        public sealed record AnyResource
+        {
+            public Item? AnyItem;
+            public RangeResource? AnyRangeResource;
+
+            public AnyResource(Item item) => AnyItem = item;
+
+            public AnyResource(RangeResource rangeResource) => AnyRangeResource = rangeResource;
+        }
+        
         public static readonly List<ItemConsumer> ActiveItemConsumers = new();
         
         private readonly Dictionary<Item, int> _currentItems = new();
         private readonly Dictionary<ItemProducer, List<RangeResource>> _providedRangeResources = new();
+
+        private readonly List<AnyResource> _readyResourcesSnapshot = new();
         
         [SerializeField] private Inventory inventory;
         
@@ -18,6 +30,8 @@ namespace Citadel
         private List<ItemAmount> itemsUsed = new();
 
         [SerializeField] private List<RangeResource> rangeResourcesUsed = new();
+        
+        public int TotalRequiredResources { get; private set; }
 
         private void OnValidate() => CheckUsage();
 
@@ -27,17 +41,19 @@ namespace Citadel
 
             foreach (ItemAmount item in itemsUsed)
                 _currentItems.TryAdd(item.item, 0);
+
+            TotalRequiredResources = itemsUsed.Count + rangeResourcesUsed.Count;
         }
 
         private void OnEnable()
         {
-            inventory.OnTick += Tick;
+            inventory.OnTick += OnTick;
             ActiveItemConsumers.Add(this);
         }
 
         private void OnDisable()
         {
-            inventory.OnTick -= Tick;
+            inventory.OnTick -= OnTick;
             ActiveItemConsumers.Remove(this);
         }
 
@@ -55,7 +71,7 @@ namespace Citadel
             }
         }
 
-        private void Tick()
+        private void OnTick()
         {
             foreach (ItemAmount item in itemsUsed)
             {
@@ -65,21 +81,42 @@ namespace Citadel
 
                 _currentItems[item.item] += inventory.Consume(item.item, needed);
             }
+
+            UpdateSnapshot();
+        }
+
+        private List<Item> GetProvidedItems() =>
+            itemsUsed.FindAll(itemAmount => itemAmount.amount <= _currentItems[itemAmount.item])
+                     .Select(itemAmount => itemAmount.item)
+                     .ToList();
+
+        private List<RangeResource> GetProvidedRangeResources()
+        {
+            List<RangeResource> provided = new();
+            foreach (List<RangeResource> rangeResources in _providedRangeResources.Values)
+            foreach (RangeResource rangeResource in rangeResources)
+                if (!provided.Contains(rangeResource) && rangeResourcesUsed.Contains(rangeResource))
+                    provided.Add(rangeResource);
+
+            return provided;
+        }
+
+        private void UpdateSnapshot()
+        {
+            _readyResourcesSnapshot.Clear();
+            _readyResourcesSnapshot.AddRange(GetProvidedItems().Select(item => new AnyResource(item)));
+            _readyResourcesSnapshot.AddRange(GetProvidedRangeResources().Select(rangeResource => new AnyResource(rangeResource)));
         }
 
         public bool AreItemsReady()
         {
-            if (itemsUsed.Any(item => _currentItems[item.item] < item.amount))
+            if (GetProvidedItems().Count < itemsUsed.Count)
                 return false;
 
-            List<RangeResource> provided = new();
-            foreach (List<RangeResource> rangeResources in _providedRangeResources.Values)
-                foreach (RangeResource rangeResource in rangeResources)
-                    if (!provided.Contains(rangeResource) && rangeResourcesUsed.Contains(rangeResource))
-                        provided.Add(rangeResource);
-
-            return provided.Count >= rangeResourcesUsed.Count;
+            return GetProvidedRangeResources().Count >= rangeResourcesUsed.Count;
         }
+
+        public List<AnyResource> GetReadyResources() => _readyResourcesSnapshot;
 
         public void ConsumeReadyItems()
         {
