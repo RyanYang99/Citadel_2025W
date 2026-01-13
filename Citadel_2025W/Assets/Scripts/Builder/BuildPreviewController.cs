@@ -119,7 +119,7 @@ namespace Citadel
             buildPreviewInstance = Instantiate(
                 buildingManager.CurrentBuilding.prefab,
                 Vector3.zero,
-                Quaternion.identity
+                buildingManager.CurrentBuilding.prefab.transform.rotation
             );
 
             buildPreviewInstance.name = "[BUILD PREVIEW]";

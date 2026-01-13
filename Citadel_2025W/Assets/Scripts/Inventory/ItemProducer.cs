@@ -69,8 +69,8 @@ namespace Citadel
         {
             inventory = inv;
 
-            inventory.OnTick -= Tick; // 중복 방지
-            inventory.OnTick += Tick;
+            inventory.OnTick -= OnTick; // 중복 방지
+            inventory.OnTick += OnTick;
         }
 
         private void OnEnable() => inventory.OnTick += OnTick;

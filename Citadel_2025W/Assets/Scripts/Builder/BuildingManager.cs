@@ -162,7 +162,7 @@ namespace Citadel
             PlaceInternal(
                 CurrentBuilding,
                 position,
-                Quaternion.identity
+                CurrentBuilding.prefab.transform.rotation
             );
         }
 
