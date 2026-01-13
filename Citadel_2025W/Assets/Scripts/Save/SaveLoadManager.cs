@@ -26,6 +26,7 @@ namespace Citadel
         
         private string path;
 
+
         private void Awake() => path = Application.persistentDataPath + "/save.json";
 
         private void Update()
