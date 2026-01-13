@@ -5,6 +5,13 @@ namespace Citadel
 {
     public sealed class OptionUIController : MonoBehaviour
     {
+        [Header("Master")]
+        [SerializeField] private Slider masterSlider;
+        [SerializeField] private Image masterIcon;
+        [SerializeField] private Sprite masterOnSprite;
+        [SerializeField] private Sprite masterOffSprite;
+
+
         [Header("BGM")]
         [SerializeField] private Slider bgmSlider;
         [SerializeField] private Image bgmIcon;
