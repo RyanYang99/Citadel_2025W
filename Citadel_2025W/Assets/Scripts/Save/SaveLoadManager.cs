@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Citadel
 {
-    public sealed class SaveLoadManager : MonoBehaviour
+    public sealed class SaveLoadManager : PersistentSingleton<SaveLoadManager>
     {
         [Serializable]
         private class SaveFile
@@ -17,17 +17,23 @@ namespace Citadel
             public List<ItemAmount> inventory = new();
         }
 
-        [Header("Elapsed Time"), SerializeField] private TimeManager timeManager;
+        private TimeManager _timeManager;
 
         [Header("Building"), SerializeField] private BuildingMetaDataList buildingsReference;
-        [SerializeField] private BuildingManager buildingManager;
+        private BuildingManager _buildingManager;
 
-        [Header("Inventory"), SerializeField] private Inventory inventory;
+        private Inventory _inventory;
         
-        private string path;
+        private string _path;
 
-
-        private void Awake() => path = Application.persistentDataPath + "/save.json";
+        protected override void Awake()
+        {
+            _timeManager = FindFirstObjectByType<TimeManager>();
+            _buildingManager = FindFirstObjectByType<BuildingManager>();
+            _inventory = FindFirstObjectByType<Inventory>();
+            
+            _path = Application.persistentDataPath + "/save.json";
+        }
 
         private void Update()
         {
@@ -42,32 +48,32 @@ namespace Citadel
         {
             SaveFile saveFile = new()
             {
-                ElapsedTime = timeManager.TimeElapsed
+                ElapsedTime = _timeManager.TimeElapsed
             };
 
-            foreach (PlacedBuilding placedBuilding in buildingManager.PlacedBuildings)
+            foreach (PlacedBuilding placedBuilding in _buildingManager.PlacedBuildings)
                 saveFile.buildings.Add(new SerializableBuilding(placedBuilding.UniqueName, placedBuilding.Position, placedBuilding.Rotation));
 
-            saveFile.inventory = inventory.ToList();
+            saveFile.inventory = _inventory.ToList();
             
-            File.WriteAllText(path, JsonConvert.SerializeObject(saveFile, Formatting.Indented));
+            File.WriteAllText(_path, JsonConvert.SerializeObject(saveFile, Formatting.Indented));
             
-            Debug.Log($"Saved to {path}.");
+            Debug.Log($"Saved to {_path}.");
         }
 
         public void Load()
         {
-            if (!File.Exists(path))
+            if (!File.Exists(_path))
                 return;
 
-            SaveFile saveFile = JsonConvert.DeserializeObject<SaveFile>(File.ReadAllText(path));
-            timeManager.Load(saveFile.ElapsedTime);
-            buildingManager.Load(saveFile.buildings);
-            inventory.Load(saveFile.inventory);
+            SaveFile saveFile = JsonConvert.DeserializeObject<SaveFile>(File.ReadAllText(_path));
+            _timeManager.Load(saveFile.ElapsedTime);
+            _buildingManager.Load(saveFile.buildings);
+            _inventory.Load(saveFile.inventory);
             
-            inventory.PrintInventory();
+            _inventory.PrintInventory();
             
-            Debug.Log($"Loaded from {path}.");
+            Debug.Log($"Loaded from {_path}.");
         }
     }
 }

@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class UIButtonSound : MonoBehaviour
+namespace Citadel
 {
-    public void OnClick()
+    public sealed class UIButtonSound : MonoBehaviour
     {
-        SoundManager.Instance.PlayButtonClick();
+        public void OnClick() => SoundManager.Instance.PlayButtonClick();
     }
 }
