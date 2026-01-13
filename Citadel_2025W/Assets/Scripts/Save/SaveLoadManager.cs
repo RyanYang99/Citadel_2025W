@@ -9,25 +9,24 @@ namespace Citadel
     public sealed class SaveLoadManager : MonoBehaviour
     {
         [Serializable]
-        private class SerializableBuilding
+        private class SaveFile
         {
-            public string uniqueName;
-            public CleanVector3 position, rotation;
-
-            public SerializableBuilding(string uniqueName, Vector3 position, Vector3 rotation)
-            {
-                this.uniqueName = uniqueName;
-                this.position = new CleanVector3(position);
-                this.rotation = new CleanVector3(rotation);
-            }
+            public DateTime ElapsedTime;
+            
+            public List<SerializableBuilding> buildings = new();
+            public List<ItemAmount> inventory = new();
         }
-        
-        [SerializeField] private BuildingMetaDataList buildingsReference;
+
+        [Header("Elapsed Time"), SerializeField] private TimeManager timeManager;
+
+        [Header("Building"), SerializeField] private BuildingMetaDataList buildingsReference;
         [SerializeField] private BuildingManager buildingManager;
+
+        [Header("Inventory"), SerializeField] private Inventory inventory;
         
         private string path;
 
-        private void Awake() => path = Application.persistentDataPath + "/map.json";
+        private void Awake() => path = Application.persistentDataPath + "/save.json";
 
         private void Update()
         {
@@ -40,11 +39,17 @@ namespace Citadel
 
         private void Save()
         {
-            List<SerializableBuilding> serializableBuildings = new(); 
+            SaveFile saveFile = new()
+            {
+                ElapsedTime = timeManager.TimeElapsed
+            };
+
             foreach (PlacedBuilding placedBuilding in buildingManager.PlacedBuildings)
-                serializableBuildings.Add(new SerializableBuilding(placedBuilding.UniqueName, placedBuilding.Position, placedBuilding.Rotation));
+                saveFile.buildings.Add(new SerializableBuilding(placedBuilding.UniqueName, placedBuilding.Position, placedBuilding.Rotation));
+
+            saveFile.inventory = inventory.ToList();
             
-            File.WriteAllText(path, JsonConvert.SerializeObject(serializableBuildings, Formatting.Indented));
+            File.WriteAllText(path, JsonConvert.SerializeObject(saveFile, Formatting.Indented));
             
             Debug.Log($"Saved to {path}.");
         }
@@ -53,11 +58,15 @@ namespace Citadel
         {
             if (!File.Exists(path))
                 return;
+
+            SaveFile saveFile = JsonConvert.DeserializeObject<SaveFile>(File.ReadAllText(path));
+            timeManager.Load(saveFile.ElapsedTime);
+            buildingManager.Load(saveFile.buildings);
+            inventory.Load(saveFile.inventory);
             
-            List<SerializableBuilding> serializableBuildings = JsonConvert.DeserializeObject<List<SerializableBuilding>>(File.ReadAllText(path));
+            inventory.PrintInventory();
             
-            foreach (SerializableBuilding serializableBuilding in serializableBuildings)
-                buildingManager.PlaceBuilding(serializableBuilding.uniqueName, serializableBuilding.position.ToVector3(), serializableBuilding.rotation.ToVector3());
+            Debug.Log($"Loaded from {path}.");
         }
     }
 }

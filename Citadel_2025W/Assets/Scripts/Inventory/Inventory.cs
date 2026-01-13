@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -9,10 +10,13 @@ namespace Citadel
 {
     public sealed class Inventory : MonoBehaviour
     {
+        //Only for logging purposes.
+        private ulong _tick;
+        
         private float _timer;
         private readonly Dictionary<Item, int> _resourcesCount = new();
         
-        [SerializeField, Tooltip("게임을 처음 시작할 때 플레이어가 가지는 것")] private List<ItemAmount> startingResources;
+        [SerializeField, Tooltip("게임을 처음 시작할 때 플레이어가 가지는 것")] private List<ItemAmount> startingResources = new();
 
         public event Action OnTick;
         public event Action<Item, int> OnItemChange;
@@ -30,8 +34,14 @@ namespace Citadel
             if (_timer < 1.0f)
                 return;
 
+            Debug.Log($"[{nameof(Inventory)}] === Start Tick {_tick} ===");
+            
             _timer = 0f;
             OnTick?.Invoke();
+            
+            PrintInventory();
+            
+            Debug.Log($"[{nameof(Inventory)}] === End Tick {_tick++} ===");
         }
         
         public int GetAmount(Item item)
@@ -47,7 +57,7 @@ namespace Citadel
             if (before != after)
             {
                 _resourcesCount[item] = after;
-                OnItemChange?.Invoke(item, amount);
+                OnItemChange?.Invoke(item, after);
             }
         }
 
@@ -63,6 +73,16 @@ namespace Citadel
                 OnItemChange?.Invoke(item, after);
             }
             return consumableAmount;
+        }
+
+        public List<ItemAmount> ToList() => _resourcesCount.Select(item => new ItemAmount(item.Key, item.Value)).ToList();
+
+        public void Load(List<ItemAmount> items)
+        {
+            _resourcesCount.Clear();
+
+            foreach (ItemAmount item in items)
+                Add(item.item, item.amount);
         }
 
         [Conditional("UNITY_EDITOR"), Conditional("DEVELOPMENT_BUILD")]
