@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f61015b788c63847a895c09f350263f, type: 3}
+  m_Name: Skill_culture2
+  m_EditorClassIdentifier: Assembly-CSharp::ResearchData
+  researchName: "\uBB38\uD654 2Lvl"
+  explanation: "\uB098\uBB34 +10"
+  cost: 2
+  requiredResearches:
+  - {fileID: 11400000, guid: ec2df353d4038b747b43b45d8de20076, type: 2}
+  effects:
+  - isItem: 1
+    targetItem: 1
+    targetResource: 0
+    value: 10
+    isPercentage: 0
