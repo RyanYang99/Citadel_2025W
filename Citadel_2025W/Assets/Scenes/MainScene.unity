@@ -9038,7 +9038,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 754a489d0087520458e3ac807d518b4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.CameraController
-  ownTransform: {fileID: 1557674956}
   pivotTransform: {fileID: 1590095081}
   moveAction: {fileID: 1169853942}
   zoomAction: {fileID: 581821469}
