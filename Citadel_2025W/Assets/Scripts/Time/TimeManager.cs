@@ -24,11 +24,31 @@ namespace Citadel
                 
                 if (hourBefore != _timeElapsed.Hour)
                     OnHourChange?.Invoke(_timeElapsed.Hour);
+
+                bool isDayBefore = IsDay((_timeElapsed.Hour + 23) % 24), isDayNow = IsDay(_timeElapsed.Hour);
+                switch (isDayBefore)
+                {
+                    case true when !isDayNow:
+                        OnNight?.Invoke();
+                        break;
+                    
+                    case false when isDayNow:
+                        OnDay?.Invoke();
+                        break;
+                }
             }
         }
 
         public event Action<float> OnTimeScaleChange;
         public event Action<int> OnHourChange;
+        
+        /*
+            6 ~ 17 (5): Day
+            Other: Night
+        */
+        public event Action OnDay, OnNight;
+        
+        private static bool IsDay(int hour) => hour is >= 6 and <= 17;
 
         private void OnValidate() => UpdateLightning();
         
