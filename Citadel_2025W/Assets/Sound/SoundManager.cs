@@ -55,6 +55,12 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+
+    //오디오믹서 볼륨조절
+    private void MasterVolume(float val)
+    {
+        mixer.SetFloat("MasterVolume", Mathf.Log10(Mathf.Clamp(val, 0.0001f, 1f)) * 20);
+    }
     private void BGMVolume(float val)
     {
         mixer.SetFloat("BGMVolume", Mathf.Log10(Mathf.Clamp(val, 0.0001f, 1f)) * 20);
@@ -65,13 +71,29 @@ public class SoundManager : MonoBehaviour
         mixer.SetFloat("SFXVolume", Mathf.Log10(Mathf.Clamp(val, 0.0001f, 1f)) * 20);
     }
 
+    public void SetMasterVolume(float value)
+    { 
+        MasterVolume(value);
+    }
+    public void SetBGMVolume(float value)
+    {
+        BGMVolume(value);
+    }
+
+    public void SetSFXVolume(float value)
+    {
+        SFXVolume(value);
+    }
+
+
+    //효과음 및 배경음 출력
     public void SFXXPlay(string sfxName, AudioClip clip)
     {
         if (clip == null) return;
 
         GameObject go = new GameObject(sfxName + "Sound");
         AudioSource audioSource = go.AddComponent<AudioSource>();
-        audioSource.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
+        audioSource.outputAudioMixerGroup = mixer.FindMatchingGroups("SFXVolume")[0];
         audioSource.clip = clip;
         audioSource.Play();
 
@@ -82,7 +104,7 @@ public class SoundManager : MonoBehaviour
     {
         if (clip == null) return;
 
-        bgSound.outputAudioMixerGroup = mixer.FindMatchingGroups("BgSound")[0];
+        bgSound.outputAudioMixerGroup = mixer.FindMatchingGroups("BGMVolume")[0];
 
         if (bgSound.clip == clip && bgSound.isPlaying)
             return;
