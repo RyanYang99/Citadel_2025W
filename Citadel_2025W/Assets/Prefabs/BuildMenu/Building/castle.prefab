@@ -557,7 +557,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   lights:
-  - {fileID: 0}
+  - {fileID: 2421109123090440366}
+  - {fileID: 579920869250065840}
+  - {fileID: 7448222517820513355}
+  - {fileID: 6350963766782943874}
 --- !u!1001 &8059026459851782649
 PrefabInstance:
   m_ObjectHideFlags: 0

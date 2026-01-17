@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 namespace Citadel
 {
@@ -87,7 +86,7 @@ namespace Citadel
 
             if (!RaycastGround(out RaycastHit hit))
             {
-                SetBuildPreviewVisible(false);
+                //SetBuildPreviewVisible(false);
                 return;
             }
 
@@ -123,6 +122,14 @@ namespace Citadel
             );
 
             buildPreviewInstance.name = "[BUILD PREVIEW]";
+
+            ItemConsumer itemConsumer = buildPreviewInstance.GetComponent<ItemConsumer>();
+            if (itemConsumer != null)
+                itemConsumer.enabled = false;
+            
+            ItemProducer itemProducer = buildPreviewInstance.GetComponent<ItemProducer>();
+            if (itemProducer != null)
+                itemProducer.enabled = false;
 
             foreach (Collider c in buildPreviewInstance.GetComponentsInChildren<Collider>())
                 c.enabled = false;
