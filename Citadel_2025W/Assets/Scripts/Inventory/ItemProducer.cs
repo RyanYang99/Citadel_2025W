@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Citadel
@@ -49,7 +50,9 @@ namespace Citadel
         private List<RangeResourceAmount> rangeResourceProvided = new();
 
         public Action<ItemAmount> OnItemProduced;
-     
+
+        public float Range => range;
+
         private void OnValidate() => CheckParameters();
 
         private void Awake()

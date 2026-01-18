@@ -2079,6 +2079,83 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 474769436}
   m_CullTransparentMesh: 1
+--- !u!1 &476077030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 476077034}
+  - component: {fileID: 476077033}
+  - component: {fileID: 476077032}
+  - component: {fileID: 476077031}
+  m_Layer: 0
+  m_Name: GirdSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &476077031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476077030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f6c03052357f454ea6f50e3919c4600, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.GridPlacementValidator
+  grid: {fileID: 476077033}
+  occupancy: {fileID: 476077032}
+  footprintDB: {fileID: 11400000, guid: 3ff6a2fc332510449a7fb90a032540fb, type: 2}
+--- !u!114 &476077032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476077030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b461b7f8f4f55b499b7b18287854153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.GridOccupancy
+  buildingManager: {fileID: 1372303781}
+  grid: {fileID: 476077033}
+--- !u!114 &476077033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476077030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d4176a4074c7e64dbfa38744f4f7228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.GridService
+  cellSize: 1
+  origin: {x: -1, y: -0.5, z: -1}
+--- !u!4 &476077034
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476077030}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1822299395}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &515908742
 GameObject:
   m_ObjectHideFlags: 0
@@ -2738,7 +2815,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &613166552
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8540,6 +8617,8 @@ MonoBehaviour:
     m_Bits: 8
   previewController: {fileID: 1372303784}
   SFXLooper: {fileID: 618820556}
+  grid: {fileID: 476077033}
+  validator: {fileID: 476077031}
   destroyLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -8565,6 +8644,8 @@ MonoBehaviour:
     m_Bits: 128
   previewValidMat: {fileID: 2100000, guid: 3ec8803dd7a0f514cb5e50a2e785714d, type: 2}
   previewInvalidMat: {fileID: 2100000, guid: 58be4acc3c4e0a64d8a6a8338347a59f, type: 2}
+  grid: {fileID: 476077033}
+  validator: {fileID: 476077031}
 --- !u!114 &1372303785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10555,6 +10636,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 476077034}
   - {fileID: 1372303780}
   - {fileID: 1256469121}
   - {fileID: 1908467907}

@@ -19,6 +19,8 @@ namespace Citadel
         [SerializeField] private LayerMask buildingLayer;
         [SerializeField] private BuildPreviewController previewController;
         [SerializeField] private SFXLooper SFXLooper;
+        [SerializeField] private GridService grid;
+        [SerializeField] private GridPlacementValidator validator;
 
         private BuildMode currentMode = BuildMode.Build;
         private void Update()
@@ -80,7 +82,14 @@ namespace Citadel
             if (!IsGround(hit.transform.gameObject)) return;
 
 
-            buildingManager.PlaceBuilding(hit.point,previewController.CurrentRotation);
+
+            Vector3 snapped = grid.SnapToCellCenter(hit.point);
+
+            // yOffset은 BuildingManager.PlaceBuilding(Vector3)에서 더해짐
+            if (!validator.CanPlace(buildingManager.CurrentBuilding, snapped, previewController.CurrentRotation))
+                return;
+
+            buildingManager.PlaceBuilding(snapped, previewController.CurrentRotation);
 
             SFXLooper.PlayLoop(1.5f, 2.0f);
 

@@ -17,6 +17,12 @@ namespace Citadel
         [SerializeField] private Material previewValidMat;
         [SerializeField] private Material previewInvalidMat;
 
+        [Header("Grid system")]
+        [SerializeField] private GridService grid;
+        [SerializeField] private GridPlacementValidator validator;
+        [SerializeField] private RangePreviewVisualizer rangeVisualizer;
+
+
         // Build Preview
         private GameObject buildPreviewInstance;
         private Renderer[] buildPreviewRenderers;
@@ -78,7 +84,6 @@ namespace Citadel
 
         private void UpdateBuildPreview()
         {
-
             if (buildingManager.CurrentBuilding == null)
             {
                 ClearBuildPreview();
@@ -94,21 +99,50 @@ namespace Citadel
             if (buildPreviewInstance == null)
                 CreateBuildPreview();
 
-            Vector3 pos = hit.collider.transform.position;
-            buildPreviewInstance.transform.position = hit.point;
+            // 그리드 스냅
+            Vector3 snapped = grid != null ? grid.SnapToCellCenter(hit.point) : hit.point;
+
+            // 프리뷰 위치를 스냅된 위치로
+            buildPreviewInstance.transform.position = snapped;
             buildPreviewInstance.SetActive(true);
 
-            bool canPlacePos = buildingManager.CanPlaceBuildingAt(pos);
+            if (rangeVisualizer != null)
+            {
+                var producer = buildPreviewInstance.GetComponent<ItemProducer>();
+
+                if (producer != null)
+                {
+                    rangeVisualizer.Show(producer.Range);
+                    rangeVisualizer.SetCenter(snapped); 
+                }
+                else
+                {
+                    rangeVisualizer.Hide();
+                }
+            }
+
+
+
+
+
+
+            //설치 가능 판정 footprint 기반
+            bool canPlacePos;
+            if (validator != null)
+                canPlacePos = validator.CanPlace(buildingManager.CurrentBuilding, snapped, buildPreviewInstance.transform.rotation);
+            else
+                canPlacePos = buildingManager.CanPlaceBuildingAt(snapped); // 최소 안전 fallback
+
             bool canBuildCount = buildingManager.CanBuild(buildingManager.CurrentBuilding);
 
             bool canBuildFinal = canPlacePos && canBuildCount;
+
             ApplyMaterial(
                 buildPreviewRenderers,
                 canBuildFinal ? previewValidMat : previewInvalidMat
             );
-
-
         }
+
 
         private void CreateBuildPreview()
         {
