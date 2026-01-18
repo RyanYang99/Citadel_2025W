@@ -78,12 +78,13 @@ namespace Citadel
 
             if (!GetRaycastHitFromMouse(out RaycastHit hit)) return;
             if (!IsGround(hit.transform.gameObject)) return;
-
+            
+            if (previewController.buildPreviewInstance != null)
+                if (BuildingManager.OverLockedTilesOrBuildings(previewController.buildPreviewInstance.GetComponent<BoxCollider>()))
+                    return;
 
             buildingManager.PlaceBuilding(hit.point,previewController.CurrentRotation);
-
             SFXLooper.PlayLoop(1.5f, 2.0f);
-
         }
 
         private void Rotate()

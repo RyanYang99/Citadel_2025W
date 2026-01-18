@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7354397811195553892}
   - component: {fileID: 6350963766782943874}
   - component: {fileID: 4792174168213738168}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Light (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 8942186519561650955}
   - component: {fileID: 2421109123090440366}
   - component: {fileID: 5211882453829524320}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 4568559883191256853}
   - component: {fileID: 579920869250065840}
   - component: {fileID: 5249959409035027429}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Light (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -392,7 +392,7 @@ GameObject:
   - component: {fileID: 8728609851786994}
   - component: {fileID: 7448222517820513355}
   - component: {fileID: 2211885301990644228}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Light (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -518,7 +518,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6260767763362683829}
   - component: {fileID: 856896564853797184}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: NightLights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -627,7 +627,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9154929bdb7d53349b6289a23a4fb19f, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9154929bdb7d53349b6289a23a4fb19f, type: 3}
+      propertyPath: m_TagString
+      value: Building
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
