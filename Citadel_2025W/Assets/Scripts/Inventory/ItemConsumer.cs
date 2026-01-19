@@ -24,7 +24,7 @@ namespace Citadel
 
         private readonly List<AnyResource> _readyResourcesSnapshot = new();
         
-        [SerializeField] private Inventory inventory;
+        private Inventory _inventory;
         
         [SerializeField, Tooltip("필요한 자원")]
         private List<ItemAmount> itemsUsed = new();
@@ -33,11 +33,9 @@ namespace Citadel
         
         public int TotalRequiredResources { get; private set; }
 
-        private void OnValidate() => CheckUsage();
-
         private void Awake()
         {
-            CheckUsage();
+            _inventory = FindAnyObjectByType<Inventory>();
 
             foreach (ItemAmount item in itemsUsed)
                 _currentItems.TryAdd(item.item, 0);
@@ -47,28 +45,14 @@ namespace Citadel
 
         private void OnEnable()
         {
-            inventory.OnTick += OnTick;
+            _inventory.OnTick += OnTick;
             ActiveItemConsumers.Add(this);
         }
 
         private void OnDisable()
         {
-            inventory.OnTick -= OnTick;
+            _inventory.OnTick -= OnTick;
             ActiveItemConsumers.Remove(this);
-        }
-
-        private void CheckUsage()
-        {
-            for (int i = 0; i < itemsUsed.Count; ++i)
-            {
-                ItemAmount item = itemsUsed[i];
-                
-                if (item.amount < 0)
-                {
-                    Debug.LogError($"{nameof(itemsUsed)} can not contain a negative value.");
-                    itemsUsed[i] = new ItemAmount(item.item);
-                }
-            }
         }
 
         private void OnTick()
@@ -79,7 +63,7 @@ namespace Citadel
                 if (needed <= 0)
                     continue;
 
-                _currentItems[item.item] += inventory.Consume(item.item, needed);
+                _currentItems[item.item] += _inventory.Consume(item.item, needed);
             }
 
             UpdateSnapshot();
@@ -94,8 +78,7 @@ namespace Citadel
         {
             List<RangeResource> provided = new();
             foreach (List<RangeResource> rangeResources in _providedRangeResources.Values)
-            foreach (RangeResource rangeResource in rangeResources)
-                if (!provided.Contains(rangeResource) && rangeResourcesUsed.Contains(rangeResource))
+                foreach (RangeResource rangeResource in rangeResources.Where(rangeResource => !provided.Contains(rangeResource) && rangeResourcesUsed.Contains(rangeResource)))
                     provided.Add(rangeResource);
 
             return provided;

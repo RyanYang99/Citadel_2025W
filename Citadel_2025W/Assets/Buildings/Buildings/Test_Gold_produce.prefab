@@ -54,7 +54,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 273bf60b1c9c97149947b11566461aa2, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 273bf60b1c9c97149947b11566461aa2, type: 3}
+      propertyPath: m_TagString
+      value: Building
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -115,6 +119,7 @@ MonoBehaviour:
     amount: 100
   range: 0
   rangeResourceProvided: []
+  oneTimeItemProduced: []
 --- !u!114 &2654169496394782198
 MonoBehaviour:
   m_ObjectHideFlags: 0

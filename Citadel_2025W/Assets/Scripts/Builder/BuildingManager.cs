@@ -28,6 +28,8 @@ namespace Citadel
         public event Action OnBuildingChanged;
         public event Action OnPlacedBuildingChanged;
         private int _currentIndex = -1;
+        
+        [SerializeField] private LayerMask groundLayer;
 
         [SerializeField] private BuildingMetaDataList buildings;
         [SerializeField] private Inventory inventory;
@@ -51,6 +53,24 @@ namespace Citadel
         }
 
         public readonly List<PlacedBuilding> PlacedBuildings = new();
+        
+        public static bool OverLockedTilesOrBuildings(BoxCollider boxCollider)
+        {
+            Vector3 center = boxCollider.transform.TransformPoint(boxCollider.center),
+                    half = Vector3.Scale(boxCollider.size, boxCollider.transform.lossyScale) * 0.5f;
+            half.y = 1000f;
+            
+            foreach (Collider _collider in Physics.OverlapBox(center, half, Quaternion.identity))
+            {
+                if (_collider.TryGetComponent(out LockedTile lockedTile) && lockedTile.Locked)
+                    return true;
+                
+                if (_collider.CompareTag(Tags.Building)) 
+                    return true;
+            }
+
+            return false;
+        }
 
         private void Start()
         {
@@ -188,6 +208,7 @@ namespace Citadel
             );
         }
 
+        /*
         public bool CanPlaceBuildingAt(Vector3 position)
         {
             foreach (PlacedBuilding placed in PlacedBuildings)
@@ -198,6 +219,7 @@ namespace Citadel
 
             return true;
         }
+        */
 
         public void RotateBuilding(GameObject _gameObject)
         {

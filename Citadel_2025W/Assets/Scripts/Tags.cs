@@ -9,6 +9,7 @@ namespace Citadel
                             Player = "Player",
                             GameController = "GameController",
                             BackGround = "BackGround",
-                            Ground = "Ground";
+                            Ground = "Ground",
+                            Building = "Building";
     }
 }
