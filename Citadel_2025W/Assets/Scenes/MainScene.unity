@@ -2214,7 +2214,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 439616708}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7264,8 +7264,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2ee6c2a248e28a4fa16bdcc1defe495, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.SaveLoadManager
+  timeManager: {fileID: 0}
   buildingsReference: {fileID: 11400000, guid: dc7bc133d6e37094aa445d8496a570cb, type: 2}
   buildingManager: {fileID: 1372303781}
+  inventory: {fileID: 0}
 --- !u!114 &1372303783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7342,32 +7344,53 @@ MonoBehaviour:
   levelDataList:
   - subCategory: 1
     levelPrefabs:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 3581141966575942417, guid: 3284ba3accce6224a913776bf2ddf2a9, type: 3}
+    - {fileID: 3079906191569510546, guid: 3b0f2775467d6f74fbea1f88fc25bfcc, type: 3}
+    - {fileID: 5151388866340317432, guid: db89ec2dfaecc2a4d8ca4f9ddffc01b6, type: 3}
+    - {fileID: 8999155626644292792, guid: 0e467efa532ebb7498e9fc67132a61e5, type: 3}
+    - {fileID: 7513788861091225518, guid: 3b7c900785bac30419d47f26c188278a, type: 3}
   - subCategory: 2
     levelPrefabs:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 7139894311771784360, guid: d98e3cd2ebd250140bd8853af6a43dde, type: 3}
+    - {fileID: 3010037280634037955, guid: cdde941acb71cd54ea01e7a26c08afcb, type: 3}
+    - {fileID: 3643897831086613546, guid: 18298943ac6df8a4ca5eb10570cd117d, type: 3}
+    - {fileID: 1618687457310228821, guid: 425c831110db36343bd8c473daafe7d8, type: 3}
+    - {fileID: 9144465607942201317, guid: aa0fe25ab7b7f514d8896433ea4ac439, type: 3}
   - subCategory: 3
     levelPrefabs:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 8780672246137247250, guid: 3c887ed5009ca0745aba1abf9b6b5f3b, type: 3}
+    - {fileID: 4834367476569116104, guid: b66ef6ca6b10ae548ab01746ec4f5694, type: 3}
+    - {fileID: 2010554625136600686, guid: 8b035004d7ae17a4ba8ddbef7f9eb5e9, type: 3}
+    - {fileID: 7694144497664926429, guid: 88d35bef0de959547815487ef410ff23, type: 3}
+    - {fileID: 4860598323427668412, guid: 78647136400fcc643b373fb578145ab7, type: 3}
   - subCategory: 4
     levelPrefabs:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 2051219031347337195, guid: e7b6b2518e0e8da4d9533f463ac794c5, type: 3}
+    - {fileID: 1453492539938533985, guid: d056b76e94f9cb344aa11c92b244ebcc, type: 3}
+    - {fileID: 6597436425152099881, guid: 6e9c851fddb236e4a9005c5d9f9f14e1, type: 3}
+    - {fileID: 6597436425152099881, guid: 6e9c851fddb236e4a9005c5d9f9f14e1, type: 3}
+    - {fileID: 6597436425152099881, guid: 6e9c851fddb236e4a9005c5d9f9f14e1, type: 3}
+  - subCategory: 5
+    levelPrefabs:
+    - {fileID: 7509482206287447689, guid: 065df44163abbf048af1eba8571c608f, type: 3}
+    - {fileID: 7509482206287447689, guid: 065df44163abbf048af1eba8571c608f, type: 3}
+    - {fileID: 7509482206287447689, guid: 065df44163abbf048af1eba8571c608f, type: 3}
+    - {fileID: 7509482206287447689, guid: 065df44163abbf048af1eba8571c608f, type: 3}
+    - {fileID: 7509482206287447689, guid: 065df44163abbf048af1eba8571c608f, type: 3}
+  - subCategory: 6
+    levelPrefabs:
+    - {fileID: 2710871837090424155, guid: c18f622e974cd0c4092f32189b5b717a, type: 3}
+    - {fileID: 2710871837090424155, guid: c18f622e974cd0c4092f32189b5b717a, type: 3}
+    - {fileID: 2710871837090424155, guid: c18f622e974cd0c4092f32189b5b717a, type: 3}
+    - {fileID: 2710871837090424155, guid: c18f622e974cd0c4092f32189b5b717a, type: 3}
+    - {fileID: 2710871837090424155, guid: c18f622e974cd0c4092f32189b5b717a, type: 3}
+  - subCategory: 7
+    levelPrefabs:
+    - {fileID: 8687711422617295190, guid: bfa5fefb3b43a9e42aa0e8e331beaf5d, type: 3}
+    - {fileID: 8687711422617295190, guid: bfa5fefb3b43a9e42aa0e8e331beaf5d, type: 3}
+    - {fileID: 8687711422617295190, guid: bfa5fefb3b43a9e42aa0e8e331beaf5d, type: 3}
+    - {fileID: 8687711422617295190, guid: bfa5fefb3b43a9e42aa0e8e331beaf5d, type: 3}
+    - {fileID: 8687711422617295190, guid: bfa5fefb3b43a9e42aa0e8e331beaf5d, type: 3}
 --- !u!1 &1423476263
 GameObject:
   m_ObjectHideFlags: 0
