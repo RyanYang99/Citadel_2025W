@@ -39,6 +39,9 @@ namespace Citadel
         {
             CheckUsage();
 
+            if (inventory == null)
+                inventory = FindFirstObjectByType<Inventory>();
+
             foreach (ItemAmount item in itemsUsed)
                 _currentItems.TryAdd(item.item, 0);
 

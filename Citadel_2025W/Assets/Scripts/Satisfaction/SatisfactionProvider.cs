@@ -21,6 +21,11 @@ namespace Citadel
             public BonusValue bonusValue;
         }
 
+        [Header("Building Category")]
+        public SatisfactionCategory category;
+        
+        public bool IsReady { get; private set; } = false;
+        
         private bool _hasBonus;
         private float _totalWeight;
         private readonly Dictionary<ItemConsumer.AnyResource, float> _mappedImportance = new();
@@ -37,18 +42,34 @@ namespace Citadel
         
         public float Satisfaction { get; private set; }
 
-        private void OnEnable() => inventory.OnTick += OnTick;
+        private void OnEnable()
+        {
+            inventory.OnTick += OnTick;
+            SatisfactionManager.Instance.Register(this);
+            
+            IsReady = false;
+        }
 
         private void OnDisable()
         {
             inventory.OnTick -= OnTick;
 
+            if (SatisfactionManager.Instance != null)
+                SatisfactionManager.Instance.Unregister(this);
+            
+            IsReady = false;
             _hasBonus = false;
             bonusManager.RemoveBonus(this);
         }
 
         private void Awake()
         {
+            if (inventory == null)
+                inventory = FindFirstObjectByType<Inventory>();
+
+            if (bonusManager == null)
+                bonusManager = FindFirstObjectByType<BonusManager>();
+
             foreach (SatisfactionImportance.ItemImportance itemImportance in satisfactionImportance.itemImportances)
                 _mappedImportance.TryAdd(new ItemConsumer.AnyResource(itemImportance.item), itemImportance.importance);
             
@@ -78,13 +99,16 @@ namespace Citadel
             if (_totalWeight == 0f)
             {
                 Satisfaction = 1f;
+                IsReady = true;
                 return;
             }
             
             float sum = itemConsumer.GetReadyResources().Where(anyResource => _mappedImportance.ContainsKey(anyResource))
                                     .Sum(anyResource => _mappedImportance[anyResource]);
             Satisfaction = sum / _totalWeight;
-            
+
+            IsReady = true;
+
             if (Satisfaction >= threshold)
             {
                 if (!_hasBonus)
