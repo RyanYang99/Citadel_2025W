@@ -21,6 +21,9 @@ namespace Citadel
         [SerializeField] private SFXLooper SFXLooper;
         [SerializeField] private GridService grid;
         [SerializeField] private GridPlacementValidator validator;
+        [SerializeField] private BuildingSelectionController selectionController;
+        [SerializeField] private BuildingContextUIController contextUI;
+
 
         private BuildMode currentMode = BuildMode.Build;
         private void Update()
@@ -51,13 +54,20 @@ namespace Citadel
         {
             currentMode = BuildMode.Destroy;
             previewController.SetMode(BuildMode.Destroy);
+
+            selectionController?.SetSelectionEnabled(false);
+            contextUI?.ForceHide();
             Debug.Log("철거 모드");
         }
+
 
         public void SetBuildMode()
         {
             currentMode = BuildMode.Build;
             previewController.SetMode(BuildMode.Build);
+
+            selectionController?.SetSelectionEnabled(false);
+            contextUI?.ForceHide();
             Debug.Log("설치 모드");
         }
 
@@ -65,6 +75,8 @@ namespace Citadel
         {
             currentMode = BuildMode.None;
             previewController.SetMode(BuildMode.None);
+
+            selectionController?.SetSelectionEnabled(true);
             Debug.Log("대기 모드");
         }
 
@@ -100,7 +112,7 @@ namespace Citadel
             if (!GetRaycastHitFromMouse(out RaycastHit hit)) return;
             if (IsGround(hit.transform.gameObject)) return;
 
-            buildingManager.RotateBuilding(hit.transform.gameObject);
+            buildingManager.RotateBuilding(hit.transform.root.gameObject);
         }
 
         [SerializeField] private LayerMask destroyLayer;

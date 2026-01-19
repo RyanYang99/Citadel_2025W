@@ -33,6 +33,17 @@ namespace Citadel
         
         public int TotalRequiredResources { get; private set; }
 
+        //Status Panel 읽기 전용
+        public IReadOnlyList<ItemAmount> ItemsUsed => itemsUsed;
+        public IReadOnlyList<RangeResource> RangeResourcesUsed => rangeResourcesUsed;
+
+        public int GetCurrentAmount(Item item)
+        {
+            return _currentItems.TryGetValue(item, out int v) ? v : 0;
+        }
+        //======================
+
+
         private void OnValidate() => CheckUsage();
 
         private void Awake()

@@ -32,12 +32,19 @@ namespace Citadel
         [SerializeField] private BuildingMetaDataList buildings;
         [SerializeField] private Inventory inventory;
 
-        [SerializeField] private SFXLooper SFXLooper;
+        [SerializeField] private SFXLooper sfxLooper;
         public BuildingMetaDataList Buildings
         {
             get => buildings;
             private set => buildings = value;
         }
+
+        private void Awake()
+        {
+            if (!sfxLooper)
+                sfxLooper = FindAnyObjectByType<SFXLooper>();
+        }
+
 
         public BuildingMetaData CurrentBuilding
         {
@@ -98,15 +105,17 @@ namespace Citadel
             OnPlacedBuildingChanged?.Invoke();
         }
 
-        private void RemovePlacedBuilding(GameObject _gameObject)
+        private void RemovePlacedBuilding(GameObject _gameObject, bool playSfx)
         {
             PlacedBuilding placedBuilding = FindPlacedBuilding(_gameObject);
-            if (placedBuilding != null)
-            {
+            if (placedBuilding == null)
+                return;
+
                 PlacedBuildings.Remove(placedBuilding);
-            }
                 OnPlacedBuildingChanged?.Invoke();
-            SFXLooper.PlayOneSecond();
+
+            if (playSfx&&sfxLooper)
+                sfxLooper.PlayOneSecond();
 
         }
 
@@ -201,26 +210,29 @@ namespace Citadel
 
         public void RotateBuilding(GameObject _gameObject)
         {
-            _gameObject.transform.Rotate(Vector3.up, 90f);
+            if (!_gameObject) return;
 
-            PlacedBuilding placedBuilding = FindPlacedBuilding(_gameObject);
+            GameObject root = _gameObject.transform.root.gameObject;
+
+            root.transform.Rotate(Vector3.up, 90f);
+
+            PlacedBuilding placedBuilding = FindPlacedBuilding(root);
             if (placedBuilding != null)
-                placedBuilding.Rotation = _gameObject.transform.eulerAngles;
+                placedBuilding.Rotation = root.transform.eulerAngles;
         }
 
-        public void RemoveBuilding(GameObject _gameObject)
+        public void RemoveBuilding(GameObject _gameObject,bool playSfx =true)
         {
-            RemovePlacedBuilding(_gameObject);
+            RemovePlacedBuilding(_gameObject,playSfx);
             Destroy(_gameObject);
         }
 
         public void RemoveAllBuildings()
         {
-            List<PlacedBuilding> copy = new(PlacedBuildings);
-
-            foreach (PlacedBuilding placedBuilding in copy)
-                RemoveBuilding(placedBuilding._GameObject);
+            foreach (var pb in PlacedBuildings.ToList())
+                RemoveBuilding(pb._GameObject, playSfx: false);
         }
+
 
         public void Load(List<SerializableBuilding> serializableBuildings)
         {

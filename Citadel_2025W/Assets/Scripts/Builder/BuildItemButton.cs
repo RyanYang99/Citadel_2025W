@@ -11,6 +11,9 @@ namespace Citadel
         private BuildingPlacer buildingPlacer;
         private BuildPreviewController previewController;
 
+        private BuildingSelectionController selectionController;
+        private BuildingContextUIController contextUI;
+
         [SerializeField] private Image icon;
         [SerializeField] private TextMeshProUGUI countText;
 
@@ -97,6 +100,10 @@ namespace Citadel
                 buildingManager.Buildings.list.IndexOf(meta)
             );
             buildingPlacer.SetBuildMode();
+
+            selectionController?.SetSelectionEnabled(false);
+            contextUI?.ForceHide();
+
 
             if (previewController != null)
                 previewController.SetMode(BuildMode.Build);

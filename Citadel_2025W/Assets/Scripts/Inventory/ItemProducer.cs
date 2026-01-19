@@ -51,7 +51,23 @@ namespace Citadel
 
         public Action<ItemAmount> OnItemProduced;
 
+        //Status 판넬에 데이터를 넘기기 위한 , 읽기 전용
+        public int TicksNeeded => ticksNeeded;
+        public IReadOnlyList<ItemAmount> ItemsProduced => itemsProduced;
         public float Range => range;
+
+        public IReadOnlyList<(RangeResource resource, int tickDuration)> RangeResourcesProvided
+        {
+            get
+            {
+                var list = new List<(RangeResource, int)>();
+                foreach (var r in rangeResourceProvided)
+                    list.Add((r.rangeResource, r.tickDuration));
+                return list;
+            }
+        }
+
+        //=========================================
 
         private void OnValidate() => CheckParameters();
 
