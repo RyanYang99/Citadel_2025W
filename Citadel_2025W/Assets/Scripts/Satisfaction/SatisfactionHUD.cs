@@ -1,22 +1,22 @@
 using System;
-using System.Collections.Generic; // Dictionary 사용을 위해
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; // TextMeshPro 필수
+using TMPro;
 
 namespace Citadel
 {
     public class SatisfactionHUD : MonoBehaviour
     {
         [Header("Global UI")]
-        [SerializeField] private TextMeshProUGUI globalText; // 예: "전체 만족도: 85%"
+        [SerializeField] private TextMeshProUGUI globalText; // ex) "전체 만족도: 85%"
 
         [Header("Details UI (Tooltip)")]
         [SerializeField] private GameObject detailPanel;
         [SerializeField] private CategoryUI[] categoryUIs;
 
         [Header("Settings")]
-        [SerializeField] private float alertThreshold = 0.4f; // 40% 미만이면 경고
+        [SerializeField] private float alertThreshold = 0.4f; // 40% 미만이면 경고표시
         [SerializeField] private SatisfactionAlertIcon alertIconPrefab; // 아이콘 프리팹
 
         [Serializable]
@@ -30,7 +30,7 @@ namespace Citadel
         }
         private float _displayGlobalAvg = 1f;
 
-        // 카테고리 영문 이름 -> 한글 이름 변환용 사전
+        // 카테고리 영문 이름 -> 한글 이름 변환용
         private readonly Dictionary<SatisfactionCategory, string> _categoryNames = new()
         {
             { SatisfactionCategory.Residential, "주거" },
@@ -43,7 +43,6 @@ namespace Citadel
         {
             foreach (var catUI in categoryUIs)
             {
-                // 람다식을 사용할 때 로컬 변수 캡처 문제 방지
                 var currentCategory = catUI.category;
                 catUI.alertButton.onClick.AddListener(() => OnClickAlert(currentCategory));
             }
@@ -73,7 +72,7 @@ namespace Citadel
 
             float actualGlobalAvg = SatisfactionManager.Instance.GetGlobalAverage();
 
-            // 건물이 하나도 없을 때 처리
+            // 건물이 하나도 없을 때
             if (actualGlobalAvg < 0)
             {
                 globalText.text = "총 만족도 ( -% )";
@@ -106,13 +105,13 @@ namespace Citadel
 
                 uiItem.displayScore = Mathf.Lerp(uiItem.displayScore, targetAvg, Time.deltaTime * 1f);
 
-                // 1. 텍스트 갱신 ex) "주거 (00%)"
+                // 텍스트 갱신 ex) "주거 (00%)"
                 uiItem.statusText.text = $"{kName} ({uiItem.displayScore * 100:F0}%)";
 
-                // 2. 글자 색상 변경 (보기 좋게)
+                // 글자 색상 변경 (보기 좋게)
                 uiItem.statusText.color = GetColorByScore(uiItem.displayScore);
 
-                // 3. 경고 버튼 활성화 여부
+                // 경고 버튼 활성화 여부
                 bool hasProblem = SatisfactionManager.Instance.HasWorstBuilding(uiItem.category, alertThreshold);
 
                 // 버튼 상태 갱신
@@ -123,26 +122,25 @@ namespace Citadel
             }
         }
 
-        // 점수에 따라 색상을 반환하는 도우미 함수
+        // 점수에 따라 색상을 반환하는 함수
         private Color GetColorByScore(float score)
         {
             if (score >= 0.8f) return Color.green;       // 80% 이상: 초록
-            if (score >= 0.4f) return Color.yellow;       // 40~79%: 노랑
+            if (score >= 0.4f) return Color.yellow;      // 40~79%: 노랑
             return Color.red;                            // 40% 미만: 빨강
         }
 
         private void OnClickAlert(SatisfactionCategory category)
         {
-            // 변경된 함수 호출 (리스트를 받아옴)
+            // 만족도가 낮은 건물 리스트를 받아옴
             var worstBuildings = SatisfactionManager.Instance.GetWorstBuildings(category);
 
-            // 문제 건물들이 있다면 모두 생성
+            // 가져온 건물들 위에 아이콘 생성
             foreach (var provider in worstBuildings)
             {
                 if (provider != null)
                 {
                     SatisfactionAlertIcon newIcon = Instantiate(alertIconPrefab);
-                    // SatisfactionProvider도 컴포넌트이므로 .transform을 바로 쓸 수 있습니다.
                     newIcon.Setup(provider.transform);
 
                     Debug.Log($"{provider.name} (만족도: {provider.Satisfaction * 100:F0}%) 위에 아이콘 생성");

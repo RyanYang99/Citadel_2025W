@@ -31,7 +31,7 @@ namespace Citadel
         {
             var readyProviders = _providers.Where(p => p.IsReady).ToList();
 
-            
+            //건물이 아무것도 없다면 -1을 반환
             if (readyProviders.Count == 0) return -1f;
 
             return readyProviders.Average(p => p.Satisfaction);
@@ -44,6 +44,7 @@ namespace Citadel
             var targetProviders = _providers.Where(p => p.category == category && p.IsReady).ToList();
             
             if (targetProviders.Count == 0) return -1f;
+
             return targetProviders.Average(p => p.Satisfaction);
         }
 
