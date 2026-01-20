@@ -26,7 +26,97 @@ public class TimeUIController : MonoBehaviour
     public Button speed2xButton;
     public Button speed4xButton;
 
+    [Header("Arc Move (반원)")]
+    public RectTransform arcRoot;     // 반원 중심
+    public RectTransform sunIconRect;
+    public RectTransform moonIconRect;
+    public RectTransform cloudIconRect; 
 
+    [Header("Progress Colors")]
+    public Color dayFillColor = new Color(0.45f, 0.80f, 1.00f, 1f);     // 하늘색
+    public Color eveningFillColor = new Color(0.90f, 0.65f, 0.35f, 1f); // 노을 
+    public Color nightFillColor = new Color(0.10f, 0.15f, 0.35f, 1f);   // 남색
+
+    public float arcRadius = 60f;     // 반원 반지름
+    public float dayStartAngle = 180f; // 왼쪽
+    public float dayEndAngle = 0f;     // 오른쪽
+    public float nightStartAngle = 180f;
+    public float nightEndAngle = 0f;
+
+    //반원 메인 시간 프로그레스바
+
+    Vector2 GetArcPos(float angleDeg, float radius)
+    {
+        float rad = angleDeg * Mathf.Deg2Rad;
+        return new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)) * radius;
+    }
+
+    void UpdateDayStateAndArc(DateTime t)
+    {
+        float minutes = t.Hour * 60f + t.Minute;
+
+        // 상태 구간
+        bool isDay = minutes >= 360f && minutes < 1080f;          // 06-18
+        bool isEvening = minutes >= 1080f && minutes < 1260f;     // 18-21
+        bool isNight = !isDay && !isEvening;                      // 21-06
+
+        //상태 아이콘 스왑
+        if (dayStateIcon != null)
+        {
+            if (isDay) dayStateIcon.sprite = dayIcon;
+            else if (isEvening) dayStateIcon.sprite = eveningIcon;
+            else dayStateIcon.sprite = nightIcon;
+        }
+
+        //색 변경 
+        if (circleProgress != null)
+        {
+            if (isDay) circleProgress.color = dayFillColor;
+            else if (isEvening) circleProgress.color = eveningFillColor;
+            else circleProgress.color = nightFillColor;
+        }
+
+        //반원 이동
+        if (arcRoot == null) return;
+
+        if (sunIconRect) sunIconRect.gameObject.SetActive(isDay);
+        if (cloudIconRect) cloudIconRect.gameObject.SetActive(isEvening);
+        if (moonIconRect) moonIconRect.gameObject.SetActive(isNight);
+
+ 
+        float u;
+        if (isDay)
+        {
+            u = Mathf.InverseLerp(360f, 1080f, minutes); // 06-18
+            SetArcPos(sunIconRect, u);
+        }
+        else if (isEvening)
+        {
+            u = Mathf.InverseLerp(1080f, 1260f, minutes); // 18-21
+            SetArcPos(cloudIconRect, u);
+        }
+        else // night 21-06
+        {
+            
+            if (minutes >= 1260f) // 21-24
+                u = Mathf.InverseLerp(1260f, 1440f, minutes) * 0.5f; // 0~0.5
+            else // 0~6
+                u = 0.5f + Mathf.InverseLerp(0f, 360f, minutes) * 0.5f; // 0.5~1
+
+            SetArcPos(moonIconRect, u);
+        }
+    }
+
+    void SetArcPos(RectTransform icon, float u01)
+    {
+        if (icon == null) return;
+
+        float angle = Mathf.Lerp(dayStartAngle, dayEndAngle, u01);
+        float rad = angle * Mathf.Deg2Rad;
+
+        Vector2 pos = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)) * arcRadius;
+        icon.anchoredPosition = pos;
+    }
 
     //속도 조절 함수
     public void Pause()
@@ -125,6 +215,7 @@ public class TimeUIController : MonoBehaviour
     {
         UpdateTimeText();
         UpdateProgress();
+        UpdateDayStateAndArc(timeManager.TimeElapsed);
     }
 
     void OnHourChanged(int hour)

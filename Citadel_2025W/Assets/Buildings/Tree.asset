@@ -17,5 +17,5 @@ MonoBehaviour:
   icon: {fileID: -3963592884136529334, guid: 0f394ed5fb0da3549aef8f3f01fba164, type: 3}
   category: 3
   subCategory: 0
-  yOffset: 1
+  yOffset: 0
   maxBuildCount: -1
