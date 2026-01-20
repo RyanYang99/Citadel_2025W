@@ -108,7 +108,7 @@ namespace Citadel
                 // 텍스트 갱신 ex) "주거 (00%)"
                 uiItem.statusText.text = $"{kName} ({uiItem.displayScore * 100:F0}%)";
 
-                // 글자 색상 변경 (보기 좋게)
+                // 글자 색상 변경
                 uiItem.statusText.color = GetColorByScore(uiItem.displayScore);
 
                 // 경고 버튼 활성화 여부
@@ -122,7 +122,7 @@ namespace Citadel
             }
         }
 
-        // 점수에 따라 색상을 반환하는 함수
+        // 점수에 따라 색상을 변경하는 함수
         private Color GetColorByScore(float score)
         {
             if (score >= 0.8f) return Color.green;       // 80% 이상: 초록

@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c5e08e347dec0d4888ffc69612c08fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.SatisfactionProvider
-  category: 1
+  category: 2
   inventory: {fileID: 0}
   bonusManager: {fileID: 0}
   itemConsumer: {fileID: -9023852057896593598}
