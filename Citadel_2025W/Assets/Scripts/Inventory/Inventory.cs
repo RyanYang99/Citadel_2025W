@@ -18,11 +18,17 @@ namespace Citadel
         
         [SerializeField, Tooltip("게임을 처음 시작할 때 플레이어가 가지는 것")] private List<ItemAmount> startingResources = new();
 
+        [SerializeField] private bool log;
+
         public event Action OnTick;
         public event Action<Item, int> OnItemChange;
         
         private void Awake()
         {
+#if !UNITY_EDITOR && !DEVELOPMENT_BUILD
+            log = false;
+#endif
+            
             foreach (ItemAmount startingResource in startingResources)
                 Add(startingResource.item, startingResource.amount);
         }
@@ -34,14 +40,17 @@ namespace Citadel
             if (_timer < 1.0f)
                 return;
 
-            //Debug.Log($"[{nameof(Inventory)}] === Start Tick {_tick} ===");
+            if (log)
+                Debug.Log($"[{nameof(Inventory)}] === Start Tick {_tick} ===");
             
             _timer = 0f;
             OnTick?.Invoke();
-            
-            //PrintInventory();
-            
-            //Debug.Log($"[{nameof(Inventory)}] === End Tick {_tick++} ===");
+
+            if (log)
+            {
+                PrintInventory();
+                Debug.Log($"[{nameof(Inventory)}] === End Tick {_tick++} ===");
+            }
         }
         
         public int GetAmount(Item item)
@@ -75,6 +84,8 @@ namespace Citadel
             return consumableAmount;
         }
 
+        public void ForceSubtract(Item item, int amount) => _resourcesCount[item] = GetAmount(item) - amount;
+
         public List<ItemAmount> ToList() => _resourcesCount.Select(item => new ItemAmount(item.Key, item.Value)).ToList();
 
         public void Load(List<ItemAmount> items)
@@ -84,8 +95,7 @@ namespace Citadel
             foreach (ItemAmount item in items)
                 Add(item.item, item.amount);
         }
-
-        [Conditional("UNITY_EDITOR"), Conditional("DEVELOPMENT_BUILD")]
+        
         public void PrintInventory()
         {
             StringBuilder stringBuilder = new("Inventory Status:" + Environment.NewLine);

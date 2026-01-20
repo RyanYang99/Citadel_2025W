@@ -49,6 +49,9 @@ namespace Citadel
         [SerializeField, Tooltip("공급하는 자원, 필요한 자원이 존재할 때 공급")]
         private List<RangeResourceAmount> rangeResourceProvided = new();
 
+        [SerializeField, Tooltip("작동 시 한번 공급하는 자원")]
+        private List<ItemAmount> oneTimeItemProduced = new();
+
         public Action<ItemAmount> OnItemProduced;
 
         //Status 판넬에 데이터를 넘기기 위한 , 읽기 전용
@@ -67,16 +70,13 @@ namespace Citadel
             }
         }
 
-        //=========================================
 
-        private void OnValidate() => CheckParameters();
+
 
         private void Awake()
         {
             _inventory = FindAnyObjectByType<Inventory>();
             _bonusManager = FindAnyObjectByType<BonusManager>();
-            
-            CheckParameters();
 
             foreach (RangeResourceAmount rangeResourceAmount in rangeResourceProvided)
             {
@@ -85,34 +85,23 @@ namespace Citadel
             }
         }
 
-        private void OnEnable() => _inventory.OnTick += OnTick;
+        private void OnEnable()
+        {
+            _inventory.OnTick += OnTick;
+            
+            foreach (ItemAmount itemAmount in oneTimeItemProduced)
+                _inventory.Add(itemAmount.item, itemAmount.amount);
+        }
 
         private void OnDisable()
         {
             _inventory.OnTick -= OnTick;
             
+            foreach (ItemAmount itemAmount in oneTimeItemProduced)
+                _inventory.ForceSubtract(itemAmount.item, itemAmount.amount);
+            
             UpdateRange();
             UpdateRangeResource(false);
-        }
-
-        private void CheckParameters()
-        {
-            if (ticksNeeded < 0)
-            {
-                Debug.LogError($"{nameof(ticksNeeded)} can not be a negative value.");
-                ticksNeeded = 0;
-            }
-            
-            for (int i = 0; i < itemsProduced.Count; ++i)
-            {
-                ItemAmount item = itemsProduced[i];
-                
-                if (item.amount < 0)
-                {
-                    Debug.LogError($"{nameof(itemsProduced)} can not be a negative value.");
-                    itemsProduced[i] = new ItemAmount(item.item);
-                }
-            }
         }
 
         private void OnTick()
@@ -149,8 +138,6 @@ namespace Citadel
 
         private void Produce()
         {
-            Debug.Log($"[Produce] {name} 생산 시도, 아이템 수: {itemsProduced.Count}");
-
             foreach (ItemAmount item in itemsProduced)
             {
                 int result = item.amount;

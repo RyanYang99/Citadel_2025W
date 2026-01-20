@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 namespace Citadel
 {
@@ -24,7 +23,7 @@ namespace Citadel
 
 
         // Build Preview
-        private GameObject buildPreviewInstance;
+        public GameObject buildPreviewInstance;
         private Renderer[] buildPreviewRenderers;
 
         // Destroy Preview
@@ -123,20 +122,20 @@ namespace Citadel
 
 
 
+            ////설치 가능 판정 footprint 기반
+            //bool canPlacePos;
+            //if (validator != null)
+            //    canPlacePos = validator.CanPlace(buildingManager.CurrentBuilding, snapped, buildPreviewInstance.transform.rotation);
+            //else
+            //    canPlacePos = buildingManager.CanPlaceBuildingAt(snapped); // 최소 안전 fallback
 
-
-
-            //설치 가능 판정 footprint 기반
-            bool canPlacePos;
-            if (validator != null)
-                canPlacePos = validator.CanPlace(buildingManager.CurrentBuilding, snapped, buildPreviewInstance.transform.rotation);
-            else
-                canPlacePos = buildingManager.CanPlaceBuildingAt(snapped); // 최소 안전 fallback
-
+            buildPreviewInstance.transform.position = hit.point;
+            buildPreviewInstance.SetActive(true);
+            
             bool canBuildCount = buildingManager.CanBuild(buildingManager.CurrentBuilding);
+            bool notOverLockedOrBuildings = !BuildingManager.OverLockedTilesOrBuildings(buildPreviewInstance.GetComponent<BoxCollider>());
 
-            bool canBuildFinal = canPlacePos && canBuildCount;
-
+            bool canBuildFinal = canBuildCount && notOverLockedOrBuildings;
             ApplyMaterial(
                 buildPreviewRenderers,
                 canBuildFinal ? previewValidMat : previewInvalidMat
@@ -157,6 +156,14 @@ namespace Citadel
             );
 
             buildPreviewInstance.name = "[BUILD PREVIEW]";
+
+            ItemConsumer itemConsumer = buildPreviewInstance.GetComponent<ItemConsumer>();
+            if (itemConsumer != null)
+                itemConsumer.enabled = false;
+            
+            ItemProducer itemProducer = buildPreviewInstance.GetComponent<ItemProducer>();
+            if (itemProducer != null)
+                itemProducer.enabled = false;
 
             foreach (Collider c in buildPreviewInstance.GetComponentsInChildren<Collider>())
                 c.enabled = false;

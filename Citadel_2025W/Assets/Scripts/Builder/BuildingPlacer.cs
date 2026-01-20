@@ -92,9 +92,10 @@ namespace Citadel
 
             if (!GetRaycastHitFromMouse(out RaycastHit hit)) return;
             if (!IsGround(hit.transform.gameObject)) return;
-
-
-
+            
+            if (previewController.buildPreviewInstance != null)
+                if (BuildingManager.OverLockedTilesOrBuildings(previewController.buildPreviewInstance.GetComponent<BoxCollider>()))
+                    return;
             Vector3 snapped = grid.SnapToCellCenter(hit.point);
 
             // yOffset은 BuildingManager.PlaceBuilding(Vector3)에서 더해짐
@@ -103,8 +104,8 @@ namespace Citadel
 
             buildingManager.PlaceBuilding(snapped, previewController.CurrentRotation);
 
-            SFXLooper.PlayLoop(1.5f, 2.0f);
 
+            SFXLooper.PlayLoop(1.5f, 2.0f);
         }
 
         private void Rotate()
