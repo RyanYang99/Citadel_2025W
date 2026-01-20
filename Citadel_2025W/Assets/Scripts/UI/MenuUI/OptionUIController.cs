@@ -24,30 +24,24 @@ namespace Citadel
         [SerializeField] private Sprite sfxOnSprite;
         [SerializeField] private Sprite sfxOffSprite;
 
-        private float lastMasterVolume = 1f;
         private float lastBgmVolume = 1f;
         private float lastSfxVolume = 1f;
-        private bool isMasterMuted;
         private bool isBgmMuted;
         private bool isSfxMuted;
 
         private void Awake()
         {
             // Slider 기본 설정
-            InitSlider(masterSlider, 1f);
             InitSlider(bgmSlider, 1f);
             InitSlider(sfxSlider, 1f);
 
-            isMasterMuted = false;
             isBgmMuted = false;
             isSfxMuted = false;
 
             // 리스너 등록
-            masterSlider.onValueChanged.AddListener(OnChangeMaster);
             bgmSlider.onValueChanged.AddListener(OnChangeBGM);
             sfxSlider.onValueChanged.AddListener(OnChangeSFX);
 
-            UpdateMasterIcon(1f);
             UpdateBgmIcon(1f);
             UpdateSfxIcon(1f);
         }
@@ -58,50 +52,22 @@ namespace Citadel
             slider.maxValue = 1f;
             slider.SetValueWithoutNotify(value);
         }
-        // ================= MASTER =================
-        public void OnChangeMaster(float value)
-        {
-            UpdateMasterIcon(value);
-
-            lastMasterVolume = value;
-
-            SoundManager.Instance?.SetMasterVolume(value);
-        }
-
-        public void OnClickMasterToggle()
-        {
-            if (!isMasterMuted)
-            {
-                lastMasterVolume = masterSlider.value;
-                isMasterMuted = true;
-
-                masterSlider.SetValueWithoutNotify(0f);
-                UpdateMasterIcon(0f);
-            }
-            else
-            {
-                isMasterMuted = false;
-                float restore = lastMasterVolume <= 0f ? 0.5f : lastMasterVolume;
-
-                masterSlider.SetValueWithoutNotify(restore);
-                UpdateMasterIcon(restore);
-            }
-        }
-
-        private void UpdateMasterIcon(float value)
-        {
-            masterIcon.sprite = value <= 0.001f ? masterOffSprite : masterOnSprite;
-        }
-
 
         // ================= BGM =================
         public void OnChangeBGM(float value)
         {
+            if (value <= 0.001f)
+            {
+                isBgmMuted = true;
+                UpdateBgmIcon(0f);
+                return;
+            }
+
+            isBgmMuted = false;
+            lastBgmVolume = value;
             UpdateBgmIcon(value);
 
-            lastBgmVolume = value;
-
-            SoundManager.Instance?.SetBGMVolume(value);
+            // SoundManager 연동 시
         }
 
         public void OnClickBgmToggle()
@@ -132,11 +98,18 @@ namespace Citadel
         // ================= SFX =================
         public void OnChangeSFX(float value)
         {
+            if (value <= 0.001f)
+            {
+                isSfxMuted = true;
+                UpdateSfxIcon(0f);
+                return;
+            }
+
+            isSfxMuted = false;
+            lastSfxVolume = value;
             UpdateSfxIcon(value);
 
-            lastSfxVolume = value;
-
-            SoundManager.Instance?.SetSFXVolume(value);
+            // SoundManager 연동
         }
 
         public void OnClickSfxToggle()
