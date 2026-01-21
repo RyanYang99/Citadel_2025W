@@ -451,7 +451,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -768,10 +768,7 @@ MonoBehaviour:
   iconCamera: {fileID: 708657948}
   renderTexture: {fileID: 8400000, guid: cebcfbba00771464ca0d34e6db2e66a8, type: 2}
   prefabs:
-  - {fileID: 730932315999764765, guid: fc8b7b3edd070424abfb6267c8f78cd2, type: 3}
-  - {fileID: 8539307895412738096, guid: 02b2c115b6de0c844a64c6715086d123, type: 3}
-  - {fileID: 2028700388628247539, guid: 0fa0fdcecd131f442ad1e6bbb91f1d74, type: 3}
-  - {fileID: 5188724046597317718, guid: b0e4db2de9aa9124c89307deeb55a359, type: 3}
+  - {fileID: 2402344300394304528, guid: 60679294cf32f8f4ba6431afb2324da5, type: 3}
   saveFolder: Assets/Icons/Resource_icons/
 --- !u!4 &1606620453
 Transform:
