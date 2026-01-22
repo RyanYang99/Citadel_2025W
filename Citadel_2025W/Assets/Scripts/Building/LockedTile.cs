@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Citadel
 {
     public sealed class LockedTile : MonoBehaviour
     {
-        private static readonly List<LockedTile> LockedTiles = new();
+        public static readonly List<LockedTile> LockedTiles = new();
         
         [SerializeField] private MeshRenderer meshRenderer;
         
@@ -15,29 +14,22 @@ namespace Citadel
         {
             get => locked;
 
-            private set
+            set
             {
                 locked = value;
 
                 if (!locked)
                 {
-                    meshRenderer.materials[0] = originalMaterial;
+                    meshRenderer.material = originalMaterial;
                     Destroy(this);
                 }
             }
         }
 
         [SerializeField] private int level = 1;
-        
+        public int Level => level;
+
         [SerializeField] private Material originalMaterial;
-        
-        public static void Unlock(int level)
-        {
-            LockedTile[] copy = LockedTiles.Where(lockedTile => lockedTile.locked && lockedTile.level == level).ToArray();
-            
-            foreach (LockedTile lockedTile in copy)
-                lockedTile.Locked = false;
-        }
 
         private void OnEnable() => LockedTiles.Add(this);
 
