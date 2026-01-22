@@ -112,7 +112,7 @@ namespace Citadel
                 if (producer != null)
                 {
                     rangeVisualizer.Show(producer.Range);
-                    rangeVisualizer.SetCenter(snapped); 
+                    rangeVisualizer.SetCenter(snapped);
                 }
                 else
                 {
@@ -120,18 +120,9 @@ namespace Citadel
                 }
             }
 
-
-
-            ////설치 가능 판정 footprint 기반
-            //bool canPlacePos;
-            //if (validator != null)
-            //    canPlacePos = validator.CanPlace(buildingManager.CurrentBuilding, snapped, buildPreviewInstance.transform.rotation);
-            //else
-            //    canPlacePos = buildingManager.CanPlaceBuildingAt(snapped); // 최소 안전 fallback
-
             buildPreviewInstance.transform.position = hit.point;
             buildPreviewInstance.SetActive(true);
-            
+
             bool canBuildCount = buildingManager.CanBuild(buildingManager.CurrentBuilding);
             bool notOverLockedOrBuildings = !BuildingManager.OverLockedTilesOrBuildings(buildPreviewInstance.GetComponent<BoxCollider>());
 
@@ -141,7 +132,6 @@ namespace Citadel
                 canBuildFinal ? previewValidMat : previewInvalidMat
             );
         }
-
 
         private void CreateBuildPreview()
         {

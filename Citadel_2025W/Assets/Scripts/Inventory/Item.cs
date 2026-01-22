@@ -12,6 +12,9 @@ namespace Citadel
         Iron,
         
         Cotton,
-        Clothes
+        Clothes,
+
+        Population, //½Ã¹Î
+        Troops, //º´·Â 
     }
 }

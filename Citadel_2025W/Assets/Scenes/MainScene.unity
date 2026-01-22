@@ -946,7 +946,11 @@ MonoBehaviour:
     amount: 10
   - item: 7
     amount: 10
-  log: 0
+  - item: 8
+    amount: 10
+  - item: 9
+    amount: 15
+  log: 1
 --- !u!4 &191902319
 Transform:
   m_ObjectHideFlags: 0
@@ -2962,6 +2966,7 @@ GameObject:
   - component: {fileID: 580617368}
   - component: {fileID: 580617367}
   - component: {fileID: 580617366}
+  - component: {fileID: 580617369}
   m_Layer: 0
   m_Name: Cotton
   m_TagString: Untagged
@@ -3072,6 +3077,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 580617364}
   m_CullTransparentMesh: 1
+--- !u!114 &580617369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580617364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab253fcbd414ad3429200bd21fe7dac4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.ResourceUI
+  inventory: {fileID: 191902318}
+  item: 6
+  amountText: {fileID: 676831827}
+  iconImage: {fileID: 633627906}
+  iconTable: {fileID: 1752273647}
 --- !u!114 &581821469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3236,7 +3258,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &613166552
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6797,7 +6819,7 @@ MonoBehaviour:
   inventory: {fileID: 191902318}
   statusPanelController: {fileID: 380882986}
   statusButtonRect: {fileID: 210137101}
-  statusPanelOffset: {x: 200, y: 0}
+  statusPanelOffset: {x: 100, y: 0}
 --- !u!114 &935945293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6828,8 +6850,9 @@ GameObject:
   - component: {fileID: 970564723}
   - component: {fileID: 970564722}
   - component: {fileID: 970564721}
+  - component: {fileID: 970564724}
   m_Layer: 0
-  m_Name: Button (1)
+  m_Name: Army
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6938,6 +6961,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 970564719}
   m_CullTransparentMesh: 1
+--- !u!114 &970564724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970564719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab253fcbd414ad3429200bd21fe7dac4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.ResourceUI
+  inventory: {fileID: 191902318}
+  item: 9
+  amountText: {fileID: 1191774063}
+  iconImage: {fileID: 2116948075}
+  iconTable: {fileID: 1752273647}
 --- !u!1 &997248424
 GameObject:
   m_ObjectHideFlags: 0
@@ -8326,6 +8366,7 @@ GameObject:
   - component: {fileID: 1146282838}
   - component: {fileID: 1146282837}
   - component: {fileID: 1146282836}
+  - component: {fileID: 1146282839}
   m_Layer: 0
   m_Name: PeopleAmount
   m_TagString: Untagged
@@ -8436,6 +8477,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1146282834}
   m_CullTransparentMesh: 1
+--- !u!114 &1146282839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146282834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab253fcbd414ad3429200bd21fe7dac4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.ResourceUI
+  inventory: {fileID: 191902318}
+  item: 8
+  amountText: {fileID: 515908744}
+  iconImage: {fileID: 1145472534}
+  iconTable: {fileID: 1752273647}
 --- !u!1 &1152272304
 GameObject:
   m_ObjectHideFlags: 0
@@ -8895,7 +8953,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBB50 \uB123\uC9C0"
+  m_text: "\uBCD1\uB825"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 79201cb226f918345b9016b990b62a25, type: 2}
   m_sharedMaterial: {fileID: -4212372435320894504, guid: 79201cb226f918345b9016b990b62a25, type: 2}
@@ -12271,22 +12329,28 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: e0eac6b76fdd842e88a7f8c75ecffaf4, type: 3}
     category: 0
   - item: 2
-    icon: {fileID: 6768481765403260889, guid: fd6ba01097237484da90c5fa25473610, type: 3}
+    icon: {fileID: 6768481765403260889, guid: 0440c07346de4fd4c92167a97f94a1ea, type: 3}
     category: 0
   - item: 3
-    icon: {fileID: 0}
+    icon: {fileID: 8634410035482476504, guid: 70f2440eb73feff4da55bbcfea1a0766, type: 3}
     category: 0
   - item: 4
-    icon: {fileID: 0}
+    icon: {fileID: -918064735591450277, guid: eeb34c701f9cba24aa94873d2e444278, type: 3}
     category: 1
   - item: 5
     icon: {fileID: 21300000, guid: 7e082cc2cf2a4433d85e388c6bf94234, type: 3}
     category: 1
   - item: 6
-    icon: {fileID: 0}
+    icon: {fileID: 4724042872251489789, guid: 4bc54fc8d1ae88b40b44cbacd8858e33, type: 3}
+    category: 0
+  - item: 7
+    icon: {fileID: -6435622482184411031, guid: 8ab34bd6af495df4b8978dba5711f88e, type: 3}
     category: 1
-  - item: 6
-    icon: {fileID: 0}
+  - item: 8
+    icon: {fileID: 21300000, guid: d17c238d68735cf47979c594d126153b, type: 3}
+    category: 1
+  - item: 9
+    icon: {fileID: 21300000, guid: 6a1552e61c0b7fb4cad48d95dc691368, type: 3}
     category: 1
 --- !u!1 &1781848501
 GameObject:
