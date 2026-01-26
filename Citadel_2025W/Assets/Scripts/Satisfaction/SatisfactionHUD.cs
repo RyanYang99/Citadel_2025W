@@ -75,7 +75,7 @@ namespace Citadel
             // 건물이 하나도 없을 때
             if (actualGlobalAvg < 0)
             {
-                globalText.text = "총 만족도 ( -% )";
+                globalText.text = "-%";
                 globalText.color = Color.black;
                 return;
             }
@@ -83,7 +83,7 @@ namespace Citadel
             
             _displayGlobalAvg = Mathf.Lerp(_displayGlobalAvg, actualGlobalAvg, Time.deltaTime * 1f);
 
-            globalText.text = $"총 만족도 ({_displayGlobalAvg * 100:F0}%)";
+            globalText.text = $"{_displayGlobalAvg * 100:F0}%";
             globalText.color = GetColorByScore(_displayGlobalAvg);
         }
 
