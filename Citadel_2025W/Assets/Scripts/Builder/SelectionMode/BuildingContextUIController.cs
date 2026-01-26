@@ -16,6 +16,8 @@ namespace Citadel
         [SerializeField] private Button upgradeButton;
         [SerializeField] private Button rotateButton;
         [SerializeField] private Button destroyButton;
+        [SerializeField] private Button produceButton;
+        [SerializeField] private BarracksUIPage barracksPage;
 
         [Header("Status Panel (optional)")]
         [SerializeField] private GameObject statusPanel;
@@ -38,6 +40,7 @@ namespace Citadel
             upgradeButton?.onClick.AddListener(OnClickUpgrade);
             rotateButton?.onClick.AddListener(OnClickRotate);
             destroyButton?.onClick.AddListener(OnClickDestroy);
+            produceButton?.onClick.AddListener(OnClickProduce);
         }
 
         public void ForceHide()
@@ -71,6 +74,16 @@ namespace Citadel
             Debug.Log($"[ContextUI] activeAfter: {(rootPanel != null && rootPanel.activeSelf)}");
 
             follower?.SetTarget(current.transform);
+
+            current = obj;
+            rootPanel?.SetActive(true);
+            follower?.SetTarget(current.transform);
+
+            bool isBarracks = current.GetComponentInParent<BarracksProductionQueue>() != null
+               || current.GetComponentInChildren<BarracksProductionQueue>() != null;
+
+            if (produceButton != null)
+                produceButton.gameObject.SetActive(isBarracks);
         }
 
 
@@ -82,6 +95,8 @@ namespace Citadel
 
             if (follower != null)
                 follower.ClearTarget();
+
+            barracksPage?.Close();
         }
 
         private void OnClickStatus()
@@ -146,6 +161,18 @@ namespace Citadel
             GameObject root = current.transform.root.gameObject;
             buildingManager.RotateBuilding(root);
             follower?.SetTarget(root.transform); 
+        }
+
+        private void OnClickProduce()
+        {
+            Debug.Log("Produce clicked");
+            if (current == null || barracksPage == null) return;
+
+            var root = current.transform.root.gameObject;
+            var queue = root.GetComponent<BarracksProductionQueue>();
+            if (queue == null) return;
+
+            barracksPage.Open();
         }
 
         private void OnClickDestroy()

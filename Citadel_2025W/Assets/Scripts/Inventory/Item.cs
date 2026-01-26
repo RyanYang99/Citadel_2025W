@@ -12,6 +12,8 @@ namespace Citadel
         Iron,
         
         Cotton,
-        Clothes
+        Clothes,
+
+        Soldier
     }
 }
