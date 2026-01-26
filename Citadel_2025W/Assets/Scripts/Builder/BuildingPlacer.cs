@@ -18,9 +18,14 @@ namespace Citadel
         [SerializeField] private BuildingManager buildingManager;
         [SerializeField] private LayerMask buildingLayer;
         [SerializeField] private BuildPreviewController previewController;
+        [SerializeField] private SFXLooper SFXLooper;
+        [SerializeField] private GridService grid;
+        [SerializeField] private GridPlacementValidator validator;
+        [SerializeField] private BuildingSelectionController selectionController;
+        [SerializeField] private BuildingContextUIController contextUI;
+
 
         private BuildMode currentMode = BuildMode.Build;
-
         private void Update()
         {
             if (currentMode == BuildMode.None)
@@ -49,13 +54,20 @@ namespace Citadel
         {
             currentMode = BuildMode.Destroy;
             previewController.SetMode(BuildMode.Destroy);
+
+            selectionController?.SetSelectionEnabled(false);
+            contextUI?.ForceHide();
             Debug.Log("철거 모드");
         }
+
 
         public void SetBuildMode()
         {
             currentMode = BuildMode.Build;
             previewController.SetMode(BuildMode.Build);
+
+            selectionController?.SetSelectionEnabled(false);
+            contextUI?.ForceHide();
             Debug.Log("설치 모드");
         }
 
@@ -63,6 +75,8 @@ namespace Citadel
         {
             currentMode = BuildMode.None;
             previewController.SetMode(BuildMode.None);
+
+            selectionController?.SetSelectionEnabled(true);
             Debug.Log("대기 모드");
         }
 
@@ -73,11 +87,25 @@ namespace Citadel
       
         private void Place()
         {
+            if (!buildingManager.CanBuild(buildingManager.CurrentBuilding))
+                return;
+
             if (!GetRaycastHitFromMouse(out RaycastHit hit)) return;
             if (!IsGround(hit.transform.gameObject)) return;
+            
+            if (previewController.buildPreviewInstance != null)
+                if (BuildingManager.OverLockedTilesOrBuildings(previewController.buildPreviewInstance.GetComponent<BoxCollider>()))
+                    return;
+            Vector3 snapped = grid.SnapToCellCenter(hit.point);
 
-            buildingManager.PlaceBuilding(hit.point,previewController.CurrentRotation); 
+            // yOffset은 BuildingManager.PlaceBuilding(Vector3)에서 더해짐
+            if (!validator.CanPlace(buildingManager.CurrentBuilding, snapped, previewController.CurrentRotation))
+                return;
 
+            buildingManager.PlaceBuilding(snapped, previewController.CurrentRotation);
+
+
+            SFXLooper.PlayLoop(1.5f, 2.0f);
         }
 
         private void Rotate()
@@ -85,7 +113,7 @@ namespace Citadel
             if (!GetRaycastHitFromMouse(out RaycastHit hit)) return;
             if (IsGround(hit.transform.gameObject)) return;
 
-            buildingManager.RotateBuilding(hit.transform.gameObject);
+            buildingManager.RotateBuilding(hit.transform.root.gameObject);
         }
 
         [SerializeField] private LayerMask destroyLayer;

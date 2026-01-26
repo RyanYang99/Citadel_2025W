@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 273bf60b1c9c97149947b11566461aa2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 717.632
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 273bf60b1c9c97149947b11566461aa2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 808.87146
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 273bf60b1c9c97149947b11566461aa2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 273bf60b1c9c97149947b11566461aa2, type: 3}
+      propertyPath: m_TagString
+      value: Building
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -63,6 +67,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 273bf60b1c9c97149947b11566461aa2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2357911640296808702}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 273bf60b1c9c97149947b11566461aa2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5543650791301548449}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 273bf60b1c9c97149947b11566461aa2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2654169496394782198}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 273bf60b1c9c97149947b11566461aa2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6541547112872306003}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 273bf60b1c9c97149947b11566461aa2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -6991640246430307877}
   m_SourcePrefab: {fileID: 100100000, guid: 273bf60b1c9c97149947b11566461aa2, type: 3}
 --- !u!1 &730932315999764765 stripped
 GameObject:
@@ -90,3 +106,75 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.2685362, y: 0.78971976, z: 0.9105725}
   m_Center: {x: 0, y: 0.38106027, z: 0.014795393}
+--- !u!114 &-5543650791301548449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730932315999764765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 652f762aed6f39f45a6a5835a2105e5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemProducer
+  itemConsumer: {fileID: 6541547112872306003}
+  ticksNeeded: 1
+  itemsProduced:
+  - item: 0
+    amount: 100
+  range: 0
+  rangeResourceProvided: []
+  oneTimeItemProduced: []
+--- !u!114 &2654169496394782198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730932315999764765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12c17ec025645aa4c9c3edc95f75c1ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResourcePopupSpawner
+  popupPrefab: {fileID: 1080480347363611842, guid: 1073e24adbd14e146be2727d27615e4a, type: 3}
+  iconTable: {fileID: 0}
+  spawnOffset: {x: 0, y: 2, z: 0}
+--- !u!114 &6541547112872306003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730932315999764765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75d5a6d561ecce4085de6e0f0b00c55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemConsumer
+  itemsUsed:
+  - item: 0
+    amount: 0
+  rangeResourcesUsed: 
+--- !u!114 &-6991640246430307877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730932315999764765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c5e08e347dec0d4888ffc69612c08fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.SatisfactionProvider
+  category: 2
+  inventory: {fileID: 0}
+  bonusManager: {fileID: 0}
+  itemConsumer: {fileID: 6541547112872306003}
+  satisfactionImportance: {fileID: 11400000, guid: d3cf9430aff82b0498af23810d6d4b22, type: 2}
+  satisfactionImportanceOverride: {fileID: 0}
+  threshold: 0.4
+  itemBonuses: []
+  rangeResourceBonuses: []

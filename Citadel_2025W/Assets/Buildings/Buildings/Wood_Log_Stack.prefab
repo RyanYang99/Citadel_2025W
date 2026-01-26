@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 4ea1e7546cc4132459d0d206ae8f8158, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 789.52155
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ea1e7546cc4132459d0d206ae8f8158, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 325.18835
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ea1e7546cc4132459d0d206ae8f8158, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.78991
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ea1e7546cc4132459d0d206ae8f8158, type: 3}
       propertyPath: m_LocalRotation.w
@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ea1e7546cc4132459d0d206ae8f8158, type: 3}
+      propertyPath: m_TagString
+      value: Building
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -66,6 +70,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4ea1e7546cc4132459d0d206ae8f8158, type: 3}
       insertIndex: -1
       addedObject: {fileID: -8112090221992484599}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4ea1e7546cc4132459d0d206ae8f8158, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1803750227322838581}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4ea1e7546cc4132459d0d206ae8f8158, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5670132595436683345}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4ea1e7546cc4132459d0d206ae8f8158, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6219779994546723486}
   m_SourcePrefab: {fileID: 100100000, guid: 4ea1e7546cc4132459d0d206ae8f8158, type: 3}
 --- !u!1 &2028700388628247539 stripped
 GameObject:
@@ -105,7 +118,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 652f762aed6f39f45a6a5835a2105e5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemProducer
+  itemConsumer: {fileID: -1803750227322838581}
+  ticksNeeded: 1
+  itemsProduced:
+  - item: 1
+    amount: 10
+  range: 0
+  rangeResourceProvided: []
+  oneTimeItemProduced: []
+--- !u!114 &-1803750227322838581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028700388628247539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75d5a6d561ecce4085de6e0f0b00c55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemConsumer
+  itemsUsed:
+  - item: 0
+    amount: 100
+  rangeResourcesUsed: 
+--- !u!114 &-5670132595436683345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028700388628247539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12c17ec025645aa4c9c3edc95f75c1ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResourcePopupSpawner
+  popupPrefab: {fileID: 1080480347363611842, guid: 1073e24adbd14e146be2727d27615e4a, type: 3}
+  iconTable: {fileID: 0}
+  spawnOffset: {x: 0, y: 2, z: 0}
+--- !u!114 &6219779994546723486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028700388628247539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c5e08e347dec0d4888ffc69612c08fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.SatisfactionProvider
+  category: 1
   inventory: {fileID: 0}
-  itemConsumer: {fileID: 0}
-  ticksNeeded: 0
-  itemsProduced: []
+  bonusManager: {fileID: 0}
+  itemConsumer: {fileID: -1803750227322838581}
+  satisfactionImportance: {fileID: 11400000, guid: d3cf9430aff82b0498af23810d6d4b22, type: 2}
+  satisfactionImportanceOverride: {fileID: 0}
+  threshold: 0.4
+  itemBonuses: []
+  rangeResourceBonuses: []

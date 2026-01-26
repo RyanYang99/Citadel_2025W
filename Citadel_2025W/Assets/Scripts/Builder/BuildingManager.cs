@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-//½ÇÁ¦ ¹èÄ¡ / È¸Àü / Á¦°Å / µ¥ÀÌÅÍ °ü¸®
+//ì‹¤ì œ ë°°ì¹˜ / íšŒì „ / ì œê±° / ë°ì´í„° ê´€ë¦¬
 namespace Citadel
 {
     public class PlacedBuilding
@@ -20,19 +20,34 @@ namespace Citadel
             Rotation = rotation;
         }
     }
-    
+
     public sealed class BuildingManager : MonoBehaviour
     {
+        public bool IsReady { get; private set; }
+
         public event Action OnBuildingChanged;
+        public event Action OnPlacedBuildingChanged;
         private int _currentIndex = -1;
+        
+        [SerializeField] private LayerMask groundLayer;
 
         [SerializeField] private BuildingMetaDataList buildings;
+        [SerializeField] private Inventory inventory;
+
+        [SerializeField] private SFXLooper sfxLooper;
         public BuildingMetaDataList Buildings
         {
             get => buildings;
             private set => buildings = value;
         }
-        
+
+        private void Awake()
+        {
+            if (!sfxLooper)
+                sfxLooper = FindAnyObjectByType<SFXLooper>();
+        }
+
+
         public BuildingMetaData CurrentBuilding
         {
             get
@@ -43,11 +58,45 @@ namespace Citadel
                 return Buildings.list[_currentIndex];
             }
         }
-        
+
         public readonly List<PlacedBuilding> PlacedBuildings = new();
+        
+        public static bool OverLockedTilesOrBuildings(BoxCollider boxCollider)
+        {
+            Vector3 center = boxCollider.transform.TransformPoint(boxCollider.center),
+                    half = Vector3.Scale(boxCollider.size, boxCollider.transform.lossyScale) * 0.5f;
+            half.y = 1000f;
+            
+            foreach (Collider _collider in Physics.OverlapBox(center, half, Quaternion.identity))
+            {
+                if (_collider.TryGetComponent(out LockedTile lockedTile) && lockedTile.Locked)
+                    return true;
+                
+                if (_collider.CompareTag(Tags.Building)) 
+                    return true;
+            }
 
+            return false;
+        }
 
-       
+        private void Start()
+        {
+            IsReady = true;
+        }
+
+        public int GetPlacedCount(string uniqueName)
+        {
+            int count = 0;
+
+            foreach (var placed in PlacedBuildings)
+            {
+                if (placed.UniqueName == uniqueName)
+                    count++;
+            }
+
+            return count;
+        }
+
         public void SelectBuilding(int index)
         {
             if (index < 0 || index >= Buildings.list.Count)
@@ -58,12 +107,12 @@ namespace Citadel
             _currentIndex = index;
 
             OnBuildingChanged?.Invoke();
-        
+
         }
-        
+
         public PlacedBuilding FindPlacedBuilding(GameObject _gameObject) =>
             PlacedBuildings.Find(placedBuilding => placedBuilding._GameObject == _gameObject);
-        
+
         private void AddPlacedBuilding(PlacedBuilding placedBuilding)
         {
             if (FindPlacedBuilding(placedBuilding._GameObject) != null)
@@ -73,13 +122,21 @@ namespace Citadel
             }
 
             PlacedBuildings.Add(placedBuilding);
+            OnPlacedBuildingChanged?.Invoke();
         }
 
-        private void RemovePlacedBuilding(GameObject _gameObject)
+        private void RemovePlacedBuilding(GameObject _gameObject, bool playSfx)
         {
             PlacedBuilding placedBuilding = FindPlacedBuilding(_gameObject);
-            if (placedBuilding != null)
+            if (placedBuilding == null)
+                return;
+
                 PlacedBuildings.Remove(placedBuilding);
+                OnPlacedBuildingChanged?.Invoke();
+
+            if (playSfx&&sfxLooper)
+                sfxLooper.PlayOneSecond();
+
         }
 
         private void PlaceInternal(
@@ -93,8 +150,8 @@ namespace Citadel
                 if (placed.Position == position)
                     return;
             GameObject obj = Instantiate(meta.prefab, position, rotation);
-            //ÃÊ±âÈ­
-          
+            //ì´ˆê¸°í™”
+
             AddPlacedBuilding(
                 new PlacedBuilding(
                     meta.uniqueName,
@@ -105,8 +162,19 @@ namespace Citadel
             );
         }
 
+        public bool CanBuild(BuildingMetaData meta)
+        {
+            if (meta == null)
+                return false;
 
-        //¼³Ä¡ Àü¿ë
+            if (meta.maxBuildCount < 0)
+                return true;
+
+            int current = GetPlacedCount(meta.uniqueName);
+            return current < meta.maxBuildCount;
+        }
+
+        //ì„¤ì¹˜ ì „ìš©
         public void PlaceBuilding(Vector3 position)
         {
             if (CurrentBuilding == null)
@@ -115,11 +183,11 @@ namespace Citadel
             PlaceInternal(
                 CurrentBuilding,
                 position,
-                Quaternion.identity
+                CurrentBuilding.prefab.transform.rotation
             );
         }
 
-        //·Îµå Àü¿ë 
+        //ë¡œë“œ ì „ìš© 
         public void PlaceBuilding(string uniqueName, Vector3 position, Vector3 rotation)
         {
             BuildingMetaData meta =
@@ -136,7 +204,7 @@ namespace Citadel
         }
 
 
-        //building ÇÁ¸®ºä È¸Àü ¼³Ä¡
+        //building í”„ë¦¬ë·° íšŒì „ ì„¤ì¹˜
         public void PlaceBuilding(Vector3 position, Quaternion rotation)
         {
             if (CurrentBuilding == null)
@@ -149,6 +217,7 @@ namespace Citadel
             );
         }
 
+        /*
         public bool CanPlaceBuildingAt(Vector3 position)
         {
             foreach (PlacedBuilding placed in PlacedBuildings)
@@ -159,34 +228,38 @@ namespace Citadel
 
             return true;
         }
+        */
 
         public void RotateBuilding(GameObject _gameObject)
         {
-            _gameObject.transform.Rotate(Vector3.up, 90f);
-            
-            PlacedBuilding placedBuilding = FindPlacedBuilding(_gameObject);
+            if (!_gameObject) return;
+
+            GameObject root = _gameObject.transform.root.gameObject;
+
+            root.transform.Rotate(Vector3.up, 90f);
+
+            PlacedBuilding placedBuilding = FindPlacedBuilding(root);
             if (placedBuilding != null)
-                placedBuilding.Rotation = _gameObject.transform.eulerAngles;
+                placedBuilding.Rotation = root.transform.eulerAngles;
         }
 
-        public void RemoveBuilding(GameObject _gameObject)
+        public void RemoveBuilding(GameObject _gameObject,bool playSfx =true)
         {
-            RemovePlacedBuilding(_gameObject);
+            RemovePlacedBuilding(_gameObject,playSfx);
             Destroy(_gameObject);
         }
 
         public void RemoveAllBuildings()
         {
-            List<PlacedBuilding> copy = new(PlacedBuildings);
-            
-            foreach (PlacedBuilding placedBuilding in copy)
-                RemoveBuilding(placedBuilding._GameObject);
+            foreach (var pb in PlacedBuildings.ToList())
+                RemoveBuilding(pb._GameObject, playSfx: false);
         }
+
 
         public void Load(List<SerializableBuilding> serializableBuildings)
         {
             RemoveAllBuildings();
-            
+
             foreach (SerializableBuilding serializableBuilding in serializableBuildings)
                 PlaceBuilding(serializableBuilding.uniqueName, serializableBuilding.position.ToVector3(), serializableBuilding.rotation.ToVector3());
         }

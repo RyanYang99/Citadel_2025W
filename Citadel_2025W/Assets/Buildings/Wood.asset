@@ -16,5 +16,6 @@ MonoBehaviour:
   prefab: {fileID: 2028700388628247539, guid: 0fa0fdcecd131f442ad1e6bbb91f1d74, type: 3}
   icon: {fileID: 1643940707197268809, guid: ea4649575f2cba846a0a8ff960522c32, type: 3}
   category: 2
-  yOffset: 1
-  createMetaData: {fileID: 11400000, guid: 4d0337535669a014c979f66c5f557e39, type: 2}
+  subCategory: 0
+  yOffset: 0
+  maxBuildCount: -1

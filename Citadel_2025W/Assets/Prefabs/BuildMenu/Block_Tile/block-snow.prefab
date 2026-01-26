@@ -53,6 +53,10 @@ PrefabInstance:
       value: block-snow
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 89a60659e286c7941b8ac475d748d531, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 89a60659e286c7941b8ac475d748d531, type: 3}
       propertyPath: m_TagString
       value: Ground
       objectReference: {fileID: 0}

@@ -15,6 +15,8 @@ namespace Citadel
 
         public float yOffset = 1f;
 
-     
+        [Header("Build Limit")]
+        [Tooltip("-1 == ¹«Á¦ÇÑ")]
+        public int maxBuildCount = -1;
     }
 }

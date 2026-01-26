@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Citadel
@@ -30,9 +31,10 @@ namespace Citadel
         
         private readonly List<RangeResourceAmount> _originalRangeResourceDurations = new();
         private readonly List<RangeResourceAmount> _rangeResourceDurations = new();
-        private List<ItemConsumer> _itemConsumersInRange = new();
+        private readonly Dictionary<RangeResource, List<ItemConsumer>> _itemConsumersInRange = new();
         
-        [SerializeField] private Inventory inventory;
+        private Inventory _inventory;
+        private BonusManager _bonusManager;
         
         [SerializeField, Tooltip("만약 없을 시, ticksNeeded 마다 자원 생산")]
         private ItemConsumer itemConsumer;
@@ -47,15 +49,34 @@ namespace Citadel
         [SerializeField, Tooltip("공급하는 자원, 필요한 자원이 존재할 때 공급")]
         private List<RangeResourceAmount> rangeResourceProvided = new();
 
+        [SerializeField, Tooltip("작동 시 한번 공급하는 자원")]
+        private List<ItemAmount> oneTimeItemProduced = new();
+
         public Action<ItemAmount> OnItemProduced;
 
-        //기초 자원 생산
-     
-        private void OnValidate() => CheckParameters();
+        //Status 판넬에 데이터를 넘기기 위한 , 읽기 전용
+        public int TicksNeeded => ticksNeeded;
+        public IReadOnlyList<ItemAmount> ItemsProduced => itemsProduced;
+        public float Range => range;
+
+        public IReadOnlyList<(RangeResource resource, int tickDuration)> RangeResourcesProvided
+        {
+            get
+            {
+                var list = new List<(RangeResource, int)>();
+                foreach (var r in rangeResourceProvided)
+                    list.Add((r.rangeResource, r.tickDuration));
+                return list;
+            }
+        }
+
+
+
 
         private void Awake()
         {
-            CheckParameters();
+            _inventory = FindAnyObjectByType<Inventory>();
+            _bonusManager = FindAnyObjectByType<BonusManager>();
 
             foreach (RangeResourceAmount rangeResourceAmount in rangeResourceProvided)
             {
@@ -64,37 +85,26 @@ namespace Citadel
             }
         }
 
-        private void OnEnable() => inventory.OnTick += Tick;
+        private void OnEnable()
+        {
+            _inventory.OnTick += OnTick;
+            
+            foreach (ItemAmount itemAmount in oneTimeItemProduced)
+                _inventory.Add(itemAmount.item, itemAmount.amount);
+        }
 
         private void OnDisable()
         {
-            inventory.OnTick -= Tick;
+            _inventory.OnTick -= OnTick;
+            
+            foreach (ItemAmount itemAmount in oneTimeItemProduced)
+                _inventory.ForceSubtract(itemAmount.item, itemAmount.amount);
             
             UpdateRange();
             UpdateRangeResource(false);
         }
 
-        private void CheckParameters()
-        {
-            if (ticksNeeded < 0)
-            {
-                Debug.LogError($"{nameof(ticksNeeded)} can not be a negative value.");
-                ticksNeeded = 0;
-            }
-            
-            for (int i = 0; i < itemsProduced.Count; ++i)
-            {
-                ItemAmount item = itemsProduced[i];
-                
-                if (item.amount < 0)
-                {
-                    Debug.LogError($"{nameof(itemsProduced)} can not be a negative value.");
-                    itemsProduced[i] = new ItemAmount(item.item);
-                }
-            }
-        }
-
-        private void Tick()
+        private void OnTick()
         {
             UpdateRange();
             foreach (RangeResourceAmount rangeResourceAmount in _rangeResourceDurations.Where(rangeResourceAmount => rangeResourceAmount.tickDuration > 0))
@@ -112,17 +122,30 @@ namespace Citadel
                 itemConsumer.ConsumeReadyItems();
         }
 
-        private void UpdateRange() =>
-            _itemConsumersInRange = ItemConsumer.ActiveItemConsumers
-                                                .Where(_itemConsumer => Vector3.Distance(transform.position, _itemConsumer.transform.position) <= range)
-                                                .ToList();
-        
+        private void UpdateRange()
+        {
+            foreach (RangeResource rangeResource in rangeResourceProvided.Select(rangeResourceAmount => rangeResourceAmount.rangeResource))
+            {
+                float result = range;
+                if (_bonusManager.GetRangeResourceBonuses().TryGetValue(rangeResource, out BonusValue bonusValue))
+                    result = result + bonusValue.flat + (result * bonusValue.percentage);
+                
+                _itemConsumersInRange[rangeResource] = ItemConsumer.ActiveItemConsumers
+                                                                   .Where(_itemConsumer => Vector3.Distance(transform.position, _itemConsumer.transform.position) <= result)
+                                                                   .ToList();
+            }
+        }
+
         private void Produce()
         {
             foreach (ItemAmount item in itemsProduced)
             {
-                inventory.Add(item.item, item.amount);
-                OnItemProduced?.Invoke(item);
+                int result = item.amount;
+                if (_bonusManager.GetItemBonuses().TryGetValue(item.item, out BonusValue bonusValue))
+                    result = result + bonusValue.flat + (int)Math.Round(result * bonusValue.percentage);
+                
+                _inventory.Add(item.item, result);
+                OnItemProduced?.Invoke(new ItemAmount(item.item, result));
             }
 
             foreach (RangeResourceAmount duration in _rangeResourceDurations)
@@ -139,7 +162,7 @@ namespace Citadel
 
         private void UpdateRangeResource(RangeResource rangeResource, bool provided)
         {
-            foreach (ItemConsumer _itemConsumer in _itemConsumersInRange)
+            foreach (ItemConsumer _itemConsumer in _itemConsumersInRange[rangeResource])
                 _itemConsumer.UpdateRangeResource(this, rangeResource, provided);
         }
     }
