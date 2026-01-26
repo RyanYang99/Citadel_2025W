@@ -165,14 +165,13 @@ namespace Citadel
 
         private void OnClickProduce()
         {
-            Debug.Log("Produce clicked");
             if (current == null || barracksPage == null) return;
 
             var root = current.transform.root.gameObject;
             var queue = root.GetComponent<BarracksProductionQueue>();
             if (queue == null) return;
 
-            barracksPage.Open();
+            barracksPage.Open(queue);
         }
 
         private void OnClickDestroy()

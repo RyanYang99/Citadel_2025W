@@ -194,6 +194,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 15702406}
   m_CullTransparentMesh: 1
+--- !u!114 &17468257 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8508506147538959041, guid: efa95a4b783142245b9b604bea0562fb, type: 3}
+  m_PrefabInstance: {fileID: 1043554401}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1 &23748334
 GameObject:
   m_ObjectHideFlags: 0
@@ -7143,6 +7154,8 @@ MonoBehaviour:
   upgradeButton: {fileID: 79383260}
   rotateButton: {fileID: 2134339445}
   destroyButton: {fileID: 1985533461}
+  produceButton: {fileID: 1413292768}
+  barracksPage: {fileID: 1038780135}
   statusPanel: {fileID: 380882984}
   inventory: {fileID: 191902318}
   statusPanelController: {fileID: 380882986}
@@ -7890,6 +7903,7 @@ GameObject:
   - component: {fileID: 1038780132}
   - component: {fileID: 1038780134}
   - component: {fileID: 1038780133}
+  - component: {fileID: 1038780135}
   m_Layer: 5
   m_Name: BarracksPanel
   m_TagString: Untagged
@@ -7959,6 +7973,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1038780131}
   m_CullTransparentMesh: 1
+--- !u!114 &1038780135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038780131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25265d97279b2b242933bf9275902b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.BarracksUIPage
+  panelRoot: {fileID: 1038780131}
+  moneyText: {fileID: 45036737}
+  soldierText: {fileID: 1456481514}
+  queueText: {fileID: 872499464}
+  produceButton: {fileID: 2113421379}
+  closeButton: {fileID: 17468257}
+  rules: {fileID: 11400000, guid: 96ec86fa4de6ef541b7c03ccd8cba752, type: 2}
 --- !u!1001 &1043554401
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10969,7 +11002,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -150}
+  m_AnchoredPosition: {x: 0, y: -175}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1413292768
