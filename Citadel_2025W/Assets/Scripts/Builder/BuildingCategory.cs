@@ -14,6 +14,7 @@ namespace Citadel
         House,
         Castle,
         Warehouse,
-        Well
+        Well,
+        TrainingCenter
     }
 }
