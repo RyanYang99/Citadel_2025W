@@ -7,7 +7,7 @@ namespace Citadel
 {
     public sealed class BonusManager : MonoBehaviour
     {
-        private readonly Dictionary<SatisfactionProvider, List<Bonus>> _activeBonuses = new();
+        private readonly Dictionary<UnityEngine.Object, List<Bonus>> _activeBonuses = new();
 
         private readonly Dictionary<Item, BonusValue> _consolidatedItems = new();
         private readonly Dictionary<RangeResource, BonusValue> _consolidatedRangeResources = new();
@@ -52,18 +52,18 @@ namespace Citadel
         }
 
         private void Invoke() => OnBonusesChanged?.Invoke();
-        
-        public void AddBonus(SatisfactionProvider satisfactionProvider, Bonus bonus)
+
+        public void AddBonus(UnityEngine.Object source, Bonus bonus)
         {
-            if (!_activeBonuses.TryGetValue(satisfactionProvider, out List<Bonus> bonuses))
+            if (!_activeBonuses.TryGetValue(source, out List<Bonus> bonuses)) 
             {
                 bonuses = new List<Bonus>();
-                _activeBonuses[satisfactionProvider] = bonuses;
+                _activeBonuses[source] = bonuses;
             }
-            
+
             if (!bonuses.Contains(bonus))
                 bonuses.Add(bonus);
-            
+
             Consolidate();
             Invoke();
         }
