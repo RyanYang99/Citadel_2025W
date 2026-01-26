@@ -17,9 +17,4 @@ MonoBehaviour:
   cost: 3
   requiredResearches:
   - {fileID: 11400000, guid: 7f92a9c06abe91142a1d9af0b76c4a6d, type: 2}
-  effects:
-  - isItem: 0
-    targetItem: 2
-    targetResource: 0
-    value: 0.15
-    isPercentage: 0
+  effects: []

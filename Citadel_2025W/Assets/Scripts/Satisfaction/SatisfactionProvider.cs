@@ -40,7 +40,7 @@ namespace Citadel
         [SerializeField] private List<ItemBonus> itemBonuses = new();
         [SerializeField] private List<RangeResourceBonus> rangeResourceBonuses = new();
 
-        [SerializeField] private int readyDelayTicks = 3; // 만족도가 반영되기까지 몇 틱을 기다릴지 설정 / ex) 5틱
+        private int readyDelayTicks = 3; // 만족도가 반영되기까지 몇 틱을 기다릴지 설정 / ex) 5틱
         private int _currentTickCount = 0;
 
         public float Satisfaction { get; private set; }

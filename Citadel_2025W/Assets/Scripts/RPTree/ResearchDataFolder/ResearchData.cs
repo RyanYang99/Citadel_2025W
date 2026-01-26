@@ -9,7 +9,6 @@ public class ResearchEffect
     public bool isItem;
 
     public Citadel.Item targetItem;
-    public Citadel.RangeResource targetResource;
 
     public float value;
     public bool isPercentage;

@@ -13,13 +13,8 @@ MonoBehaviour:
   m_Name: Skill_Military1
   m_EditorClassIdentifier: Assembly-CSharp::ResearchData
   researchName: "\uAD70\uC0AC\uB825 1Lvl"
-  explanation: "\uC804\uD22C\uB825 +5%"
+  explanation: "\uC804\uD22C\uB825 +10%"
   cost: 1
   requiredResearches:
   - {fileID: 11400000, guid: 6aa288af920e19140ba92ce8d6a1d974, type: 2}
-  effects:
-  - isItem: 0
-    targetItem: 2
-    targetResource: 0
-    value: 0.05
-    isPercentage: 0
+  effects: []

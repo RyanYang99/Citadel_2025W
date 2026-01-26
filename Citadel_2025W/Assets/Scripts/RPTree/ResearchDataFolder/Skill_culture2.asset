@@ -12,14 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f61015b788c63847a895c09f350263f, type: 3}
   m_Name: Skill_culture2
   m_EditorClassIdentifier: Assembly-CSharp::ResearchData
-  researchName: "\uBB38\uD654 2Lvl"
-  explanation: "\uB098\uBB34 +10"
+  researchName: "\uC790\uC6D0 2Lvl"
+  explanation: "\uBAA8\uB4E0 \uC790\uC6D0 \uC218\uAE09\uB7C9 +15%"
   cost: 2
   requiredResearches:
   - {fileID: 11400000, guid: ec2df353d4038b747b43b45d8de20076, type: 2}
   effects:
   - isItem: 1
     targetItem: 1
-    targetResource: 0
-    value: 10
-    isPercentage: 0
+    value: 0.15
+    isPercentage: 1
+  - isItem: 1
+    targetItem: 2
+    value: 0.15
+    isPercentage: 1
+  - isItem: 1
+    targetItem: 3
+    value: 0.15
+    isPercentage: 1
+  - isItem: 1
+    targetItem: 4
+    value: 0.15
+    isPercentage: 1
+  - isItem: 1
+    targetItem: 5
+    value: 0.15
+    isPercentage: 1

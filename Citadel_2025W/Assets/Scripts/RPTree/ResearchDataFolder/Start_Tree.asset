@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f61015b788c63847a895c09f350263f, type: 3}
   m_Name: Start_Tree
   m_EditorClassIdentifier: Assembly-CSharp::ResearchData
-  researchName: "\uAE30\uBCF8 \uC5F0\uAD6C"
-  explanation: "\uACE8\uB4DC\uC218\uAE09 +5%"
+  researchName: "\uAE30\uCD08 \uC5F0\uAD6C"
+  explanation: "\uACE8\uB4DC\uC218\uAE09\uB7C9 +5"
   cost: 2
   requiredResearches: []
   effects:
   - isItem: 1
     targetItem: 0
-    targetResource: 0
-    value: 0.05
-    isPercentage: 1
+    value: 5
+    isPercentage: 0

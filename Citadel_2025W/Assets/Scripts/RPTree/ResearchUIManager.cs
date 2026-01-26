@@ -117,11 +117,6 @@ public class ResearchUIManager : MonoBehaviour
                 bonusManager.AddBonus(currentSelectedResearch, new Bonus(effect.targetItem, bValue));
                 Debug.Log($"<color=yellow>[연구 전송]</color> 아이템: {effect.targetItem}, 퍼센트: {effect.isPercentage}, 값: {effect.value}");
             }
-            else
-            {
-                bonusManager.AddBonus(currentSelectedResearch, new Bonus(effect.targetResource, bValue));
-                Debug.Log($"<color=yellow>[연구 전송]</color> 아이템: {effect.targetItem}, 퍼센트: {effect.isPercentage}, 값: {effect.value}");
-            }
         }
 
         currentSelectedResearch.isUnlocked = true;

@@ -10600,9 +10600,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1961035428}
     m_Modifications:
+    - target: {fileID: 2841003392588314047, guid: 3618053cec8e6114187b077a4cd531d1, type: 3}
+      propertyPath: m_Name
+      value: AlertIcon3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445205172950043185, guid: 3618053cec8e6114187b077a4cd531d1, type: 3}
+      propertyPath: m_Name
+      value: AlertIcon4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5780845384882163218, guid: 3618053cec8e6114187b077a4cd531d1, type: 3}
+      propertyPath: m_Name
+      value: AlertIcon2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7946542659497600184, guid: 3618053cec8e6114187b077a4cd531d1, type: 3}
+      propertyPath: m_Name
+      value: AlertIcon1
+      objectReference: {fileID: 0}
     - target: {fileID: 8054896085622559906, guid: 3618053cec8e6114187b077a4cd531d1, type: 3}
       propertyPath: m_Name
       value: DetailSatisfaction
+      objectReference: {fileID: 0}
+    - target: {fileID: 8054896085622559906, guid: 3618053cec8e6114187b077a4cd531d1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8172726279089458350, guid: 3618053cec8e6114187b077a4cd531d1, type: 3}
       propertyPath: m_Pivot.x
@@ -10929,6 +10949,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1167567409}
     m_Modifications:
+    - target: {fileID: 2338512224032064573, guid: 3c74af8b8aac56446947057ba0209a39, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2338512224032064573, guid: 3c74af8b8aac56446947057ba0209a39, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -140
+      objectReference: {fileID: 0}
     - target: {fileID: 2550329295929207681, guid: 3c74af8b8aac56446947057ba0209a39, type: 3}
       propertyPath: bonusManager
       value: 
@@ -11024,6 +11052,14 @@ PrefabInstance:
     - target: {fileID: 4887915020358729245, guid: 3c74af8b8aac56446947057ba0209a39, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6102009780283159344, guid: 3c74af8b8aac56446947057ba0209a39, type: 3}
+      propertyPath: m_fontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6102009780283159344, guid: 3c74af8b8aac56446947057ba0209a39, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6734516928698780282, guid: 3c74af8b8aac56446947057ba0209a39, type: 3}
       propertyPath: m_Name
@@ -14182,15 +14218,15 @@ MonoBehaviour:
     statusText: {fileID: 1835834394}
     alertButton: {fileID: 429345114}
     displayScore: 0
-  - category: 0
+  - category: 1
     statusText: {fileID: 15641004}
     alertButton: {fileID: 1887521457}
     displayScore: 0
-  - category: 0
+  - category: 2
     statusText: {fileID: 1074172221}
     alertButton: {fileID: 573012209}
     displayScore: 0
-  - category: 0
+  - category: 3
     statusText: {fileID: 910740201}
     alertButton: {fileID: 932242674}
     displayScore: 0

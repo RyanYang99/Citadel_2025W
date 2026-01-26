@@ -13,13 +13,12 @@ MonoBehaviour:
   m_Name: Skill_capital1
   m_EditorClassIdentifier: Assembly-CSharp::ResearchData
   researchName: "\uD589\uC815 1Lvl"
-  explanation: "\uACE8\uB4DC +5%"
+  explanation: "\uACE8\uB4DC\uC218\uAE09\uB7C9 +5%"
   cost: 1
   requiredResearches:
   - {fileID: 11400000, guid: 6aa288af920e19140ba92ce8d6a1d974, type: 2}
   effects:
   - isItem: 1
     targetItem: 0
-    targetResource: 0
     value: 0.05
     isPercentage: 1
