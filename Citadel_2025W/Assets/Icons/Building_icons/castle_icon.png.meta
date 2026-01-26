@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c1ee364d6f4edab4cb59c46f97ae5ebf
+guid: a21038ac30ca90c49b16a128cd07e143
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8096887577016093818
-    second: building_barracks_blue_Icon_0
+      213: 6877549984006902814
+    second: castle_lv1_Icon_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: building_barracks_blue_Icon_0
+      name: castle_lv1_Icon_0
       rect:
         serializedVersion: 2
-        x: 66
-        y: 35
-        width: 124
-        height: 157
+        x: 84
+        y: 38
+        width: 88
+        height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 683bea9d5a312af80800000000000000
-      internalID: -8096887577016093818
+      spriteID: e1499b98547f17f50800000000000000
+      internalID: 6877549984006902814
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      building_barracks_blue_Icon_0: -8096887577016093818
+      castle_lv1_Icon_0: 6877549984006902814
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

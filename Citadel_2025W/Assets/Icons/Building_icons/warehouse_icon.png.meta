@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 6cec6af5cda0a644cb736afdeb2249a7
+guid: d8ecbe82a71448c498ad6c299d14a359
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 616052508964399436
-    second: building_market_blue_Icon_0
-  - first:
-      213: -7365409848866661885
-    second: building_market_blue_Icon_1
+      213: 6258770207428006823
+    second: warehouse_lv1_Icon_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -116,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: building_market_blue_Icon_0
+      name: warehouse_lv1_Icon_0
       rect:
         serializedVersion: 2
-        x: 50
+        x: 69
         y: 35
-        width: 147
-        height: 89
+        width: 115
+        height: 88
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,30 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c49afcf2e78ac8800800000000000000
-      internalID: 616052508964399436
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: building_market_blue_Icon_1
-      rect:
-        serializedVersion: 2
-        x: 198
-        y: 38
-        width: 8
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 30a932d14cec8c990800000000000000
-      internalID: -7365409848866661885
+      spriteID: 7a35b80e75e9bd650800000000000000
+      internalID: 6258770207428006823
       vertices: []
       indices: 
       edges: []
@@ -173,8 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      building_market_blue_Icon_0: 616052508964399436
-      building_market_blue_Icon_1: -7365409848866661885
+      warehouse_lv1_Icon_0: 6258770207428006823
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
