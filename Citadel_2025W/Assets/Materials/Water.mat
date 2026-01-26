@@ -125,7 +125,7 @@ Material:
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _WaveAmp: 0.03
-    - _WaveAmplitude: 0.01
+    - _WaveAmplitude: 0.7
     - _WaveFreq: 0
     - _WaveSpeed: 0.5
     - _WorkflowMode: 1

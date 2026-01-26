@@ -45,12 +45,12 @@ Shader "Custom/WaterShader"
             
             varyings vert(attributes input)
             {
-                float3 position = input.position_os.xyz;
-                position.y += sin((_WaveSpeed * _Time.y) + (rand(position.xz) * 100.0)) * _WaveAmplitude;
-                
+                float3 world_position = TransformObjectToWorld(input.position_os.xyz);
+                world_position.y += sin((_WaveSpeed * _Time.y) + (rand(world_position.xz) * 100.0)) * _WaveAmplitude;
+
                 varyings output;
-                output.position_hcs = TransformObjectToHClip(position);
-                output.world_position = TransformObjectToWorld(position);
+                output.position_hcs = TransformWorldToHClip(world_position);
+                output.world_position = world_position;
                 return output;
             }
 
