@@ -14,7 +14,7 @@ namespace Citadel
         [Header("업그레이드 연출 설정")]
         [SerializeField] private GameObject upgradeParticlePrefab; // 먼지 구름 등 파티클 프리팹
         [SerializeField] private float bounceDuration = 0.15f;      // 튀어오르는 속도
-        [SerializeField] private float bounceScaleMultiplier = 1.2f; // 얼마나 크게 튈지 (1.2배)
+        [SerializeField] private float bounceScaleMultiplier = 1.2f; // 얼마나 크게 튈지
 
         [System.Serializable]
         public struct BuildingLevelData
@@ -85,16 +85,13 @@ namespace Citadel
             Vector3 pos = oldObj.transform.position;
             Quaternion rot = oldObj.transform.rotation;
 
-            // 1. 파티클 효과 생성
             if (upgradeParticlePrefab != null)
             {
                 Instantiate(upgradeParticlePrefab, pos, Quaternion.identity);
             }
 
-            // 2. 새 건물 생성
             GameObject newObj = Instantiate(nextPrefab, pos, rot);
 
-            // 3. 관리 데이터 갱신
             var manager = FindFirstObjectByType<BuildingManager>();
             var placed = manager.FindPlacedBuilding(oldObj);
             if (placed != null)
@@ -106,7 +103,6 @@ namespace Citadel
             buildingLevels.Remove(oldObj);
             Destroy(oldObj);
 
-            // 4. [모션 연출] 튀어오르는 코루틴 실행
             StartCoroutine(AnimateUpgradeScale(newObj.transform));
         }
 

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Warehouse
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.BuildingMetaData
   uniqueName: Warehouse
-  prefab: {fileID: 6832019402350009361, guid: 65db50a4730c485468e84c528eea82cc, type: 3}
-  icon: {fileID: 616052508964399436, guid: 6cec6af5cda0a644cb736afdeb2249a7, type: 3}
+  prefab: {fileID: 8780672246137247250, guid: 3c887ed5009ca0745aba1abf9b6b5f3b, type: 3}
+  icon: {fileID: 6258770207428006823, guid: d8ecbe82a71448c498ad6c299d14a359, type: 3}
   category: 2
   subCategory: 3
   yOffset: 0

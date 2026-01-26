@@ -16,5 +16,6 @@ namespace Citadel
 
         Population, //½Ã¹Î
         Troops, //º´·Â 
+        ResearchPoint
     }
 }

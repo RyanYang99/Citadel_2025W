@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: House
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.BuildingMetaData
   uniqueName: House
-  prefab: {fileID: 1461308092164541473, guid: a2298a8618b1dc44bb61ce5b8b008e41, type: 3}
-  icon: {fileID: -3063815754490363744, guid: f78f4d5bbe95e8e4090bb3235b570c16, type: 3}
+  prefab: {fileID: 3581141966575942417, guid: 3284ba3accce6224a913776bf2ddf2a9, type: 3}
+  icon: {fileID: 4075712863124327593, guid: eab0f9d041eee9d468fc2309fb5c9288, type: 3}
   category: 2
   subCategory: 1
   yOffset: 0
