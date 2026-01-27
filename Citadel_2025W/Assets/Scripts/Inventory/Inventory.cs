@@ -1,6 +1,5 @@
 using System;
 using System.Text;
-using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -53,11 +52,7 @@ namespace Citadel
             }
         }
         
-        public int GetAmount(Item item)
-        {
-            _resourcesCount.TryAdd(item, 0);
-            return _resourcesCount[item];
-        }
+        public int GetAmount(Item item) => _resourcesCount.GetValueOrDefault(item, 0);
 
         public void Add(Item item, int amount)
         {

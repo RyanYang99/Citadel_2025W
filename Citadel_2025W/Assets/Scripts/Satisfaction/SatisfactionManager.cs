@@ -12,54 +12,54 @@ namespace Citadel
 
         private void Awake()
         {
-            if (Instance == null) Instance = this;
-            else Destroy(gameObject);
+            if (Instance == null)
+                Instance = this;
+            else
+                Destroy(gameObject);
         }
 
         public void Register(SatisfactionProvider provider)
         {
-            if (!_providers.Contains(provider)) _providers.Add(provider);
+            if (!_providers.Contains(provider))
+                _providers.Add(provider);
         }
 
-        public void Unregister(SatisfactionProvider provider)
-        {
-            _providers.Remove(provider);
-        }
+        public void Unregister(SatisfactionProvider provider) => _providers.Remove(provider);
 
-        // 1. ÀüÃ¼ ¸¸Á·µµ Æò±Õ (0~1)
+        // 1. ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ (0~1)
         public float GetGlobalAverage()
         {
             var readyProviders = _providers.Where(p => p.IsReady).ToList();
 
-            //°Ç¹°ÀÌ ¾Æ¹«°Íµµ ¾ø´Ù¸é -1À» ¹ÝÈ¯
+            //ï¿½Ç¹ï¿½ï¿½ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ -1ï¿½ï¿½ ï¿½ï¿½È¯
             if (readyProviders.Count == 0) return -1f;
 
             return readyProviders.Average(p => p.Satisfaction);
         }
 
-        // 2. Ä«Å×°í¸®º° ¸¸Á·µµ Æò±Õ (0~1)
+        // 2. Ä«ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ (0~1)
         public float GetCategoryAverage(SatisfactionCategory category)
         {
-            // ÇØ´ç Ä«Å×°í¸® °Ç¹°¸¸ ÇÊÅÍ¸µ
-            var targetProviders = _providers.Where(p => p.category == category && p.IsReady).ToList();
+            // ï¿½Ø´ï¿½ Ä«ï¿½×°ï¿½ï¿½ï¿½ ï¿½Ç¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í¸ï¿½
+            var targetProviders = _providers.Where(p => p.Category == category && p.IsReady).ToList();
             
             if (targetProviders.Count == 0) return -1f;
 
             return targetProviders.Average(p => p.Satisfaction);
         }
 
-        // 3. ÇØ´ç Ä«Å×°í¸®¿¡¼­ ÃÖÀú ¸¸Á·µµ¸¦ °¡Áø ¸ðµç °Ç¹°µé Ã£±â
+        // 3. ï¿½Ø´ï¿½ Ä«ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ç¹ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½
         public List<SatisfactionProvider> GetWorstBuildings(SatisfactionCategory category)
         {
-            // ÇØ´ç Ä«Å×°í¸® °Ç¹°µé¸¸ ÃßÃâ
-            var targetProviders = _providers.Where(p => p.category == category && p.IsReady).ToList();
+            // ï¿½Ø´ï¿½ Ä«ï¿½×°ï¿½ï¿½ï¿½ ï¿½Ç¹ï¿½ï¿½é¸¸ ï¿½ï¿½ï¿½ï¿½
+            var targetProviders = _providers.Where(p => p.Category == category && p.IsReady).ToList();
 
             if (targetProviders.Count == 0) return new List<SatisfactionProvider>();
 
-            // ÃÖ¼Ò Á¡¼ö Ã£±â
+            // ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½
             float minScore = targetProviders.Min(p => p.Satisfaction);
 
-            // ÃÖ¼Ò Á¡¼ö¿Í µ¿ÀÏÇÑ Á¡¼ö¸¦ °¡Áø ¸ðµç °Ç¹° ¸®½ºÆ® ¹ÝÈ¯
+            // ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ç¹ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½È¯
             return targetProviders
                 .Where(p => Mathf.Approximately(p.Satisfaction, minScore))
                 .ToList();
@@ -67,8 +67,8 @@ namespace Citadel
 
         public bool HasWorstBuilding(SatisfactionCategory category, float threshold)
         {
-            // IsReady°¡ trueÀÎ °Ç¹° Áß¿¡¼­ ¸¸Á·µµ°¡ thresholdº¸´Ù ³·Àº °Ô ÇÏ³ª¶óµµ ÀÖ´ÂÁö °Ë»ç
-            return _providers.Any(p => p.category == category && p.IsReady && p.Satisfaction < threshold);
+            // IsReadyï¿½ï¿½ trueï¿½ï¿½ ï¿½Ç¹ï¿½ ï¿½ß¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ thresholdï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
+            return _providers.Any(p => p.Category == category && p.IsReady && p.Satisfaction < threshold);
         }
     }
 }
