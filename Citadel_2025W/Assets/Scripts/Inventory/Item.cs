@@ -5,6 +5,7 @@ namespace Citadel
         Money,
         
         Wood,
+        Water,
         Stone,
         Brick,
         
@@ -14,8 +15,9 @@ namespace Citadel
         Cotton,
         Clothes,
 
-        Population, //½Ã¹Î
-        Troops, //º´·Â 
-        ResearchPoint
+        Population, 
+        Troops,  
+        ResearchPoint,
+        Soldier
     }
 }
