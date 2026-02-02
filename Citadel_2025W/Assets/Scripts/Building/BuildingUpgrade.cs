@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -9,23 +9,23 @@ namespace Citadel
     {
         public static BuildingUpgrade Instance { get; private set; }
 
-        [SerializeField, Tooltip("ÀÚ¿øÀ» °ü¸®ÇÏ´Â ÀÎº¥Åä¸® ÂüÁ¶")]
+        [SerializeField, Tooltip("ìì›ì„ ê´€ë¦¬í•˜ëŠ” ì¸ë²¤í† ë¦¬ ì°¸ì¡°")]
         private Inventory inventory;
 
-        [Header("¾÷±×·¹ÀÌµå ¿¬Ãâ ¼³Á¤")]
-        [SerializeField] private GameObject upgradeParticlePrefab; // ¸ÕÁö ±¸¸§ µî ÆÄÆ¼Å¬ ÇÁ¸®ÆÕ
-        [SerializeField] private float bounceDuration = 0.15f;      // Æ¢¾î¿À¸£´Â ¼Óµµ
-        [SerializeField] private float bounceScaleMultiplier = 1.2f; // ¾ó¸¶³ª Å©°Ô Æ¥Áö
+        [Header("ì—…ê·¸ë ˆì´ë“œ ì—°ì¶œ ì„¤ì •")]
+        [SerializeField] private GameObject upgradeParticlePrefab; // ë¨¼ì§€ êµ¬ë¦„ ë“± íŒŒí‹°í´ í”„ë¦¬íŒ¹
+        [SerializeField] private float bounceDuration = 0.15f;      // íŠ€ì–´ì˜¤ë¥´ëŠ” ì†ë„
+        [SerializeField] private float bounceScaleMultiplier = 1.2f; // ì–¼ë§ˆë‚˜ í¬ê²Œ íŠˆì§€
 
         [System.Serializable]
         public struct BuildingLevelData
         {
             public BuildingSubCategory subCategory;
-            [Tooltip("·¹º§ 1ºÎÅÍ 5±îÁöÀÇ ÇÁ¸®ÆÕÀ» ¼ø¼­´ë·Î ÇÒ´çÇÏ¼¼¿ä.")]
+            [Tooltip("ë ˆë²¨ 1ë¶€í„° 5ê¹Œì§€ì˜ í”„ë¦¬íŒ¹ì„ ìˆœì„œëŒ€ë¡œ í• ë‹¹í•˜ì„¸ìš”.")]
             public GameObject[] levelPrefabs;
         }
 
-        [Header("°Ç¹° ·¹º§º° ¸ğµ¨ ¼³Á¤")]
+        [Header("ê±´ë¬¼ ë ˆë²¨ë³„ ëª¨ë¸ ì„¤ì •")]
         public List<BuildingLevelData> levelDataList;
 
         private Dictionary<GameObject, int> buildingLevels = new Dictionary<GameObject, int>();
@@ -59,13 +59,13 @@ namespace Citadel
 
             if (nextLevel > 5)
             {
-                Debug.LogWarning($"{subCategory}: ÀÌ¹Ì ÃÖ°í ·¹º§(5)ÀÔ´Ï´Ù.");
+                Debug.LogWarning($"{subCategory}: ì´ë¯¸ ìµœê³  ë ˆë²¨(5)ì…ë‹ˆë‹¤.");
                 return false;
             }
 
             if (TryConsumeForLevel(subCategory, nextLevel))
             {
-                // ¸ğµ¨ ±³Ã¼ ¹× ¸ğ¼Ç ½ÇÇà
+                // ëª¨ë¸ êµì²´ ë° ëª¨ì…˜ ì‹¤í–‰
                 ReplaceBuildingWithMotion(buildingObj, subCategory, nextLevel);
                 return true;
             }
@@ -78,7 +78,7 @@ namespace Citadel
             var data = levelDataList.Find(x => x.subCategory == subCategory);
             if (data.levelPrefabs == null || data.levelPrefabs.Length < nextLevel)
             {
-                Debug.LogError($"{subCategory}ÀÇ {nextLevel}·¹º§ ÇÁ¸®ÆÕÀÌ ¼³Á¤µÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                Debug.LogError($"{subCategory}ì˜ {nextLevel}ë ˆë²¨ í”„ë¦¬íŒ¹ì´ ì„¤ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
                 return;
             }
 
@@ -92,7 +92,11 @@ namespace Citadel
             }
 
             GameObject newObj = Instantiate(nextPrefab, pos, rot);
-
+            var animManager = FindFirstObjectByType<AnimationManager>();
+            if (animManager != null)
+            {
+                animManager.ApplyConstructionEffect(newObj);
+            }
             var manager = FindFirstObjectByType<BuildingManager>();
             var placed = manager.FindPlacedBuilding(oldObj);
             if (placed != null)
@@ -114,7 +118,7 @@ namespace Citadel
             Vector3 originalScale = target.localScale;
             Vector3 peakScale = originalScale * bounceScaleMultiplier;
 
-            // Ä¿Áö´Â ±¸°£
+            // ì»¤ì§€ëŠ” êµ¬ê°„
             float elapsed = 0f;
             while (elapsed < bounceDuration)
             {
@@ -123,7 +127,7 @@ namespace Citadel
                 yield return null;
             }
 
-            // ¿ø·¡ Å©±â·Î µ¹¾Æ¿À´Â ±¸°£
+            // ì›ë˜ í¬ê¸°ë¡œ ëŒì•„ì˜¤ëŠ” êµ¬ê°„
             elapsed = 0f;
             while (elapsed < bounceDuration)
             {
@@ -145,7 +149,7 @@ namespace Citadel
                 int needed = req.amount * multiplier;
                 if (inventory.GetAmount(req.item) < needed)
                 {
-                    Debug.LogWarning($"ÀÚ¿ø ºÎÁ·: {req.item} ÇÊ¿ä: {needed}");
+                    Debug.LogWarning($"ìì› ë¶€ì¡±: {req.item} í•„ìš”: {needed}");
                     return false;
                 }
             }
