@@ -987,6 +987,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d8763dd374f5b644bdd5e5ebeae3145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.BonusManager
+  log: 0
 --- !u!1 &207567384
 GameObject:
   m_ObjectHideFlags: 0

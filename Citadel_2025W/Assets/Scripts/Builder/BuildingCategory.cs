@@ -17,6 +17,7 @@ namespace Citadel
         Well, // 우물
         Froge, // 대장간
         Quarry, // 채석상
-        Market // 노점상(은행)
+        Market, // 노점상(은행)
+        CulturalBuilding //문화 건물
     }
 }
