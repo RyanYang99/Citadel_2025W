@@ -22,6 +22,10 @@ namespace Citadel
         {
             _inventory = FindAnyObjectByType<Inventory>();
             _time = FindAnyObjectByType<TimeManager>();
+
+
+            if (_inventory == null) Debug.LogError("[BarracksQueue] Inventory not found");
+            if (_time == null) Debug.LogError("[BarracksQueue] TimeManager not found");
         }
 
         private void OnEnable()

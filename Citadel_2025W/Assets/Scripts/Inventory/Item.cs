@@ -14,6 +14,9 @@ namespace Citadel
         Cotton,
         Clothes,
 
+
+        ResearchPoint,
+
         Soldier
     }
 }

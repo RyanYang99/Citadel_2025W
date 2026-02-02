@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f78f4d5bbe95e8e4090bb3235b570c16
+guid: eab0f9d041eee9d468fc2309fb5c9288
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3063815754490363744
-    second: building_blacksmith_blue_Icon_0
+      213: 4075712863124327593
+    second: house_lv1_Icon_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: building_blacksmith_blue_Icon_0
+      name: house_lv1_Icon_0
       rect:
         serializedVersion: 2
-        x: 71
-        y: 37
-        width: 112
-        height: 93
+        x: 112
+        y: 43
+        width: 32
+        height: 35
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0a04b58ddc32b75d0800000000000000
-      internalID: -3063815754490363744
+      spriteID: 9ac04054147df8830800000000000000
+      internalID: 4075712863124327593
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      building_blacksmith_blue_Icon_0: -3063815754490363744
+      house_lv1_Icon_0: 4075712863124327593
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

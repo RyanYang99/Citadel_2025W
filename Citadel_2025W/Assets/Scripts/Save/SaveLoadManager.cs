@@ -12,6 +12,7 @@ namespace Citadel
         private class SaveFile
         {
             public DateTime ElapsedTime;
+            public int groundLevel;
             
             public List<SerializableBuilding> buildings = new();
             public List<ItemAmount> inventory = new();
@@ -23,6 +24,7 @@ namespace Citadel
         private BuildingManager _buildingManager;
 
         private Inventory _inventory;
+        private GroundLevelManager _groundLevelManager;
         
         private string _path;
 
@@ -31,6 +33,7 @@ namespace Citadel
             _timeManager = FindFirstObjectByType<TimeManager>();
             _buildingManager = FindFirstObjectByType<BuildingManager>();
             _inventory = FindFirstObjectByType<Inventory>();
+            _groundLevelManager = FindFirstObjectByType<GroundLevelManager>();
             
             _path = Application.persistentDataPath + "/save.json";
         }
@@ -48,7 +51,8 @@ namespace Citadel
         {
             SaveFile saveFile = new()
             {
-                ElapsedTime = _timeManager.TimeElapsed
+                ElapsedTime = _timeManager.TimeElapsed,
+                groundLevel = _groundLevelManager.CurrentLevel
             };
 
             foreach (PlacedBuilding placedBuilding in _buildingManager.PlacedBuildings)
@@ -67,6 +71,7 @@ namespace Citadel
                 return;
 
             SaveFile saveFile = JsonConvert.DeserializeObject<SaveFile>(File.ReadAllText(_path));
+            _groundLevelManager.CurrentLevel = saveFile.groundLevel;
             _timeManager.Load(saveFile.ElapsedTime);
             _buildingManager.Load(saveFile.buildings);
             _inventory.Load(saveFile.inventory);

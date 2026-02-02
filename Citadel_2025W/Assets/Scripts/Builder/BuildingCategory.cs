@@ -11,10 +11,13 @@ namespace Citadel
     public enum BuildingSubCategory // 건물 종류 추가 
     {
         None, // Building이 아닐 경우
-        House,
-        Castle,
-        Warehouse,
-        Well,
-        TrainingCenter
+        House, // 시민집
+        Castle, // 영주 성
+        Warehouse, // 벌목소 
+        Well, // 우물
+        Froge, // 대장간
+        Quarry, // 채석상
+        Market, // 노점상(은행)
+        TrainingCenter // 병력생산시설
     }
 }
