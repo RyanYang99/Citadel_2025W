@@ -125,13 +125,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemConsumer
   itemsUsed:
   - item: 3
-    amount: 2
-  - item: 4
-    amount: 2
+    amount: 10
   - item: 5
-    amount: 2
+    amount: 10
   - item: 7
-    amount: 3
+    amount: 10
   rangeResourcesUsed: 00000000
   satisfactionItemUsed: []
   satisfactionRangeResourceUsed: 
@@ -151,14 +149,12 @@ MonoBehaviour:
   ticksNeeded: 1
   itemsProduced:
   - item: 4
-    amount: 1
-  - item: 5
-    amount: 1
+    amount: 5
   - item: 6
-    amount: 1
+    amount: 5
   - item: 8
-    amount: 1
-  range: 0
+    amount: 5
+  range: 10
   rangeResourceProvided: []
   oneTimeItemProduced: []
 --- !u!114 &2381142354561648371

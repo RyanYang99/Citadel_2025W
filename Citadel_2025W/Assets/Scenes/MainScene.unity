@@ -3604,7 +3604,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 622810240}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -3735,7 +3735,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.GridPlacementValidator
   grid: {fileID: 622810246}
   occupancy: {fileID: 622810245}
-  footprintDB: {fileID: 11400000, guid: 074b9539b60266d4faf0478f4e21f7b2, type: 2}
+  footprintDB: {fileID: 11400000, guid: eef63e8ecc458fd43a9020d9339b976f, type: 2}
 --- !u!114 &622810245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6889,6 +6889,8 @@ MonoBehaviour:
   upgradeButton: {fileID: 79383260}
   rotateButton: {fileID: 2134339445}
   destroyButton: {fileID: 1985533461}
+  produceButton: {fileID: 0}
+  barracksPage: {fileID: 0}
   statusPanel: {fileID: 380882984}
   inventory: {fileID: 191902318}
   statusPanelController: {fileID: 380882986}
