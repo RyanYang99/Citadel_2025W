@@ -948,9 +948,9 @@ MonoBehaviour:
   - item: 2
     amount: 10
   - item: 3
-    amount: 100
+    amount: 10
   - item: 4
-    amount: 100
+    amount: 10
   - item: 5
     amount: 10
   - item: 6
@@ -5340,7 +5340,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 45, z: 0}
 --- !u!1 &770487899
 GameObject:
   m_ObjectHideFlags: 0
@@ -6871,6 +6871,8 @@ MonoBehaviour:
   upgradeButton: {fileID: 79383260}
   rotateButton: {fileID: 2134339445}
   destroyButton: {fileID: 1985533461}
+  produceButton: {fileID: 0}
+  barracksPage: {fileID: 0}
   statusPanel: {fileID: 380882984}
   inventory: {fileID: 191902318}
   statusPanelController: {fileID: 380882986}

@@ -15,6 +15,7 @@
         Cotton,
         Clothes,
 
-        ResearchPoint
+        ResearchPoint,
+        Soldier
     }
 }
