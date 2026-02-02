@@ -1,10 +1,11 @@
-namespace Citadel
+﻿namespace Citadel
 {
     public enum Item
     {
         Money,
         
         Wood,
+        Water,
         Stone,
         Brick,
         
