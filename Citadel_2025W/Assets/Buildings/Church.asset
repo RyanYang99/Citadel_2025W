@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.BuildingMetaData
   uniqueName: 
   prefab: {fileID: 5584223986731048012, guid: 19c601acdb238864c939af50dcbd314d, type: 3}
-  icon: {fileID: 0}
+  icon: {fileID: 2113661051342648869, guid: e0017d13750d9244bacced0f6b654a34, type: 3}
   category: 2
   subCategory: 8
   yOffset: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.BuildingMetaData
   uniqueName: Cinema
   prefab: {fileID: 1725779679958199110, guid: 46045fbddfa67b645a2126ab99b0f1fb, type: 3}
-  icon: {fileID: 8396303145206541097, guid: 411047796bc55d943926b57c41a17d25, type: 3}
+  icon: {fileID: 3162379349474849799, guid: 411047796bc55d943926b57c41a17d25, type: 3}
   category: 3
   subCategory: 8
   yOffset: 0
