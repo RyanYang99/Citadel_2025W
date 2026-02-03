@@ -75,6 +75,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: dc03e376df0186344b029578ef54c6e0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5308165901019338010}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: dc03e376df0186344b029578ef54c6e0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3606036112009195641}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: dc03e376df0186344b029578ef54c6e0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -4008923406240434904}
   m_SourcePrefab: {fileID: 100100000, guid: dc03e376df0186344b029578ef54c6e0, type: 3}
 --- !u!1 &3079906191569510546 stripped
 GameObject:
@@ -100,5 +106,40 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.7919598, y: 0.9300002, z: 0.85365164}
-  m_Center: {x: 0.000000029802322, y: 0.46499997, z: -0.041825786}
+  m_Size: {x: 0.5, y: 0.5, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3606036112009195641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3079906191569510546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 652f762aed6f39f45a6a5835a2105e5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemProducer
+  itemConsumer: {fileID: 0}
+  ticksNeeded: 1
+  itemsProduced:
+  - item: 7
+    amount: 3
+  range: 0
+  rangeResourceProvided: []
+  oneTimeItemProduced: []
+--- !u!114 &-4008923406240434904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3079906191569510546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c92ef4f73d6b28c48b49707a81c5e0b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NpcController
+  npcPrefab: {fileID: 4100060174313281956, guid: efcbc4c574114214da36d826d6ae2942, type: 3}
+  npcCount: 3
+  moveSpeed: 1

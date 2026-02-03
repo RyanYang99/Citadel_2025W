@@ -1,10 +1,11 @@
-namespace Citadel
+﻿namespace Citadel
 {
     public enum Item
     {
         Money,
         
         Wood,
+        Water,
         Stone,
         Brick,
         
@@ -14,6 +15,8 @@ namespace Citadel
         Cotton,
         Clothes,
 
-        ResearchPoint
+
+        ResearchPoint,
+        Soldier
     }
 }

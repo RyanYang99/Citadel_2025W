@@ -59,7 +59,7 @@ Shader "Custom/WaterShader"
                 float3 world_normal = normalize(cross(ddy(input.world_position), ddx(input.world_position)));
                 
                 Light main_light = GetMainLight();
-                float direct = _BaseColor.rgb * main_light.color * saturate(dot(world_normal, main_light.direction));
+                float direct = _BaseColor.rgb * main_light.color * dot(world_normal, main_light.direction) * 0.5f + 0.5f;
                 
                 return half4(_BaseColor.rgb * (direct + SampleSH(world_normal)), 1.0);
             }

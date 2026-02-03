@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2f6fc50c4c6781a4a8f4a6fa0025c859, type: 3}
       propertyPath: m_Name
-      value: building_destroyed
+      value: quarry_lv1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2f6fc50c4c6781a4a8f4a6fa0025c859, type: 3}
       propertyPath: m_Layer
@@ -75,6 +75,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2f6fc50c4c6781a4a8f4a6fa0025c859, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4972500854623791232}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2f6fc50c4c6781a4a8f4a6fa0025c859, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6663008527220160973}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2f6fc50c4c6781a4a8f4a6fa0025c859, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -8716572971793805002}
   m_SourcePrefab: {fileID: 100100000, guid: 2f6fc50c4c6781a4a8f4a6fa0025c859, type: 3}
 --- !u!1 &2710871837090424155 stripped
 GameObject:
@@ -101,4 +107,39 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1.5392758, y: 0.99391216, z: 1.3059175}
-  m_Center: {x: -0.05077547, y: 0.483045, z: -0.06047663}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6663008527220160973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2710871837090424155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 652f762aed6f39f45a6a5835a2105e5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemProducer
+  itemConsumer: {fileID: 0}
+  ticksNeeded: 1
+  itemsProduced:
+  - item: 3
+    amount: 1
+  range: 0
+  rangeResourceProvided: []
+  oneTimeItemProduced: []
+--- !u!114 &-8716572971793805002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2710871837090424155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c92ef4f73d6b28c48b49707a81c5e0b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NpcController
+  npcPrefab: {fileID: 1583176579727440567, guid: 7f041222b0662464ca8f3e72a5f68281, type: 3}
+  npcCount: 3
+  moveSpeed: 1
