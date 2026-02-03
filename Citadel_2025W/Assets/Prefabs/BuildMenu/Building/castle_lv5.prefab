@@ -140,4 +140,7 @@ MonoBehaviour:
   itemsProduced: []
   range: 0
   rangeResourceProvided: []
-  oneTimeItemProduced: []
+  oneTimeItemsProduced: []
+  permanentItemsAdded:
+  - item: 9
+    amount: 5

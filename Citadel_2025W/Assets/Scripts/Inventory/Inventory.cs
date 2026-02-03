@@ -79,7 +79,13 @@ namespace Citadel
             return consumableAmount;
         }
 
-        public void ForceSubtract(Item item, int amount) => _resourcesCount[item] = GetAmount(item) - amount;
+        public void ForceSubtract(Item item, int amount)
+        {
+            int result = GetAmount(item) - amount;
+
+            _resourcesCount[item] = result;
+            OnItemChange?.Invoke(item, result);
+        }
 
         public List<ItemAmount> ToList() => _resourcesCount.Select(item => new ItemAmount(item.Key, item.Value)).ToList();
 

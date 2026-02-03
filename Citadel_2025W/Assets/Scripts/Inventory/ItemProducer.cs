@@ -49,7 +49,10 @@ namespace Citadel
         private List<RangeResourceAmount> rangeResourceProvided = new();
 
         [SerializeField, Tooltip("작동 시 한번 공급하는 자원")]
-        private List<ItemAmount> oneTimeItemProduced = new();
+        private List<ItemAmount> oneTimeItemsProduced = new();
+
+        [SerializeField]
+        private List<ItemAmount> permanentItemsAdded = new();
 
         public Action<ItemAmount> OnItemProduced;
 
@@ -65,19 +68,25 @@ namespace Citadel
         {
             _inventory = FindAnyObjectByType<Inventory>();
             _bonusManager = FindAnyObjectByType<BonusManager>();
-
-            foreach (RangeResourceAmount rangeResourceAmount in rangeResourceProvided)
-            {
-                _originalRangeResourceDurations.Add(new RangeResourceAmount(rangeResourceAmount));
-                _rangeResourceDurations.Add(new RangeResourceAmount(rangeResourceAmount));
-            }
         }
 
         private void OnEnable()
         {
             _inventory.OnTick += OnTick;
             
-            foreach (ItemAmount itemAmount in oneTimeItemProduced)
+            foreach (ItemAmount itemAmount in oneTimeItemsProduced)
+                _inventory.Add(itemAmount.item, itemAmount.amount);
+        }
+
+        private void Start()
+        {
+            foreach (RangeResourceAmount rangeResourceAmount in rangeResourceProvided)
+            {
+                _originalRangeResourceDurations.Add(new RangeResourceAmount(rangeResourceAmount));
+                _rangeResourceDurations.Add(new RangeResourceAmount(rangeResourceAmount));
+            }
+
+            foreach (ItemAmount itemAmount in permanentItemsAdded)
                 _inventory.Add(itemAmount.item, itemAmount.amount);
         }
 
@@ -85,7 +94,7 @@ namespace Citadel
         {
             _inventory.OnTick -= OnTick;
             
-            foreach (ItemAmount itemAmount in oneTimeItemProduced)
+            foreach (ItemAmount itemAmount in oneTimeItemsProduced)
                 _inventory.ForceSubtract(itemAmount.item, itemAmount.amount);
             
             UpdateRange();
