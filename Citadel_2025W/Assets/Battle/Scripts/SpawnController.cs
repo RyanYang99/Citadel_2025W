@@ -49,7 +49,7 @@ public class SpawnController : MonoBehaviour
             {
                 Transform sp = playerSpawnPoints[Random.Range(0, playerSpawnPoints.Count)];
                 Vector3 pos = sp.position;
-                pos.y = 0f; // ← Ground 높이가 0이 아니라면 그 값으로
+                pos.y = 0f; // Ground 높이가 0이 아니라면 그 값으로
                 var go = factory.Spawn(UnitType.Infantry, pos, unitsRoot);
                 if (go != null)
                 {
@@ -71,7 +71,7 @@ public class SpawnController : MonoBehaviour
                 Transform sp = enemySpawnPoints[Random.Range(0, enemySpawnPoints.Count)];
                 UnitType t = RollEnemyType();
                 Vector3 pos = sp.position;
-                pos.y = 0f; // ← Ground 높이로 고정
+                pos.y = 0f; // Ground 높이로 고정
                 var go = factory.Spawn(t, pos, unitsRoot);
                 if (go != null)
                 {

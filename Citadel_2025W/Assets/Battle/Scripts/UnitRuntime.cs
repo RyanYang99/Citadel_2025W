@@ -24,12 +24,11 @@ public class UnitRuntime : MonoBehaviour
         _team = team;
         _onDied = onDied;
 
-        // UnitData에서 스탯 세팅하고 싶으면 여기서 GetComponent로 받아서 세팅해도 됨
     }
 
     private void Update()
     {
-        // 가장 가까운 적 찾기 (최소 구현)
+        // 가장 가까운 적 찾기
         UnitRuntime target = FindClosestEnemy();
         if (target == null) return;
 
@@ -84,7 +83,7 @@ public class UnitRuntime : MonoBehaviour
     {
         _onDied?.Invoke();
 
-        // 적이 죽었고, 킬러가 Player라면 킬 카운트 상승
+        // 적이 죽었고 & 킬러가 Player라면 킬 카운트 상승
         if (_team == Team.Enemy && killer == Team.Player)
             _battle?.NotifyEnemyKilled();
 

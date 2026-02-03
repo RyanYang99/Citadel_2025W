@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class UnitFactory : MonoBehaviour
 {
-    [SerializeField] private List<UnitData> unitDatabase; // Infantry/Archer/Shield 3개 넣는 곳
+    [SerializeField] private List<UnitData> unitDatabase; // Infantry/Archer 넣는 곳
 
     public UnitData Get(UnitType type)
     {

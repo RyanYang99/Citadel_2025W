@@ -9,7 +9,7 @@ public class BattleBalanceSettings : ScriptableObject
 
     [Header("Player Spawn")]
     public float playerBaseInterval = 1.4f;
-    public float playerIntervalPerLevel = -0.05f; // 레벨↑ => 더 자주 스폰
+    public float playerIntervalPerLevel = -0.05f; // 레벨비례 스폰빈도
     public int playerBaseMaxAlive = 10;
     public int playerMaxAlivePerLevel = 1;
 

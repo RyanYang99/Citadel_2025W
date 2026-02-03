@@ -23,9 +23,6 @@ public class BattleManager : MonoBehaviour
         _cfg = BattleRuntimeConfig.Build(balance, castleLevel);
 
         Debug.Log($"[Battle] L={castleLevel} targetKills={_cfg.targetKills}");
-
-        // 킬 카운트는 UnitRuntime에서 콜백으로 올라오게 할 거라
-        // UnitRuntime에 BattleManager 참조를 주는 방식/이벤트 방식 중 택1 가능
         UnitRuntime.SetBattleManager(this);
 
         spawner.Configure(_cfg);
