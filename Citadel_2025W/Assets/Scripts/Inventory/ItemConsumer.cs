@@ -26,10 +26,15 @@ namespace Citadel
         
         private Inventory _inventory;
         
-        [SerializeField, Tooltip("필요한 자원")]
+        [Header("생산 시 필요한 자원"), SerializeField]
         private List<ItemAmount> itemsUsed = new();
 
         [SerializeField] private List<RangeResource> rangeResourcesUsed = new();
+
+        [Header("만족도만 충족시키는 자원 (틱 마다 소모)"), SerializeField]
+        private List<ItemAmount> satisfactionItemUsed = new();
+
+        [SerializeField] private List<RangeResource> satisfactionRangeResourceUsed = new();
         
         public int TotalRequiredResources { get; private set; }
 
@@ -37,17 +42,11 @@ namespace Citadel
         public IReadOnlyList<ItemAmount> ItemsUsed => itemsUsed;
         public IReadOnlyList<RangeResource> RangeResourcesUsed => rangeResourcesUsed;
 
-        public int GetCurrentAmount(Item item)
-        {
-            return _currentItems.TryGetValue(item, out int v) ? v : 0;
-        }
-        //======================
-
         private void Awake()
         {
             _inventory = FindAnyObjectByType<Inventory>();
 
-            foreach (ItemAmount item in itemsUsed)
+            foreach (ItemAmount item in itemsUsed.Concat(satisfactionItemUsed))
                 _currentItems.TryAdd(item.item, 0);
 
             TotalRequiredResources = itemsUsed.Count + rangeResourcesUsed.Count;
@@ -65,9 +64,9 @@ namespace Citadel
             ActiveItemConsumers.Remove(this);
         }
 
-        private void OnTick()
+        private void ConsumeItems(List<ItemAmount> itemAmounts)
         {
-            foreach (ItemAmount item in itemsUsed)
+            foreach (ItemAmount item in itemAmounts)
             {
                 int needed = item.amount - _currentItems[item.item];
                 if (needed <= 0)
@@ -75,20 +74,33 @@ namespace Citadel
 
                 _currentItems[item.item] += _inventory.Consume(item.item, needed);
             }
-
-            UpdateSnapshot();
         }
 
-        private List<Item> GetProvidedItems() =>
-            itemsUsed.FindAll(itemAmount => itemAmount.amount <= _currentItems[itemAmount.item])
-                     .Select(itemAmount => itemAmount.item)
-                     .ToList();
+        private void OnTick()
+        {
+            ConsumeItems(itemsUsed);
+            ConsumeItems(satisfactionItemUsed);
+
+            UpdateSnapshot();
+            
+            foreach (ItemAmount item in satisfactionItemUsed.Where(item => _currentItems[item.item] >= item.amount))
+                _currentItems[item.item] -= item.amount;
+        }
+        
+        private List<Item> GetProvidedItemsFrom(List<ItemAmount> items) =>
+            items.FindAll(itemAmount => itemAmount.amount <= _currentItems[itemAmount.item])
+                 .Select(itemAmount => itemAmount.item)
+                 .ToList();
+
+        private List<Item> GetProvidedItems() => GetProvidedItemsFrom(itemsUsed);
+
+        private List<Item> GetProvidedSatisfactionItems() => GetProvidedItemsFrom(satisfactionItemUsed);
 
         private List<RangeResource> GetProvidedRangeResources()
         {
             List<RangeResource> provided = new();
             foreach (List<RangeResource> rangeResources in _providedRangeResources.Values)
-                foreach (RangeResource rangeResource in rangeResources.Where(rangeResource => !provided.Contains(rangeResource) && rangeResourcesUsed.Contains(rangeResource)))
+                foreach (RangeResource rangeResource in rangeResources.Where(rangeResource => !provided.Contains(rangeResource) && (rangeResourcesUsed.Contains(rangeResource) || satisfactionRangeResourceUsed.Contains(rangeResource)))) 
                     provided.Add(rangeResource);
 
             return provided;
@@ -97,20 +109,17 @@ namespace Citadel
         private void UpdateSnapshot()
         {
             _readyResourcesSnapshot.Clear();
-            _readyResourcesSnapshot.AddRange(GetProvidedItems().Select(item => new AnyResource(item)));
+            _readyResourcesSnapshot.AddRange(GetProvidedItems().Concat(GetProvidedSatisfactionItems()).Select(item => new AnyResource(item)));
             _readyResourcesSnapshot.AddRange(GetProvidedRangeResources().Select(rangeResource => new AnyResource(rangeResource)));
         }
+        
+        public int GetCurrentAmount(Item item) => _currentItems.GetValueOrDefault(item, 0);
 
-        public bool AreItemsReady()
-        {
-            if (GetProvidedItems().Count < itemsUsed.Count)
-                return false;
-
-            return GetProvidedRangeResources().Count >= rangeResourcesUsed.Count;
-        }
+        public bool AreItemsReady() => GetProvidedItems().Count >= itemsUsed.Count &&
+                                       GetProvidedRangeResources().Count >= rangeResourcesUsed.Count;
 
         public List<AnyResource> GetReadyResources() => _readyResourcesSnapshot;
-
+        
         public void ConsumeReadyItems()
         {
             foreach (ItemAmount item in itemsUsed)
@@ -119,7 +128,7 @@ namespace Citadel
 
         public void UpdateRangeResource(ItemProducer provider, RangeResource rangeResource, bool provided)
         {
-            if (!rangeResourcesUsed.Contains(rangeResource))
+            if (!rangeResourcesUsed.Contains(rangeResource) && !satisfactionRangeResourceUsed.Contains(rangeResource))
                 return;
 
             _providedRangeResources.TryAdd(provider, new List<RangeResource>());

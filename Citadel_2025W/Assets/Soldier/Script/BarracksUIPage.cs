@@ -115,6 +115,7 @@ namespace Citadel
             {
                 if (_queue == null) queueText.text = "대기: - / 다음 완료: -";
                 else queueText.text = _queue.GetQueueSummaryText();
+
             }
 
             // 4) Produce 버튼 활성/비활성

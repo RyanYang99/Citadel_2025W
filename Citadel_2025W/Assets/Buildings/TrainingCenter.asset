@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.BuildingMetaData
   uniqueName: Castle
   prefab: {fileID: 7139894311771784360, guid: d98e3cd2ebd250140bd8853af6a43dde, type: 3}
-  icon: {fileID: 6877549984006902814, guid: a21038ac30ca90c49b16a128cd07e143, type: 3}
+<<<<<<< HEAD
+  icon: {fileID: 6877549984006902814, guid: 831c38e392ce71a438a468e41393bd1e, type: 3}
+=======
+  icon: {fileID: -8096887577016093818, guid: c1ee364d6f4edab4cb59c46f97ae5ebf, type: 3}
+>>>>>>> origin/develop
   category: 2
   subCategory: 5
   yOffset: 0

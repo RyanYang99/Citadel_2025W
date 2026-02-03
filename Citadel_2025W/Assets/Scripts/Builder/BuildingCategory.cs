@@ -1,4 +1,4 @@
-namespace Citadel
+ï»¿namespace Citadel
 {
     public enum BuildingCategory
     {
@@ -8,16 +8,17 @@ namespace Citadel
         Function
     }
 
-    public enum BuildingSubCategory // °Ç¹° Á¾·ù Ãß°¡ 
+    public enum BuildingSubCategory // ê±´ë¬¼ ì¢…ë¥˜ ì¶”ê°€ 
     {
-        None, // BuildingÀÌ ¾Æ´Ò °æ¿ì
-        House, // ½Ã¹ÎÁı
-        Castle, // ¿µÁÖ ¼º
-        Warehouse, // ¹ú¸ñ¼Ò 
-        Well, // ¿ì¹°
-        Froge, // ´ëÀå°£
-        Quarry, // Ã¤¼®»ó
-        Market, // ³ëÁ¡»ó(ÀºÇà)
-        TrainingCenter // º´·Â»ı»ê½Ã¼³
+        None, // Buildingì´ ì•„ë‹ ê²½ìš°
+        House, // ì‹œë¯¼ì§‘
+        Castle, // ì˜ì£¼ ì„±
+        Warehouse, // ë²Œëª©ì†Œ 
+        Well, // ìš°ë¬¼
+        Froge, // ëŒ€ì¥ê°„
+        Quarry, // ì±„ì„ìƒ
+        Market, // ë…¸ì ìƒ(ì€í–‰)
+        CulturalBuilding, //ë¬¸í™” ê±´ë¬¼
+        TrainingCenter
     }
 }

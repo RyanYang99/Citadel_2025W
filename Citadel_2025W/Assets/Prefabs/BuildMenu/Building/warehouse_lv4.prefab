@@ -75,6 +75,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6b71a02ad34e06c49858f199a007881f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1523522714957376612}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6b71a02ad34e06c49858f199a007881f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5714758284549785147}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6b71a02ad34e06c49858f199a007881f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -548131231883039500}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6b71a02ad34e06c49858f199a007881f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6731898270344020666}
   m_SourcePrefab: {fileID: 100100000, guid: 6b71a02ad34e06c49858f199a007881f, type: 3}
 --- !u!1 &7694144497664926429 stripped
 GameObject:
@@ -101,4 +110,54 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1.6835879, y: 1.65, z: 1.29}
-  m_Center: {x: 0, y: 0.825, z: 0.24900004}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-5714758284549785147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7694144497664926429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 652f762aed6f39f45a6a5835a2105e5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemProducer
+  itemConsumer: {fileID: 0}
+  ticksNeeded: 1
+  itemsProduced:
+  - item: 1
+    amount: 70
+  range: 0
+  rangeResourceProvided: []
+  oneTimeItemProduced: []
+--- !u!114 &-548131231883039500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7694144497664926429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c92ef4f73d6b28c48b49707a81c5e0b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NpcController
+  npcPrefab: {fileID: 8094838213996010137, guid: 50cdcefc9bd8b3c46a725e4b844c92e3, type: 3}
+  npcCount: 3
+  moveSpeed: 1
+--- !u!114 &6731898270344020666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7694144497664926429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12c17ec025645aa4c9c3edc95f75c1ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResourcePopupSpawner
+  popupPrefab: {fileID: 1080480347363611842, guid: 1073e24adbd14e146be2727d27615e4a, type: 3}
+  iconTable: {fileID: 0}
+  spawnOffset: {x: 0, y: 3, z: 0}
