@@ -1243,15 +1243,7 @@ MonoBehaviour:
   - item: 6
     amount: 1000
   - item: 7
-<<<<<<< HEAD
     amount: 10
-=======
-    amount: 1000
-  - item: 8
-    amount: 100
-  - item: 9
-    amount: 0
->>>>>>> origin/develop
   log: 0
 --- !u!4 &191902319
 Transform:
@@ -7436,13 +7428,8 @@ MonoBehaviour:
   upgradeButton: {fileID: 79383260}
   rotateButton: {fileID: 2134339445}
   destroyButton: {fileID: 1985533461}
-<<<<<<< HEAD
   produceButton: {fileID: 1413292768}
   barracksPage: {fileID: 1038780135}
-=======
-  produceButton: {fileID: 0}
-  barracksPage: {fileID: 0}
->>>>>>> origin/develop
   statusPanel: {fileID: 380882984}
   inventory: {fileID: 191902318}
   statusPanelController: {fileID: 380882986}
@@ -11964,8 +11951,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
-<<<<<<< HEAD
-=======
 --- !u!1001 &1482062281
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12099,7 +12084,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c74af8b8aac56446947057ba0209a39, type: 3}
->>>>>>> origin/develop
 --- !u!1 &1482781295
 GameObject:
   m_ObjectHideFlags: 0
