@@ -17,9 +17,10 @@ namespace Citadel
         [SerializeField] private Image icon;
         [SerializeField] private TextMeshProUGUI countText;
 
-        public void Init(BuildingManager manager,
-                         BuildingPlacer placer,
-                         BuildingMetaData metaData)
+        public void Init(
+            BuildingManager manager,
+            BuildingPlacer placer,
+            BuildingMetaData metaData)
         {
             meta = metaData;
             buildingManager = manager;
@@ -44,6 +45,7 @@ namespace Citadel
                 buildingManager.OnPlacedBuildingChanged -= Refresh;
         }
 
+
         public void Refresh()
         {
             if (meta == null || buildingManager == null)
@@ -52,7 +54,7 @@ namespace Citadel
             int current = buildingManager.GetPlacedCount(meta.uniqueName);
             if (meta.maxBuildCount < 0)
             {
-                countText.text = "??";
+                countText.text = "¡Ä";
                 GetComponent<Button>().interactable = true;
                 return;
             }
@@ -83,7 +85,8 @@ namespace Citadel
             int current = buildingManager.GetPlacedCount(meta.uniqueName);
             return current < meta.maxBuildCount;
         }
-        
+
+
         public void OnClick()
         {
             if (meta == null)
@@ -92,12 +95,16 @@ namespace Citadel
             if (!IsBuildable())
                 return;
 
-            buildingManager.SelectBuilding(buildingManager.Buildings.list.IndexOf(meta));
+
+            buildingManager.SelectBuilding(
+                buildingManager.Buildings.list.IndexOf(meta)
+            );
             buildingPlacer.SetBuildMode();
 
             selectionController?.SetSelectionEnabled(false);
             contextUI?.ForceHide();
-            
+
+
             if (previewController != null)
                 previewController.SetMode(BuildMode.Build);
         }

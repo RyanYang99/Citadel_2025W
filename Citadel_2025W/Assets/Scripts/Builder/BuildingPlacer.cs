@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 //입력 처리 (마우스 클릭 , 모드 전환)
@@ -16,7 +16,6 @@ namespace Citadel
         [SerializeField] private Camera _camera;
         [SerializeField] private GameObject buildScrollView;
         [SerializeField] private BuildingManager buildingManager;
-        [SerializeField] private AnimationManager animationManager;
         [SerializeField] private LayerMask buildingLayer;
         [SerializeField] private BuildPreviewController previewController;
         [SerializeField] private SFXLooper SFXLooper;
@@ -105,21 +104,6 @@ namespace Citadel
 
             buildingManager.PlaceBuilding(snapped, previewController.CurrentRotation);
 
-            var placedBuildings = buildingManager.PlacedBuildings;
-            if (placedBuildings.Count > 0)
-            {
-                GameObject justPlaced = placedBuildings[placedBuildings.Count - 1]._GameObject;
-
-                if (BuildingUpgrade.Instance != null)
-                {
-                    BuildingUpgrade.Instance.RegisterNewBuilding(justPlaced, buildingManager.CurrentBuilding.subCategory);
-                }
-                // 설치시 애니메이션 추가
-                if (animationManager != null)
-                {
-                    animationManager.ApplyConstructionEffect(justPlaced);
-                }
-            }
 
             SFXLooper.PlayLoop(1.5f, 2.0f);
         }

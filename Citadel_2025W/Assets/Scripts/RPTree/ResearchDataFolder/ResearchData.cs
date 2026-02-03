@@ -1,11 +1,11 @@
-ï»¿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 
-// 2. ê°œë³„ íš¨ê³¼ë¥¼ ë‹´ëŠ” í´ë˜ìŠ¤
+// 2. °³º° È¿°ú¸¦ ´ã´Â Å¬·¡½º
 [System.Serializable]
 public class ResearchEffect
 {
-    // ì•„ì´í…œ ë³´ë„ˆìŠ¤ì¸ì§€ ë²”ìœ„ ìì› ë³´ë„ˆìŠ¤ì¸ì§€ ì²´í¬
+    // ¾ÆÀÌÅÛ º¸³Ê½ºÀÎÁö ¹üÀ§ ÀÚ¿ø º¸³Ê½ºÀÎÁö Ã¼Å©
     public bool isItem;
 
     public Citadel.Item targetItem;
@@ -14,19 +14,19 @@ public class ResearchEffect
     public bool isPercentage;
 }
 
-// 3. ì‹¤ì œ ë°ì´í„° íŒŒì¼ í´ë˜ìŠ¤
+// 3. ½ÇÁ¦ µ¥ÀÌÅÍ ÆÄÀÏ Å¬·¡½º
 [CreateAssetMenu(fileName = "New Research", menuName = "Research/Research Data")]
 public class ResearchData : ScriptableObject
 {
-    [Header("ê¸°ë³¸ ì •ë³´")]
+    [Header("±âº» Á¤º¸")]
     public string researchName;
     [TextArea] public string explanation;
     public int cost;
 
-    [Header("ì„ í–‰ì´ í•„ìš”í•œ ì—°êµ¬")]
+    [Header("¼±ÇàÀÌ ÇÊ¿äÇÑ ¿¬±¸")]
     public List<ResearchData> requiredResearches = new List<ResearchData>();
 
-    [Header("íš¨ê³¼ ì„¤ì •")]
+    [Header("È¿°ú ¼³Á¤")]
     public List<ResearchEffect> effects = new List<ResearchEffect>();
 
     [System.NonSerialized] public bool isUnlocked = false;

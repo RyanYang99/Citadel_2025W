@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 831c38e392ce71a438a468e41393bd1e
+guid: a21038ac30ca90c49b16a128cd07e143
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -116,10 +116,10 @@ TextureImporter:
       name: castle_lv1_Icon_0
       rect:
         serializedVersion: 2
-        x: 96
-        y: 81
-        width: 64
-        height: 79
+        x: 84
+        y: 38
+        width: 88
+        height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
