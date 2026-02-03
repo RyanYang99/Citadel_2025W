@@ -130,14 +130,13 @@ GameObject:
   - component: {fileID: 107485639}
   - component: {fileID: 107485640}
   - component: {fileID: 107485641}
-  - component: {fileID: 107485642}
   m_Layer: 0
   m_Name: Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &107485639
 Transform:
   m_ObjectHideFlags: 0
@@ -165,11 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c80b6e843a6ccfd48812f04f8a0baaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inventory
-  startingResources:
-  - item: 0
-    amount: 1000
-  - item: 2
-    amount: 1000
+  startingResources: []
   log: 1
 --- !u!114 &107485641
 MonoBehaviour:
@@ -183,19 +178,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d8763dd374f5b644bdd5e5ebeae3145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.BonusManager
-  log: 1
---- !u!114 &107485642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 107485637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b190456d54aae67409b0f26b4202e23b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Citadel.SatisfactionManager
 --- !u!1 &387726585
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,9 +412,7 @@ MonoBehaviour:
   itemsUsed:
   - item: 0
     amount: 50
-  rangeResourcesUsed: 
-  satisfactionItemUsed: []
-  satisfactionRangeResourceUsed: 
+  rangeResourcesUsed: 00000000
 --- !u!114 &509564350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -447,11 +427,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemProducer
   itemConsumer: {fileID: 509564349}
   ticksNeeded: 5
-  itemsProduced: []
+  itemsProduced:
+  - item: 5
+    amount: 10
   range: 0
-  rangeResourceProvided:
-  - rangeResource: 0
-    tickDuration: 10
+  rangeResourceProvided: []
   oneTimeItemProduced: []
 --- !u!1 &1068608425
 GameObject:
@@ -473,7 +453,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1068608426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -481,17 +461,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1068608425}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75d5a6d561ecce4085de6e0f0b00c55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.InventoryInteractor
-  itemsUsed: []
+  itemsUsed:
+  - item: 0
+    amount: 1
   rangeResourcesUsed: 
-  satisfactionItemUsed:
-  - item: 2
-    amount: 5
-  satisfactionRangeResourceUsed: 
 --- !u!23 &1068608427
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -571,19 +549,19 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1068608425}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 652f762aed6f39f45a6a5835a2105e5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemProducer
   itemConsumer: {fileID: 1068608426}
   ticksNeeded: 2
-  itemsProduced:
-  - item: 1
-    amount: 1
+  itemsProduced: []
   range: 0
   rangeResourceProvided: []
-  oneTimeItemProduced: []
+  oneTimeItemProduced:
+  - item: 0
+    amount: 10
 --- !u!114 &1068608431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -591,25 +569,27 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1068608425}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7c5e08e347dec0d4888ffc69612c08fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.SatisfactionProvider
+  inventory: {fileID: 107485640}
+  bonusManager: {fileID: 107485641}
   itemConsumer: {fileID: 1068608426}
-  category: 0
-  itemImportances:
-  - item: 2
-    importance: 1
-  rangeResourceImportances: []
+  satisfactionImportance: {fileID: 11400000, guid: d3cf9430aff82b0498af23810d6d4b22, type: 2}
+  satisfactionImportanceOverride: {fileID: 0}
+  threshold: 0.5
   itemBonuses:
   - targetItem: 1
     bonusValue:
-      flat: 10
-      percentage: 0
-  rangeResourceBonuses: []
-  threshold: 0.5
-  readyDelayTicks: 0
+      flat: 100
+      percentage: 2
+  rangeResourceBonuses:
+  - targetRangeResource: 0
+    bonusValue:
+      flat: 5
+      percentage: 0.9
 --- !u!1 &1528859394
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,6 +727,39 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1001 &690105211856551270
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8503857601075208748, guid: efa4c664e845a314396c0bb2c8e064eb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8503857601075208748, guid: efa4c664e845a314396c0bb2c8e064eb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8503857601075208748, guid: efa4c664e845a314396c0bb2c8e064eb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8503857601075208748, guid: efa4c664e845a314396c0bb2c8e064eb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027489377477441686, guid: efa4c664e845a314396c0bb2c8e064eb, type: 3}
+      propertyPath: m_Name
+      value: Water
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: efa4c664e845a314396c0bb2c8e064eb, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -756,3 +769,4 @@ SceneRoots:
   - {fileID: 107485639}
   - {fileID: 1068608429}
   - {fileID: 509564348}
+  - {fileID: 690105211856551270}

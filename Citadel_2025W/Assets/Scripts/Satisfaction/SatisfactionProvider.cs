@@ -21,49 +21,33 @@ namespace Citadel
             public BonusValue bonusValue;
         }
 
-        [Serializable]
-        private sealed class ItemImportance
-        {
-            public Item item;
-            [Range(0f, 1f)] public float importance;
-        }
+        [Header("Building Category")]
+        public SatisfactionCategory category;
 
-        [Serializable]
-        private sealed class RangeResourceImportance
-        {
-            public RangeResource rangeResource;
-            [Range(0f, 1f)] public float importance;
-        }
+        public bool IsReady { get; private set; } = false;
 
-        public bool IsReady { get; private set; }
-
-        private Inventory _inventory;
-        private BonusManager _bonusManager;
-        
         private bool _hasBonus;
         private float _totalWeight;
-        private int _currentTickCount;
         private readonly Dictionary<ItemConsumer.AnyResource, float> _mappedImportance = new();
-        
-        [SerializeField] private ItemConsumer itemConsumer;
-        
-        [Header("Ïπ¥ÌÖåÍ≥†Î¶¨"), SerializeField] private SatisfactionCategory category;
-        public SatisfactionCategory Category => category;
-        
-        [Header("Ï§ëÏöîÎèÑ"), SerializeField] private List<ItemImportance> itemImportances = new();
-        [SerializeField] private List<RangeResourceImportance> rangeResourceImportances = new();
 
-        [Header("Î≥¥ÎÑàÏä§"), SerializeField] private List<ItemBonus> itemBonuses = new();
+        [SerializeField] private Inventory inventory;
+        [SerializeField] private BonusManager bonusManager;
+        [SerializeField] private ItemConsumer itemConsumer;
+
+        [SerializeField] private SatisfactionImportance satisfactionImportance, satisfactionImportanceOverride;
+        [SerializeField] private float threshold;
+
+        [SerializeField] private List<ItemBonus> itemBonuses = new();
         [SerializeField] private List<RangeResourceBonus> rangeResourceBonuses = new();
 
-        [Header("ÏàòÏπò"), SerializeField] private float threshold;
-        [SerializeField, Tooltip("ÎßåÏ°±ÎèÑÍ∞Ä Î∞òÏòÅÎêòÍ∏∞ÍπåÏßÄ Î™á Ìã±ÏùÑ Í∏∞Îã§Î¶¥ÏßÄ ÏÑ§Ï†ï")] private int readyDelayTicks;
+        private int readyDelayTicks = 3; // ∏∏¡∑µµ∞° π›øµµ«±‚±Ó¡ˆ ∏Ó ∆Ω¿ª ±‚¥Ÿ∏±¡ˆ º≥¡§ / ex) 5∆Ω
+        private int _currentTickCount = 0;
 
         public float Satisfaction { get; private set; }
 
         private void OnEnable()
         {
-            _inventory.OnTick += OnTick;
+            inventory.OnTick += OnTick;
             SatisfactionManager.Instance.Register(this);
 
             IsReady = false;
@@ -71,27 +55,44 @@ namespace Citadel
 
         private void OnDisable()
         {
-            _inventory.OnTick -= OnTick;
+            inventory.OnTick -= OnTick;
 
             if (SatisfactionManager.Instance != null)
                 SatisfactionManager.Instance.Unregister(this);
 
             IsReady = false;
             _hasBonus = false;
-            _bonusManager.RemoveBonus(this);
+            bonusManager.RemoveBonus(this);
         }
 
         private void Awake()
         {
-            _inventory = FindFirstObjectByType<Inventory>();
-            _bonusManager = FindFirstObjectByType<BonusManager>();
+            if (inventory == null)
+                inventory = FindFirstObjectByType<Inventory>();
 
-            foreach (ItemImportance itemImportance in itemImportances)
+            if (bonusManager == null)
+                bonusManager = FindFirstObjectByType<BonusManager>();
+
+            foreach (SatisfactionImportance.ItemImportance itemImportance in satisfactionImportance.itemImportances)
                 _mappedImportance.TryAdd(new ItemConsumer.AnyResource(itemImportance.item), itemImportance.importance);
 
-            foreach (RangeResourceImportance rangeResourceImportance in rangeResourceImportances)
+            foreach (SatisfactionImportance.RangeResourceImportance rangeResourceImportance in satisfactionImportance.rangeResourceImportances)
                 _mappedImportance.TryAdd(new ItemConsumer.AnyResource(rangeResourceImportance.rangeResource), rangeResourceImportance.importance);
-            
+
+            //Override
+            if (satisfactionImportanceOverride != null)
+            {
+                foreach (SatisfactionImportance.ItemImportance itemImportance in satisfactionImportanceOverride
+                             .itemImportances)
+                    _mappedImportance[new ItemConsumer.AnyResource(itemImportance.item)] = itemImportance.importance;
+
+                foreach (SatisfactionImportance.RangeResourceImportance rangeResourceImportance in
+                         satisfactionImportanceOverride.rangeResourceImportances)
+                    _mappedImportance[new ItemConsumer.AnyResource(rangeResourceImportance.rangeResource)] =
+                        rangeResourceImportance.importance;
+            }
+
+            //Total Weight
             foreach (float weight in _mappedImportance.Values)
                 _totalWeight += weight;
         }
@@ -100,9 +101,9 @@ namespace Citadel
         {
             if (!IsReady)
             {
-                if (++_currentTickCount < readyDelayTicks)
-                    return;
-                
+                _currentTickCount++;
+
+                if (_currentTickCount < readyDelayTicks) return;
                 IsReady = true;
             }
 
@@ -126,16 +127,16 @@ namespace Citadel
                     _hasBonus = true;
 
                     foreach (ItemBonus itemBonus in itemBonuses)
-                        _bonusManager.AddBonus(this, new Bonus(itemBonus.targetItem, itemBonus.bonusValue));
+                        bonusManager.AddBonus(this, new Bonus(itemBonus.targetItem, itemBonus.bonusValue));
 
                     foreach (RangeResourceBonus rangeResourceBonus in rangeResourceBonuses)
-                        _bonusManager.AddBonus(this, new Bonus(rangeResourceBonus.targetRangeResource, rangeResourceBonus.bonusValue));
+                        bonusManager.AddBonus(this, new Bonus(rangeResourceBonus.targetRangeResource, rangeResourceBonus.bonusValue));
                 }
             }
             else
             {
                 _hasBonus = false;
-                _bonusManager.RemoveBonus(this);
+                bonusManager.RemoveBonus(this);
             }
         }
     }

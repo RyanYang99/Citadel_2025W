@@ -155,10 +155,6 @@ namespace Citadel
                 buildingManager.CurrentBuilding.prefab.transform.rotation
             );
 
-            BarracksProductionQueue queue = buildPreviewInstance.GetComponent<BarracksProductionQueue>();
-            if (queue != null)
-                queue.enabled = false;
-
             buildPreviewInstance.name = "[BUILD PREVIEW]";
 
             ItemConsumer itemConsumer = buildPreviewInstance.GetComponent<ItemConsumer>();

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Citadel
@@ -39,7 +40,7 @@ namespace Citadel
         private ItemConsumer itemConsumer;
         
         [SerializeField] private int ticksNeeded;
-
+        
         [SerializeField, Tooltip("생산하는 자원, 필요한 자원이 존재할 때 생산")]
         private List<ItemAmount> itemsProduced = new();
         
@@ -49,10 +50,7 @@ namespace Citadel
         private List<RangeResourceAmount> rangeResourceProvided = new();
 
         [SerializeField, Tooltip("작동 시 한번 공급하는 자원")]
-        private List<ItemAmount> oneTimeItemsProduced = new();
-
-        [SerializeField]
-        private List<ItemAmount> permanentItemsAdded = new();
+        private List<ItemAmount> oneTimeItemProduced = new();
 
         public Action<ItemAmount> OnItemProduced;
 
@@ -61,32 +59,37 @@ namespace Citadel
         public IReadOnlyList<ItemAmount> ItemsProduced => itemsProduced;
         public float Range => range;
 
-        public IReadOnlyList<(RangeResource resource, int tickDuration)> RangeResourcesProvided =>
-            rangeResourceProvided.Select(rangeResourceAmount => (rangeResourceAmount.rangeResource, rangeResourceAmount.tickDuration)).ToList();
+        public IReadOnlyList<(RangeResource resource, int tickDuration)> RangeResourcesProvided
+        {
+            get
+            {
+                var list = new List<(RangeResource, int)>();
+                foreach (var r in rangeResourceProvided)
+                    list.Add((r.rangeResource, r.tickDuration));
+                return list;
+            }
+        }
+
+
+
 
         private void Awake()
         {
             _inventory = FindAnyObjectByType<Inventory>();
             _bonusManager = FindAnyObjectByType<BonusManager>();
+
+            foreach (RangeResourceAmount rangeResourceAmount in rangeResourceProvided)
+            {
+                _originalRangeResourceDurations.Add(new RangeResourceAmount(rangeResourceAmount));
+                _rangeResourceDurations.Add(new RangeResourceAmount(rangeResourceAmount));
+            }
         }
 
         private void OnEnable()
         {
             _inventory.OnTick += OnTick;
             
-            foreach (ItemAmount itemAmount in oneTimeItemsProduced)
-                _inventory.Add(itemAmount.item, itemAmount.amount);
-        }
-
-        private void Start()
-        {
-            foreach (RangeResourceAmount rangeResourceAmount in rangeResourceProvided)
-            {
-                _originalRangeResourceDurations.Add(new RangeResourceAmount(rangeResourceAmount));
-                _rangeResourceDurations.Add(new RangeResourceAmount(rangeResourceAmount));
-            }
-
-            foreach (ItemAmount itemAmount in permanentItemsAdded)
+            foreach (ItemAmount itemAmount in oneTimeItemProduced)
                 _inventory.Add(itemAmount.item, itemAmount.amount);
         }
 
@@ -94,7 +97,7 @@ namespace Citadel
         {
             _inventory.OnTick -= OnTick;
             
-            foreach (ItemAmount itemAmount in oneTimeItemsProduced)
+            foreach (ItemAmount itemAmount in oneTimeItemProduced)
                 _inventory.ForceSubtract(itemAmount.item, itemAmount.amount);
             
             UpdateRange();
@@ -139,8 +142,8 @@ namespace Citadel
             {
                 int result = item.amount;
                 if (_bonusManager.GetItemBonuses().TryGetValue(item.item, out BonusValue bonusValue))
-                    result = (int)Math.Round((result + bonusValue.flat) * (1f + bonusValue.percentage));
-
+                    result = result + bonusValue.flat + (int)Math.Round(result * bonusValue.percentage);
+                
                 _inventory.Add(item.item, result);
                 OnItemProduced?.Invoke(new ItemAmount(item.item, result));
             }

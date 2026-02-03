@@ -75,12 +75,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 824037772a67b55409c221a252860e87, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7349360349875098491}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 824037772a67b55409c221a252860e87, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -8100332178346645449}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 824037772a67b55409c221a252860e87, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -7414146006524213094}
   m_SourcePrefab: {fileID: 100100000, guid: 824037772a67b55409c221a252860e87, type: 3}
 --- !u!1 &5151388866340317432 stripped
 GameObject:
@@ -106,40 +100,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5, y: 0.5, z: 0.5}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-8100332178346645449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5151388866340317432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 652f762aed6f39f45a6a5835a2105e5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemProducer
-  itemConsumer: {fileID: 0}
-  ticksNeeded: 0
-  itemsProduced:
-  - item: 7
-    amount: 5
-  range: 0
-  rangeResourceProvided: []
-  oneTimeItemProduced: []
---- !u!114 &-7414146006524213094
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5151388866340317432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c92ef4f73d6b28c48b49707a81c5e0b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NpcController
-  npcPrefab: {fileID: 4100060174313281956, guid: efcbc4c574114214da36d826d6ae2942, type: 3}
-  npcCount: 4
-  moveSpeed: 1
+  m_Size: {x: 1.2863803, y: 0.7374999, z: 1.028}
+  m_Center: {x: 0, y: 0.36874995, z: 0}

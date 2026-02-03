@@ -1,20 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Citadel
 {
     public sealed class BonusManager : MonoBehaviour
     {
-        private readonly Dictionary<Object, List<Bonus>> _activeBonuses = new();
+        private readonly Dictionary<UnityEngine.Object, List<Bonus>> _activeBonuses = new();
 
         private readonly Dictionary<Item, BonusValue> _consolidatedItems = new();
         private readonly Dictionary<RangeResource, BonusValue> _consolidatedRangeResources = new();
-
-        [SerializeField] private bool log;
         
         public Action OnBonusesChanged;
         
@@ -23,13 +19,6 @@ namespace Citadel
             bonusValue1.flat += bonusValue2.flat;
             bonusValue1.percentage += bonusValue2.percentage;
             return bonusValue1;
-        }
-
-        private void Awake()
-        {
-#if !UNITY_EDITOR && !DEVELOPMENT_BUILD
-            log = false;
-#endif
         }
 
         private void Consolidate()
@@ -62,34 +51,9 @@ namespace Citadel
             _consolidatedRangeResources[rangeResource] = Add(bonusValue, bonus.TargetBonusValue);
         }
 
-        private void Invoke()
-        {
-            OnBonusesChanged?.Invoke();
+        private void Invoke() => OnBonusesChanged?.Invoke();
 
-            if (!log)
-                return;
-
-            Debug.Log("=== START ACTIVE BONUS LOG ===");
-            StringBuilder stringBuilder = new();
-            
-            foreach (KeyValuePair<Object, List<Bonus>> bonuses in _activeBonuses)
-                foreach (Bonus bonus in bonuses.Value)
-                {
-                    stringBuilder.Append($"{bonuses.Key.name}: ");
-                
-                    if (bonus.TargetItem.HasValue)
-                        stringBuilder.Append(bonus.TargetItem.Value);
-                    else
-                        stringBuilder.Append(bonus.TargetRangeResource);
-                
-                    stringBuilder.Append(Environment.NewLine);
-                }
-
-            Debug.Log(stringBuilder);
-            Debug.Log("=== END ACTIVE BONUS LOG ===");
-        }
-
-        public void AddBonus(Object source, Bonus bonus)
+        public void AddBonus(UnityEngine.Object source, Bonus bonus)
         {
             if (!_activeBonuses.TryGetValue(source, out List<Bonus> bonuses)) 
             {
