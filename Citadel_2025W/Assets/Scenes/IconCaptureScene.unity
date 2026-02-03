@@ -768,11 +768,8 @@ MonoBehaviour:
   iconCamera: {fileID: 708657948}
   renderTexture: {fileID: 8400000, guid: cebcfbba00771464ca0d34e6db2e66a8, type: 2}
   prefabs:
-  - {fileID: 730932315999764765, guid: fc8b7b3edd070424abfb6267c8f78cd2, type: 3}
-  - {fileID: 8539307895412738096, guid: 02b2c115b6de0c844a64c6715086d123, type: 3}
-  - {fileID: 2028700388628247539, guid: 0fa0fdcecd131f442ad1e6bbb91f1d74, type: 3}
-  - {fileID: 5188724046597317718, guid: b0e4db2de9aa9124c89307deeb55a359, type: 3}
-  saveFolder: Assets/Icons/Resource_icons/
+  - {fileID: 1725779679958199110, guid: 46045fbddfa67b645a2126ab99b0f1fb, type: 3}
+  saveFolder: Assets/Icons/Building_icons/
 --- !u!4 &1606620453
 Transform:
   m_ObjectHideFlags: 0

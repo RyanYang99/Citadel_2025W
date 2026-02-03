@@ -959,6 +959,8 @@ MonoBehaviour:
     amount: 10
   - item: 8
     amount: 20
+  - item: 9
+    amount: 0
   log: 0
 --- !u!4 &191902319
 Transform:
@@ -6869,6 +6871,8 @@ MonoBehaviour:
   upgradeButton: {fileID: 79383260}
   rotateButton: {fileID: 2134339445}
   destroyButton: {fileID: 1985533461}
+  produceButton: {fileID: 0}
+  barracksPage: {fileID: 0}
   statusPanel: {fileID: 380882984}
   inventory: {fileID: 191902318}
   statusPanelController: {fileID: 380882986}
@@ -10307,6 +10311,7 @@ GameObject:
   - component: {fileID: 1372303784}
   - component: {fileID: 1372303785}
   - component: {fileID: 1372303786}
+  - component: {fileID: 1372303787}
   m_Layer: 0
   m_Name: BuildingManager
   m_TagString: Untagged
@@ -10480,6 +10485,20 @@ MonoBehaviour:
     - {fileID: 8687711422617295190, guid: bfa5fefb3b43a9e42aa0e8e331beaf5d, type: 3}
     - {fileID: 8687711422617295190, guid: bfa5fefb3b43a9e42aa0e8e331beaf5d, type: 3}
     - {fileID: 8687711422617295190, guid: bfa5fefb3b43a9e42aa0e8e331beaf5d, type: 3}
+--- !u!114 &1372303787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372303779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd0f098ebd09def488175b3acb8a5d32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeApplier
+  upgradeTables:
+  - {fileID: 11400000, guid: 3ea4d3456bef298458d3b24cc74fd8f7, type: 2}
 --- !u!1 &1418381009
 GameObject:
   m_ObjectHideFlags: 0
@@ -11037,6 +11056,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 191902318}
     - target: {fileID: 3139501928992960906, guid: 3c74af8b8aac56446947057ba0209a39, type: 3}
+      propertyPath: item
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3139501928992960906, guid: 3c74af8b8aac56446947057ba0209a39, type: 3}
       propertyPath: iconTable
       value: 
       objectReference: {fileID: 1752273647}
@@ -11044,6 +11067,10 @@ PrefabInstance:
       propertyPath: inventory
       value: 
       objectReference: {fileID: 191902318}
+    - target: {fileID: 3139501928992960906, guid: 3c74af8b8aac56446947057ba0209a39, type: 3}
+      propertyPath: amountText
+      value: 
+      objectReference: {fileID: 1868754670}
     - target: {fileID: 4887915020358729245, guid: 3c74af8b8aac56446947057ba0209a39, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -13220,6 +13247,17 @@ MonoBehaviour:
   - {fileID: 1975086120}
   - {fileID: 668537142}
   - {fileID: 2002624130}
+--- !u!114 &1868754670 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3342417716221379213, guid: 3c74af8b8aac56446947057ba0209a39, type: 3}
+  m_PrefabInstance: {fileID: 1482062281}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1872741372
 GameObject:
   m_ObjectHideFlags: 0

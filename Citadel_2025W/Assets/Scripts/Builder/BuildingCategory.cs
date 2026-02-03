@@ -1,4 +1,4 @@
-namespace Citadel
+﻿namespace Citadel
 {
     public enum BuildingCategory
     {
@@ -8,13 +8,17 @@ namespace Citadel
         Function
     }
 
-    public enum BuildingSubCategory // �ǹ� ���� �߰� 
+    public enum BuildingSubCategory // 건물 종류 추가 
     {
-        None, // Building�� �ƴ� ���
-        House,
-        Castle,
-        Warehouse,
-        Well,
+        None, // Building이 아닐 경우
+        House, // 시민집
+        Castle, // 영주 성
+        Warehouse, // 벌목소 
+        Well, // 우물
+        Froge, // 대장간
+        Quarry, // 채석상
+        Market, // 노점상(은행)
+        CulturalBuilding, //문화 건물
         TrainingCenter
     }
 }

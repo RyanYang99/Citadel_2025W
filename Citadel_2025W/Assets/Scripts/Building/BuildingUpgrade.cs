@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 namespace Citadel
 {
@@ -27,6 +28,8 @@ namespace Citadel
         [Header("건물 레벨별 모델 설정")]
         public List<BuildingLevelData> levelDataList;
 
+        public static Action <GameObject, BuildingSubCategory, int> OnBuildingUpgraded;
+
         private Dictionary<GameObject, int> buildingLevels = new Dictionary<GameObject, int>();
 
         private void Awake()
@@ -38,11 +41,13 @@ namespace Citadel
                 inventory = FindFirstObjectByType<Inventory>();
         }
 
-        public void RegisterNewBuilding(GameObject buildingObj)
+        public void RegisterNewBuilding(GameObject buildingObj, BuildingSubCategory subCategory)
         {
             if (!buildingLevels.ContainsKey(buildingObj))
             {
                 buildingLevels.Add(buildingObj, 1);
+
+                OnBuildingUpgraded?.Invoke(buildingObj, subCategory, 1);
             }
         }
 
@@ -106,6 +111,8 @@ namespace Citadel
             buildingLevels.Add(newObj, nextLevel);
             buildingLevels.Remove(oldObj);
             Destroy(oldObj);
+
+            OnBuildingUpgraded?.Invoke(newObj, subCategory, nextLevel);
 
             StartCoroutine(AnimateUpgradeScale(newObj.transform));
         }

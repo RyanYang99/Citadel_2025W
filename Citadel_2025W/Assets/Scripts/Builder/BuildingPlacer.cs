@@ -109,6 +109,11 @@ namespace Citadel
             if (placedBuildings.Count > 0)
             {
                 GameObject justPlaced = placedBuildings[placedBuildings.Count - 1]._GameObject;
+
+                if (BuildingUpgrade.Instance != null)
+                {
+                    BuildingUpgrade.Instance.RegisterNewBuilding(justPlaced, buildingManager.CurrentBuilding.subCategory);
+                }
                 // 설치시 애니메이션 추가
                 if (animationManager != null)
                 {

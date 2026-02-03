@@ -39,7 +39,7 @@ namespace Citadel
         private ItemConsumer itemConsumer;
         
         [SerializeField] private int ticksNeeded;
-        
+
         [SerializeField, Tooltip("생산하는 자원, 필요한 자원이 존재할 때 생산")]
         private List<ItemAmount> itemsProduced = new();
         
@@ -130,8 +130,8 @@ namespace Citadel
             {
                 int result = item.amount;
                 if (_bonusManager.GetItemBonuses().TryGetValue(item.item, out BonusValue bonusValue))
-                    result = result + bonusValue.flat + (int)Math.Round(result * bonusValue.percentage);
-                
+                    result = (int)Math.Round((result + bonusValue.flat) * (1f + bonusValue.percentage));
+
                 _inventory.Add(item.item, result);
                 OnItemProduced?.Invoke(new ItemAmount(item.item, result));
             }
