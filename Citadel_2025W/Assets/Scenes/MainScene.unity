@@ -6840,8 +6840,6 @@ MonoBehaviour:
   upgradeButton: {fileID: 79383260}
   rotateButton: {fileID: 2134339445}
   destroyButton: {fileID: 1985533461}
-  produceButton: {fileID: 0}
-  barracksPage: {fileID: 0}
   statusPanel: {fileID: 380882984}
   inventory: {fileID: 191902318}
   statusPanelController: {fileID: 380882986}
@@ -15817,6 +15815,10 @@ PrefabInstance:
     - target: {fileID: 7555412864048309021, guid: 7f66e9b0771fc9b48bbdb4d97208c778, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8082372977288013335, guid: 7f66e9b0771fc9b48bbdb4d97208c778, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
