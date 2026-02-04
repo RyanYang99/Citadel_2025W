@@ -75,15 +75,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e97645406381c1142889c78199c58c11, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3698794469532490975}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e97645406381c1142889c78199c58c11, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -2102009896286238832}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e97645406381c1142889c78199c58c11, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1959722863729560124}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e97645406381c1142889c78199c58c11, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2381142354561648371}
   m_SourcePrefab: {fileID: 100100000, guid: e97645406381c1142889c78199c58c11, type: 3}
 --- !u!1 &7509482206287447689 stripped
 GameObject:
@@ -110,65 +101,4 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1.287601, y: 0.98510444, z: 1.2451501}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-2102009896286238832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7509482206287447689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c75d5a6d561ecce4085de6e0f0b00c55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemConsumer
-  itemsUsed:
-  - item: 3
-    amount: 10
-  - item: 5
-    amount: 10
-  - item: 7
-    amount: 10
-  rangeResourcesUsed: 00000000
-  satisfactionItemUsed: []
-  satisfactionRangeResourceUsed: 
---- !u!114 &1959722863729560124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7509482206287447689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 652f762aed6f39f45a6a5835a2105e5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemProducer
-  itemConsumer: {fileID: -2102009896286238832}
-  ticksNeeded: 1
-  itemsProduced:
-  - item: 4
-    amount: 5
-  - item: 6
-    amount: 5
-  - item: 8
-    amount: 5
-  range: 10
-  rangeResourceProvided: []
-  oneTimeItemProduced: []
---- !u!114 &2381142354561648371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7509482206287447689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c92ef4f73d6b28c48b49707a81c5e0b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NpcController
-  npcPrefab: {fileID: 2985658702131513165, guid: 5eed8b67c8bfb04438d7adfe847fef06, type: 3}
-  npcCount: 1
-  moveSpeed: 1
+  m_Center: {x: -0.013795674, y: 0.48744994, z: 0.06257549}

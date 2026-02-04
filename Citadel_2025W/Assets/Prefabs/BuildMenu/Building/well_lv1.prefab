@@ -70,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ae0c989644364dd429646d1444b5de08, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Building
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -79,12 +79,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ae0c989644364dd429646d1444b5de08, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1761920604096060402}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ae0c989644364dd429646d1444b5de08, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -2086473124030549322}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ae0c989644364dd429646d1444b5de08, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -3499471916634024406}
   m_SourcePrefab: {fileID: 100100000, guid: ae0c989644364dd429646d1444b5de08, type: 3}
 --- !u!1 &2051219031347337195 stripped
 GameObject:
@@ -111,41 +105,4 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.65179366, y: 0.82601255, z: 0.7507236}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-2086473124030549322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2051219031347337195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 652f762aed6f39f45a6a5835a2105e5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemProducer
-  itemConsumer: {fileID: 0}
-  ticksNeeded: 1
-  itemsProduced:
-  - item: 2
-    amount: 100
-  range: 10
-  rangeResourceProvided:
-  - rangeResource: 0
-    tickDuration: 9999
-  oneTimeItemProduced: []
---- !u!114 &-3499471916634024406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2051219031347337195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12c17ec025645aa4c9c3edc95f75c1ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ResourcePopupSpawner
-  popupPrefab: {fileID: 1080480347363611842, guid: 1073e24adbd14e146be2727d27615e4a, type: 3}
-  iconTable: {fileID: 0}
-  spawnOffset: {x: 0, y: 2, z: 0}
+  m_Center: {x: -0.0109395385, y: 0.4130046, z: -0.00000008940697}

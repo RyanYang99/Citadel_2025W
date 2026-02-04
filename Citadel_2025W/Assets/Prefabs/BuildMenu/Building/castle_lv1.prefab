@@ -782,7 +782,7 @@ PrefabInstance:
       objectReference: {fileID: -6545801570897300931, guid: 9154929bdb7d53349b6289a23a4fb19f, type: 3}
     - target: {fileID: 919132149155446097, guid: 9154929bdb7d53349b6289a23a4fb19f, type: 3}
       propertyPath: m_Name
-      value: castle_lv1
+      value: castle
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9154929bdb7d53349b6289a23a4fb19f, type: 3}
       propertyPath: m_Layer
@@ -795,9 +795,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9154929bdb7d53349b6289a23a4fb19f, type: 3}
       insertIndex: -1
       addedObject: {fileID: -1110576617185118664}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9154929bdb7d53349b6289a23a4fb19f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2046516870228069580}
   m_SourcePrefab: {fileID: 100100000, guid: 9154929bdb7d53349b6289a23a4fb19f, type: 3}
 --- !u!1 &7139894311771784360 stripped
 GameObject:
@@ -824,19 +821,4 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1.440005, y: 1.6400526, z: 1.5660753}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2046516870228069580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7139894311771784360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c92ef4f73d6b28c48b49707a81c5e0b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NpcController
-  npcPrefab: {fileID: 6863191721370983768, guid: 42595ad0274f2d941a5a5bdef9f5f117, type: 3}
-  npcCount: 1
-  moveSpeed: 1
+  m_Center: {x: -0.00000011920929, y: 0.82002616, z: 0.06303522}

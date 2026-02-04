@@ -75,15 +75,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b7277b73de4d940409f7be69b38d3b2a, type: 3}
       insertIndex: -1
       addedObject: {fileID: -1170912068690528524}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b7277b73de4d940409f7be69b38d3b2a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1086501630311477632}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b7277b73de4d940409f7be69b38d3b2a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3476490030803185063}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b7277b73de4d940409f7be69b38d3b2a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1781255701718009976}
   m_SourcePrefab: {fileID: 100100000, guid: b7277b73de4d940409f7be69b38d3b2a, type: 3}
 --- !u!1 &4860598323427668412 stripped
 GameObject:
@@ -110,54 +101,4 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1.79, y: 1.925, z: 1.28}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1086501630311477632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4860598323427668412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 652f762aed6f39f45a6a5835a2105e5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemProducer
-  itemConsumer: {fileID: 0}
-  ticksNeeded: 0
-  itemsProduced:
-  - item: 1
-    amount: 500
-  range: 0
-  rangeResourceProvided: []
-  oneTimeItemProduced: []
---- !u!114 &3476490030803185063
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4860598323427668412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c92ef4f73d6b28c48b49707a81c5e0b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NpcController
-  npcPrefab: {fileID: 8094838213996010137, guid: 50cdcefc9bd8b3c46a725e4b844c92e3, type: 3}
-  npcCount: 3
-  moveSpeed: 1
---- !u!114 &1781255701718009976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4860598323427668412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12c17ec025645aa4c9c3edc95f75c1ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ResourcePopupSpawner
-  popupPrefab: {fileID: 1080480347363611842, guid: 1073e24adbd14e146be2727d27615e4a, type: 3}
-  iconTable: {fileID: 0}
-  spawnOffset: {x: 0, y: 2, z: 0}
+  m_Center: {x: 0.45320603, y: 0.9625, z: 0.25400004}

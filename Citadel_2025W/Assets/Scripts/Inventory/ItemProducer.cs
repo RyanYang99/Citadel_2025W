@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Citadel
@@ -58,8 +59,19 @@ namespace Citadel
         public IReadOnlyList<ItemAmount> ItemsProduced => itemsProduced;
         public float Range => range;
 
-        public IReadOnlyList<(RangeResource resource, int tickDuration)> RangeResourcesProvided =>
-            rangeResourceProvided.Select(rangeResourceAmount => (rangeResourceAmount.rangeResource, rangeResourceAmount.tickDuration)).ToList();
+        public IReadOnlyList<(RangeResource resource, int tickDuration)> RangeResourcesProvided
+        {
+            get
+            {
+                var list = new List<(RangeResource, int)>();
+                foreach (var r in rangeResourceProvided)
+                    list.Add((r.rangeResource, r.tickDuration));
+                return list;
+            }
+        }
+
+
+
 
         private void Awake()
         {
