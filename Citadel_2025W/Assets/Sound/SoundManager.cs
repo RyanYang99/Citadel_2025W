@@ -11,6 +11,8 @@ namespace Citadel
         [SerializeField] private AudioSource bgSound;
         [SerializeField] private AudioClip[] bglist;
 
+        private static float GetValueFromVolume(float volume) => Mathf.Log10(Mathf.Clamp(volume, 0.001f, 1f)) * 20f;
+
         private void OnEnable() => SceneManager.sceneLoaded += OnSceneLoaded;
 
         private void OnDisable() => SceneManager.sceneLoaded -= OnSceneLoaded;
@@ -41,10 +43,33 @@ namespace Citadel
             bgSound.volume = 1.0f;
             bgSound.Play();
         }
-        
-        public void BGMVolume(float val) => mixer.SetFloat("BGMVolume", Mathf.Log10(val) * 20);
 
-        public void SFXVolume(float val) => mixer.SetFloat("SFXVolume", Mathf.Log10(val) * 20);
+        private void MasterVolume(float volume) => mixer.SetFloat("Master", GetValueFromVolume(volume));
+        
+        private void BGMVolume(float volume) => mixer.SetFloat("BgSound", GetValueFromVolume(volume));
+
+        private void SFXVolume(float volume) => mixer.SetFloat("SFX", GetValueFromVolume(volume));
+
+        public void SetVolume(VolumeType volumeType, float volume)
+        {
+            switch (volumeType)
+            {
+                case VolumeType.BackgroundMusic:
+                    BGMVolume(volume);
+                    break;
+                
+                case VolumeType.SoundEffect:
+                    SFXVolume(volume);
+                    break;
+                
+                case VolumeType.Master:
+                default:
+                    MasterVolume(volume);
+                    //BGMVolume(volume);
+                    //SFXVolume(volume);
+                    break;
+            }
+        }
 
         public void PlayButtonClick() => SFXXPlay("Button", buttonClickClip);
     }
