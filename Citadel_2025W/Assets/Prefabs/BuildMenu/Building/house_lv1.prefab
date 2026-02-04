@@ -62,11 +62,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b24d25e24ac0f2a4e887d41d90b96de7, type: 3}
       propertyPath: m_Name
-      value: tent
+      value: house_lv1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b24d25e24ac0f2a4e887d41d90b96de7, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b24d25e24ac0f2a4e887d41d90b96de7, type: 3}
+      propertyPath: m_TagString
+      value: Building
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

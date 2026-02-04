@@ -113,12 +113,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemProducer
   itemConsumer: {fileID: 0}
-  ticksNeeded: 1
-  itemsProduced:
-  - item: 2
-    amount: 10
-  range: 0
-  rangeResourceProvided: []
+  ticksNeeded: 0
+  itemsProduced: []
+  range: 100
+  rangeResourceProvided:
+  - rangeResource: 3
+    tickDuration: 2
   oneTimeItemProduced: []
 --- !u!114 &-7369057546539263371
 MonoBehaviour:
