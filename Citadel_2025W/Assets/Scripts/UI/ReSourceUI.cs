@@ -24,8 +24,8 @@ namespace Citadel
 
         private void SetIcon()
         {
-            //if (iconImage == null)
-            //    return;
+            if (iconImage == null) 
+                return;
 
             var data = iconTable.Get(item);
             if (data != null)
