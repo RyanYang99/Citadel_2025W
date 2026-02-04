@@ -127,7 +127,8 @@ MonoBehaviour:
     amount: 1
   range: 0
   rangeResourceProvided: []
-  oneTimeItemProduced: []
+  oneTimeItemsProduced: []
+  permanentItemsAdded: []
 --- !u!114 &-9206789003111993200
 MonoBehaviour:
   m_ObjectHideFlags: 0
