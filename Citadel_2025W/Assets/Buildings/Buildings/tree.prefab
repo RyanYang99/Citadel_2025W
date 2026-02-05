@@ -127,6 +127,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5679096c5cc74484785cb446aa3e0378, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7575321750031929847}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5679096c5cc74484785cb446aa3e0378, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1103078914957755218}
   m_SourcePrefab: {fileID: 100100000, guid: 5679096c5cc74484785cb446aa3e0378, type: 3}
 --- !u!1 &5188724046597317718 stripped
 GameObject:
@@ -154,3 +157,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.6159513, y: 1.9311378, z: 0.51961523}
   m_Center: {x: -0.0000045895576, y: 0.95726573, z: 0}
+--- !u!114 &-1103078914957755218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5188724046597317718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 652f762aed6f39f45a6a5835a2105e5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemProducer
+  itemConsumer: {fileID: 0}
+  ticksNeeded: 1
+  itemsProduced: []
+  range: 5
+  rangeResourceProvided:
+  - rangeResource: 2
+    tickDuration: 2
+  oneTimeItemsProduced: []
+  permanentItemsAdded: []

@@ -84,6 +84,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e97645406381c1142889c78199c58c11, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2381142354561648371}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e97645406381c1142889c78199c58c11, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6821069456853354412}
   m_SourcePrefab: {fileID: 100100000, guid: e97645406381c1142889c78199c58c11, type: 3}
 --- !u!1 &7509482206287447689 stripped
 GameObject:
@@ -125,13 +128,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemConsumer
   itemsUsed:
   - item: 3
-    amount: 2
-  - item: 4
-    amount: 2
+    amount: 10
   - item: 5
-    amount: 2
+    amount: 10
   - item: 7
-    amount: 3
+    amount: 10
+  - item: 2
+    amount: 10
   rangeResourcesUsed: 00000000
   satisfactionItemUsed: []
   satisfactionRangeResourceUsed: 
@@ -153,14 +156,15 @@ MonoBehaviour:
   - item: 4
     amount: 1
   - item: 5
-    amount: 1
+    amount: 5
   - item: 6
-    amount: 1
+    amount: 5
   - item: 8
-    amount: 1
-  range: 0
+    amount: 5
+  range: 10
   rangeResourceProvided: []
-  oneTimeItemProduced: []
+  oneTimeItemsProduced: []
+  permanentItemsAdded: []
 --- !u!114 &2381142354561648371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,3 +180,18 @@ MonoBehaviour:
   npcPrefab: {fileID: 2985658702131513165, guid: 5eed8b67c8bfb04438d7adfe847fef06, type: 3}
   npcCount: 1
   moveSpeed: 1
+--- !u!114 &6821069456853354412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7509482206287447689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12c17ec025645aa4c9c3edc95f75c1ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResourcePopupSpawner
+  popupPrefab: {fileID: 1080480347363611842, guid: 1073e24adbd14e146be2727d27615e4a, type: 3}
+  iconTable: {fileID: 0}
+  spawnOffset: {x: 0, y: 5, z: 0}
