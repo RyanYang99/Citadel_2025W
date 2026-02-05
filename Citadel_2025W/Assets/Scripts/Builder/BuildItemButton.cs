@@ -52,7 +52,7 @@ namespace Citadel
             int current = buildingManager.GetPlacedCount(meta.uniqueName);
             if (meta.maxBuildCount < 0)
             {
-                countText.text = "??";
+                countText.text = "무한";
                 GetComponent<Button>().interactable = true;
                 return;
             }
