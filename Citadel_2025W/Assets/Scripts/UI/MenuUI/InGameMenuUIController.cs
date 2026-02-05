@@ -5,51 +5,40 @@ namespace Citadel
 {
     public sealed class InGameMenuUIController : MonoBehaviour
     {
-        [Header("Menu Panel")]
-        [SerializeField] private GameObject menuPanel;
+        private SaveLoadManager _saveLoadManager;
 
-        private SaveLoadManager saveLoadManager;
+        [SerializeField] private TimeManager timeManager;
+        [SerializeField] private GameObject menu;
 
-        private bool isOpen;
-
-
-        private void Awake()
-        {
-            saveLoadManager = FindAnyObjectByType<SaveLoadManager>();
-            if (menuPanel != null)
-                menuPanel.SetActive(false);
-        }
+        private void Awake() => _saveLoadManager = FindAnyObjectByType<SaveLoadManager>();
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                if (isOpen)
-                    CloseMenu();
+                if (menu.activeInHierarchy)
+                    Close();
                 else
-                    OpenMenu();
+                    Open();
             }
         }
 
-        public void OpenMenu()
+        public void Open()
         {
-            isOpen = true;
-            Time.timeScale = 0f;
-            menuPanel.SetActive(true);
+            timeManager.SetTimeScale(0f);
+            menu.SetActive(true);
         }
 
-        public void CloseMenu()
+        public void Close()
         {
-            isOpen = false;
-            Time.timeScale = 1f;
-            menuPanel.SetActive(false);
+            timeManager.SetTimeScale(1f);
+            menu.SetActive(false);
         }
-        //저장하고 메인화면으로
-        public void OnClickSaveAndExit()
+
+        public void SaveAndExit()
         {
-            saveLoadManager.Save();
-            SceneManager.LoadScene("MainMenu");
+            _saveLoadManager.Save();
+            SceneManager.LoadScene(SceneNames.MainMenu);
         }    
     }
-
 }

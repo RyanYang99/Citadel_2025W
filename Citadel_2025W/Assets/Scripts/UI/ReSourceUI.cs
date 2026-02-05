@@ -1,7 +1,4 @@
-using Citadel;
-using System;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,17 +12,21 @@ namespace Citadel
         [SerializeField] private Image iconImage;
         [SerializeField] private ItemIconTable iconTable;
 
+        private void Awake() => ForceRefresh();
 
         private void OnEnable()
         {
             inventory.OnItemChange += OnItemChange;
 
-            SetIcon();  
+            SetIcon();
             ForceRefresh();
         }
 
         private void SetIcon()
         {
+            if (iconImage == null)
+                return;
+
             var data = iconTable.Get(item);
             if (data != null)
                 iconImage.sprite = data.icon;
