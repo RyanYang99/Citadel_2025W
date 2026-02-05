@@ -1,4 +1,4 @@
-﻿namespace Citadel
+namespace Citadel
 {
     public enum Item
     {
@@ -17,6 +17,7 @@
 
 
         ResearchPoint,
-        Soldier
+        Soldier,
+        Population
     }
 }

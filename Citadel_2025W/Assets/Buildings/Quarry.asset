@@ -18,3 +18,4 @@ MonoBehaviour:
   category: 2
   subCategory: 6
   yOffset: 1
+  maxBuildCount: 3
