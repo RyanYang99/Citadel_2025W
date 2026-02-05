@@ -14,7 +14,6 @@ namespace Citadel
             
             SceneManager.sceneLoaded -= OnSceneLoaded;
             _isLoadRequested = false;
-            //FindAnyObjectByType<SaveLoadManager>().Load();
             SaveLoadManager.Instance.Load();
         }
         

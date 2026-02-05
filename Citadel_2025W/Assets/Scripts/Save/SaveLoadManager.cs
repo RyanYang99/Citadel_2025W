@@ -30,25 +30,31 @@ namespace Citadel
 
         protected override void Awake()
         {
-            _timeManager = FindFirstObjectByType<TimeManager>();
-            _buildingManager = FindFirstObjectByType<BuildingManager>();
-            _inventory = FindFirstObjectByType<Inventory>();
-            _groundLevelManager = FindFirstObjectByType<GroundLevelManager>();
+            base.Awake();
             
+            Ensure();
             _path = Application.persistentDataPath + "/save.json";
         }
 
-        private void Update()
+        private void Ensure()
         {
-            if (Input.GetKeyDown(KeyCode.F1))
-                Save();
-
-            if (Input.GetKeyDown(KeyCode.F2))
-                Load();
+            if (_timeManager == null)
+                _timeManager = FindFirstObjectByType<TimeManager>();
+            
+            if (_buildingManager == null)
+                _buildingManager = FindFirstObjectByType<BuildingManager>();
+            
+            if (_inventory == null)
+                _inventory = FindFirstObjectByType<Inventory>();
+            
+            if (_groundLevelManager == null)
+                _groundLevelManager = FindFirstObjectByType<GroundLevelManager>();
         }
 
         public void Save()
         {
+            Ensure();
+            
             SaveFile saveFile = new()
             {
                 ElapsedTime = _timeManager.TimeElapsed,
@@ -70,6 +76,8 @@ namespace Citadel
             if (!File.Exists(_path))
                 return;
 
+            Ensure();
+            
             SaveFile saveFile = JsonConvert.DeserializeObject<SaveFile>(File.ReadAllText(_path));
             _groundLevelManager.CurrentLevel = saveFile.groundLevel;
             _timeManager.Load(saveFile.ElapsedTime);
