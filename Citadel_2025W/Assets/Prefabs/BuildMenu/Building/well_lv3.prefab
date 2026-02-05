@@ -81,6 +81,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 89af2810192380f4fbd17cb2d91101ea, type: 3}
       insertIndex: -1
       addedObject: {fileID: 786945504499953111}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 89af2810192380f4fbd17cb2d91101ea, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7943874868521790636}
   m_SourcePrefab: {fileID: 100100000, guid: 89af2810192380f4fbd17cb2d91101ea, type: 3}
 --- !u!4 &5820090897598622867 stripped
 Transform:
@@ -130,10 +133,27 @@ MonoBehaviour:
   itemsProduced:
   - item: 2
     amount: 5
-  range: 0
-  rangeResourceProvided: []
+  range: 10
+  rangeResourceProvided:
+  - rangeResource: 0
+    tickDuration: 2
   oneTimeItemsProduced: []
   permanentItemsAdded: []
+--- !u!114 &-7943874868521790636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6597436425152099881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12c17ec025645aa4c9c3edc95f75c1ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResourcePopupSpawner
+  popupPrefab: {fileID: 1080480347363611842, guid: 1073e24adbd14e146be2727d27615e4a, type: 3}
+  iconTable: {fileID: 0}
+  spawnOffset: {x: 0, y: 5, z: 0}
 --- !u!1001 &7216546883245539352
 PrefabInstance:
   m_ObjectHideFlags: 0

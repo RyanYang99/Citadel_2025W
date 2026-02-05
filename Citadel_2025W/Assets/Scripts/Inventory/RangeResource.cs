@@ -3,6 +3,8 @@ namespace Citadel
     public enum RangeResource
     {
         Water,
-        Religion
+        Religion,
+        wood,
+        stone
     }
 }

@@ -92,6 +92,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4bb0084675ac13744a6b0611bf64a52f, type: 3}
       insertIndex: -1
       addedObject: {fileID: -6856081096152335181}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4bb0084675ac13744a6b0611bf64a52f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7220865084368936202}
   m_SourcePrefab: {fileID: 100100000, guid: 4bb0084675ac13744a6b0611bf64a52f, type: 3}
 --- !u!1 &4834367476569116104 stripped
 GameObject:
@@ -131,14 +134,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 652f762aed6f39f45a6a5835a2105e5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemProducer
-  itemConsumer: {fileID: 0}
+  itemConsumer: {fileID: -7220865084368936202}
   ticksNeeded: 1
   itemsProduced:
   - item: 1
     amount: 30
-  range: 0
+  range: 10
   rangeResourceProvided: []
-  oneTimeItemProduced: []
+  oneTimeItemsProduced: []
+  permanentItemsAdded: []
 --- !u!114 &-2374645335589235815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,3 +173,19 @@ MonoBehaviour:
   popupPrefab: {fileID: 1080480347363611842, guid: 1073e24adbd14e146be2727d27615e4a, type: 3}
   iconTable: {fileID: 0}
   spawnOffset: {x: 0, y: 5, z: 0}
+--- !u!114 &-7220865084368936202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4834367476569116104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75d5a6d561ecce4085de6e0f0b00c55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemConsumer
+  itemsUsed: []
+  rangeResourcesUsed: 02000000
+  satisfactionItemUsed: []
+  satisfactionRangeResourceUsed: 
