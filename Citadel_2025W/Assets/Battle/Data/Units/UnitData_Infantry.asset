@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: UnitData_Infantry
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   type: 0
-  prefab: {fileID: 8082293973551157753, guid: a9d31f5e5613ec74a8fcc94e2406c1d1, type: 3}
+  prefab: {fileID: 3190008551875324828, guid: 55523d0518a2b4e4a898a2a3538b328c, type: 3}
   maxHp: 120
   damage: 10
   range: 1.5
