@@ -624,6 +624,7 @@ MonoBehaviour:
   unitDatabase:
   - {fileID: 11400000, guid: a1fc0393a2ba3ca4cb706dde9dbf54aa, type: 2}
   - {fileID: 11400000, guid: 5294ba5513836a54486cb57b58e63e25, type: 2}
+  - {fileID: 11400000, guid: e779b55e76452d14d8a69cfca5f1c1de, type: 2}
 --- !u!114 &1768530525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -657,12 +658,12 @@ MonoBehaviour:
   - {fileID: 346480090}
   enemySpawnPoints:
   - {fileID: 1951841434}
-  wInfantry: 0
-  wArcher: 100
-  wShield: 0
+  wInfantry: 40
+  wArcher: 30
+  wShield: 30
   groundMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
   raycastHeight: 50
   groundOffsetY: 0
 --- !u!114 &1768530527

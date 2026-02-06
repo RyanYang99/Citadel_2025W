@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4aeba8584fb7b4b4bb845f7721f5b4a3, type: 3}
-  m_Name: UnitData_Archer
+  m_Name: UnitData_Shield
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
-  type: 1
-  prefab: {fileID: 4550487464833959427, guid: f595d18e8885a5c4c814b9b41c158797, type: 3}
-  maxHp: 80
-  damage: 14
-  range: 10
-  moveSpeed: 3
-  attackInterval: 1.4
+  type: 2
+  prefab: {fileID: 6379001904922694409, guid: c9acc8c98641f7640b10d3d935bed4d0, type: 3}
+  maxHp: 150
+  damage: 5
+  range: 1.5
+  moveSpeed: 3.5
+  attackInterval: 1

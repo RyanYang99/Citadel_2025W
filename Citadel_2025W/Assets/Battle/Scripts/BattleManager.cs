@@ -17,15 +17,22 @@ public class BattleManager : MonoBehaviour
     private void Start()
     {
         int castleLevel = 1;
-        if (debugConfig != null && debugConfig.forceUseDebugCastleLevel)
-            castleLevel = debugConfig.castleLevel;
+        int soldierCount = 20;
+
+        if (BattleSession.TryGetRequest(out var req))
+        {
+            castleLevel = req.castleLevel;
+            soldierCount = req.playerSoldierCount;
+        }
 
         _cfg = BattleRuntimeConfig.Build(balance, castleLevel);
 
-        Debug.Log($"[Battle] L={castleLevel} targetKills={_cfg.targetKills}");
         UnitRuntime.SetBattleManager(this);
 
         spawner.Configure(_cfg);
+
+        spawner.SetPlayerPool(soldierCount);
+
         spawner.Begin();
     }
 

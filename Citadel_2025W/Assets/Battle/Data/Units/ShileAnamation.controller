@@ -174,7 +174,7 @@ AnimatorStateMachine:
     m_Position: {x: 650, y: 360, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5702413400812788251}
-    m_Position: {x: 190, y: 70, z: 0}
+    m_Position: {x: 200, y: 80, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6409489820125919872}
     m_Position: {x: 290, y: 200, z: 0}
@@ -492,7 +492,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: KnightAnimation
+  m_Name: ShileAnamation
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: IsMove

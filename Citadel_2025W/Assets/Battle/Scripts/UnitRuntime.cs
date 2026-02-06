@@ -135,4 +135,15 @@ public class UnitRuntime : MonoBehaviour
         yield return new WaitForSeconds(deathDestroyDelay);
         Destroy(gameObject);
     }
+
+    public void ApplyData(UnitData data)
+    {
+        hp = data.maxHp;
+        damage = data.damage;
+        range = data.range;
+        moveSpeed = data.moveSpeed;
+        attackInterval = data.attackInterval;
+
+        _nextAtk = 0f;
+    }
 }
