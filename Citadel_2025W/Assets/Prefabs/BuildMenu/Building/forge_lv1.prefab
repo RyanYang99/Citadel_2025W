@@ -154,8 +154,6 @@ MonoBehaviour:
   ticksNeeded: 1
   itemsProduced:
   - item: 4
-    amount: 1
-  - item: 5
     amount: 5
   - item: 6
     amount: 5
