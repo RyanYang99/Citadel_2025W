@@ -5,6 +5,10 @@ namespace Citadel
         Water,
         Religion,
         wood,
-        stone
+        stone,
+        cooper,
+        iron,
+        copperOre,
+        ironOre 
     }
 }
