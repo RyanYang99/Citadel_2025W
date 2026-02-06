@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResourcePopupSpawner
   popupPrefab: {fileID: 1080480347363611842, guid: 1073e24adbd14e146be2727d27615e4a, type: 3}
-  iconTable: {fileID: 0}
+  iconTable: {fileID: 11400000, guid: 51ae489bbbe362b488822fb893ef5975, type: 2}
   spawnOffset: {x: 0, y: 3, z: 0}
 --- !u!114 &4740287647746648036
 MonoBehaviour:
