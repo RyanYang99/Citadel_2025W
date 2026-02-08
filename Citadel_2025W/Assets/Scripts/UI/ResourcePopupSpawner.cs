@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 namespace Citadel
 {
     public class ResourcePopupSpawner : MonoBehaviour
     {
         [Header("References")]
-        [SerializeField] private GameObject popupPrefab; //멀티 프리팹 참조
-        [SerializeField] private ItemIconTable iconTable;
-
+        [SerializeField] private GameObject popupPrefab; // 멀티 프리팹 참조
         [SerializeField] private IconTable iconTable;
+
+        [Header("Spawn Option")]
+        [SerializeField] private Vector3 spawnOffset = Vector3.up * 2f; 
 
         [Header("Batching")]
         [Tooltip("시간 안에 들어온 생산 이벤트는 한 팝업으로 묶음")]
@@ -20,7 +22,7 @@ namespace Citadel
 
         private ItemProducer producer;
 
-        // 버퍼: 같은 아이템은 합산
+        //같은 아이템은 합산
         private readonly Dictionary<Item, int> _buffer = new();
         private Coroutine _flushCo;
 
@@ -28,7 +30,7 @@ namespace Citadel
         {
             producer = GetComponent<ItemProducer>();
             if (iconTable == null)
-                iconTable = FindFirstObjectByType<ItemIconTable>();
+                iconTable = FindFirstObjectByType<IconTable>();
         }
 
         private void OnEnable()
@@ -67,15 +69,24 @@ namespace Citadel
             Vector2 rand = Random.insideUnitCircle * horizontalJitter;
             Vector3 spawnPos = basePos + new Vector3(rand.x, 0f, rand.y);
 
-            var popup = Instantiate(popupPrefab, spawnPos, Quaternion.identity).GetComponent<ResourcePopupUIMulti>();
+            var popup = Instantiate(popupPrefab, spawnPos, Quaternion.identity)
+                .GetComponent<ResourcePopupUIMulti>();
 
             // entries 구성
             var entries = new List<(Sprite icon, int amount)>();
             foreach (var kv in _buffer)
             {
-                var pair = iconTable.Get(kv.Key);
-                if (pair == null) continue;
-                entries.Add((pair.icon, kv.Value));
+                Sprite icon = iconTable.Find(kv.Key);
+                if (icon == null) continue;
+
+                entries.Add((icon, kv.Value));
+            }
+
+            if (entries.Count == 0)
+            {
+                _buffer.Clear();
+                _flushCo = null;
+                yield break;
             }
 
             // 1개면 단일, 2개 이상 멀티
