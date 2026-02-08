@@ -11,7 +11,7 @@ namespace Citadel
         private readonly Dictionary<Item, int> _lastValues = new();
         
         [SerializeField] private Inventory inventory;
-        [SerializeField] private ItemIconTable iconTable;
+        [SerializeField] private IconTable iconTable;
         [SerializeField] private GameObject inventoryPanel;
         [SerializeField] private Transform contentParent;
         [SerializeField] private GameObject resourceRowPrefab;
@@ -54,9 +54,7 @@ namespace Citadel
                 texts[1].text = inventory.GetAmount(item).ToString();
 
                 Image iconImage = row.transform.Find("IconImage").GetComponent<Image>();
-                ItemIconPair data = iconTable.Get(item);
-                if (data != null)
-                    iconImage.sprite = data.icon;
+                iconImage.sprite = iconTable.Find(item);
             }
         }
 

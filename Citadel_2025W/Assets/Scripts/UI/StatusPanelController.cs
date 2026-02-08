@@ -1,248 +1,220 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Citadel
 {
-  
-
     public sealed class StatusPanelController : MonoBehaviour
     {
-        [Header("Header UI")]
-        [SerializeField] private Image iconImage;
-        [SerializeField] private TMP_Text nameText;
-        [SerializeField] private TMP_Text descText;
+        private GameObject _currentBuilding;
+        private BuildingMetaData _currentMeta;
 
-        [Header("Scroll Content")]
-        [SerializeField] private Transform contentRoot;
+        private RectTransform _buttonRect;
+        private Vector2 _offset;
+
+        private ItemProducer _itemProducer;
+        private SatisfactionProvider _satisfactionProvider;
+
+        private readonly List<ConsumerStatusItemController> _consumerItems = new();
+        private readonly List<ProducerStatusItemController> _producerItems = new();
+        
+        [SerializeField] private Inventory inventory;
+        [SerializeField] private Canvas canvas;
+        
+        [Header("Header UI"), SerializeField] private TMP_Text nameText;
+
+        [Header("Scroll Content"), SerializeField] private Transform contentRoot;
 
         [Header("Prefabs")]
         [SerializeField] private TMP_Text sectionTitlePrefab;
         [SerializeField] private StatusRowView rowPrefab;
 
-        [Header("Optional")]
-        [SerializeField] private Button closeButton;
-        [SerializeField] private RectTransform panelRect;
+        [Header("Optional"), SerializeField] private RectTransform panelRect;
+        
+        [Header("Viewport Consumer")]
+        [SerializeField] private TMP_Text consumerText;
+        [SerializeField] private GameObject consumerPart, consumerItem;
 
+        [Header("Viewport Producer")]
+        [SerializeField] private TMP_Text producerText, producerTicksLeftText;
+        [SerializeField] private GameObject producerPart, producerItem;
+        
+        [Header("Viewport OneTime")]
+        [SerializeField] private TMP_Text oneTimeText;
+        [SerializeField] private GameObject oneTimePart;
+        
+        [Header("Viewport Satisfaction")]
+        [SerializeField] private TMP_Text satisfactionText, satisfactionStatusText;
+        [SerializeField] private GameObject satisfactionPart;
+        
+        private void OnEnable() => inventory.OnTick += OnTick;
 
-        private GameObject currentBuilding;
-        private BuildingMetaData currentMeta;
-        private Inventory inventory;
+        private void LateUpdate() => SnapToButton(_buttonRect, _offset);
 
-        private void Awake()
+        private void OnDisable() => inventory.OnTick -= OnTick;
+
+        private void OnTick()
         {
-            Debug.Log($"[StatusPanel] Awake on {name}", this);
-
-            if (closeButton != null)
-                closeButton.onClick.AddListener(Hide);
-
-            gameObject.SetActive(false);
-        }
-
-        private void OnDestroy()
-        {
-            // ±∏µ∂ «ÿ¡¶
-            if (inventory != null)
-                inventory.OnTick -= HandleTick;
-        }
-
-        public void BindInventory(Inventory inv)
-        {
-            if (inventory != null)
-                inventory.OnTick -= HandleTick;
-
-            inventory = inv;
-
-            if (inventory != null)
-                inventory.OnTick += HandleTick;
-        }
-
-        private void HandleTick()
-        {
-            if (!gameObject.activeSelf) return;
+            if (!gameObject.activeSelf)
+                return;
+            
             Refresh();
         }
+        
+        private void Refresh()
+        {
+            foreach (ConsumerStatusItemController buildingStatusPanelItemController in _consumerItems)
+                buildingStatusPanelItemController.Refresh();
+            
+            foreach (ProducerStatusItemController producerStatusItemController in _producerItems)
+                producerStatusItemController.Refresh();
+            
+            RefreshProducerTicksNeededText();
+            RefreshSatisfactionStatusText();
+        }
 
+        private ConsumerStatusItemController CreateConsumerStatusItemController(GameObject parent)
+        {
+            ConsumerStatusItemController consumerStatusItemController = Instantiate(consumerItem, parent.transform).GetComponent<ConsumerStatusItemController>();
+            _consumerItems.Add(consumerStatusItemController);
+
+            return consumerStatusItemController;
+        }
+
+        private ProducerStatusItemController CreateProducerStatusItemController(GameObject parent)
+        {
+            ProducerStatusItemController producerStatusItemController = Instantiate(producerItem, parent.transform).GetComponent<ProducerStatusItemController>();
+            _producerItems.Add(producerStatusItemController);
+
+            return producerStatusItemController;
+        }
+        
         public void Show(GameObject buildingRoot, BuildingMetaData meta)
         {
-            Debug.Log("[StatusPanel] Show called");
-            if (buildingRoot == null) return;
+            if (buildingRoot == null)
+                return;
 
-            currentBuilding = buildingRoot.transform.root.gameObject; 
-            currentMeta = meta;
+            _currentBuilding = buildingRoot.transform.root.gameObject; 
+            _currentMeta = meta;
 
             gameObject.SetActive(true);
-            Refresh();
+            
+            nameText.text = _currentMeta != null ? _currentMeta.uniqueName : buildingRoot.name;
+            
+            if (_currentBuilding.TryGetComponent(out ItemConsumer itemConsumer))
+            {
+                consumerText.gameObject.SetActive(true);
+
+                foreach (ItemAmount itemAmount in itemConsumer.ItemsUsed)
+                    CreateConsumerStatusItemController(consumerPart).Initialize(itemConsumer, itemAmount, RangeResource.None);
+
+                foreach (RangeResource rangeResource in itemConsumer.RangeResourcesUsed)
+                    CreateConsumerStatusItemController(consumerPart).Initialize(itemConsumer, new ItemAmount(), rangeResource);
+
+                if (_currentBuilding.TryGetComponent(out _satisfactionProvider) &&
+                    (itemConsumer.SatisfactionItemUsed.Count > 0 || itemConsumer.SatisFactionRangeResourceUsed.Count > 0))
+                {
+                    satisfactionText.gameObject.SetActive(true);
+                    satisfactionStatusText.gameObject.SetActive(true);
+                    RefreshSatisfactionStatusText();
+
+                    foreach (ItemAmount itemAmount in itemConsumer.SatisfactionItemUsed)
+                        CreateConsumerStatusItemController(satisfactionPart).Initialize(itemConsumer, itemAmount, RangeResource.None);
+                    
+                    foreach (RangeResource rangeResource in itemConsumer.SatisFactionRangeResourceUsed)
+                        CreateConsumerStatusItemController(satisfactionPart).Initialize(itemConsumer, new ItemAmount(), rangeResource);
+                }
+            }
+
+            if (_currentBuilding.TryGetComponent(out _itemProducer))
+            {
+                producerText.gameObject.SetActive(true);
+                
+                producerTicksLeftText.gameObject.SetActive(true);
+                RefreshProducerTicksNeededText();
+
+                foreach (ItemAmount itemAmount in _itemProducer.ItemsProduced)
+                    CreateProducerStatusItemController(producerPart).Initialize(_itemProducer,
+                                                                                itemAmount,
+                                                                                RangeResource.None, 
+                                                                                0);
+
+                foreach ((RangeResource resource, int tickDuration) rangeResource in _itemProducer.RangeResourcesProvided)
+                    CreateProducerStatusItemController(producerPart).Initialize(_itemProducer,
+                                                                                new ItemAmount(),
+                                                                                rangeResource.resource,
+                                                                                rangeResource.tickDuration);
+
+                if (_itemProducer.OneTimeItemsProduced.Count > 0)
+                {
+                    oneTimeText.gameObject.SetActive(true);
+
+                    foreach (ItemAmount itemAmount in _itemProducer.OneTimeItemsProduced)
+                        CreateProducerStatusItemController(oneTimePart).Initialize(_itemProducer,
+                                                                                   itemAmount,
+                                                                                   RangeResource.None,
+                                                                                   0);
+                }
+            }
         }
 
+        private void RefreshProducerTicksNeededText()
+        {
+            if (_itemProducer != null)
+                producerTicksLeftText.text = $"ÎÇ®ÏùÄ ÏãúÍ∞Ñ: {_itemProducer.Ticks + 1} / {_itemProducer.TicksNeeded}";
+        }
+
+        private void RefreshSatisfactionStatusText()
+        {
+            if (_satisfactionProvider != null)
+                satisfactionStatusText.text = $"ÎßåÏ°±ÎèÑ: {_satisfactionProvider.Satisfaction * 100f}%";
+        }
 
         public void Hide()
         {
+            _currentBuilding = null;
+            _currentMeta = null;
+            _itemProducer = null;
+            _satisfactionProvider = null;
             gameObject.SetActive(false);
-            currentBuilding = null;
-            currentMeta = null;
+            consumerText.gameObject.SetActive(false);
+            producerText.gameObject.SetActive(false);
+            producerTicksLeftText.gameObject.SetActive(false);
+            oneTimeText.gameObject.SetActive(false);
+            satisfactionText.gameObject.SetActive(false);
+            satisfactionStatusText.gameObject.SetActive(false);
+            
+            foreach (ConsumerStatusItemController consumerStatusItemController in _consumerItems)
+                Destroy(consumerStatusItemController.gameObject);
+            _consumerItems.Clear();
+            
+            foreach (ProducerStatusItemController producerStatusItemController in _producerItems)
+                Destroy(producerStatusItemController.gameObject);
+            _producerItems.Clear();
         }
 
         public void SnapToButton(RectTransform buttonRect, Vector2 offset)
         {
-            if (buttonRect == null) return;
+            if (buttonRect == null)
+                return;
 
-            Canvas canvas = GetComponentInParent<Canvas>();
-            if (canvas == null) return;
+            _buttonRect = buttonRect;
+            _offset = offset;
 
             RectTransform canvasRect = canvas.transform as RectTransform;
             RectTransform panel = panelRect != null ? panelRect : (RectTransform)transform;
-
-            // πˆ∆∞¿« ø¿∏•¬  ¡ﬂ∞£ ¡ˆ¡°¿ª ±‚¡ÿ¡°¿∏∑Œ
+            
             Vector3[] corners = new Vector3[4];
             buttonRect.GetWorldCorners(corners);
-            Vector3 worldPoint = (corners[2] + corners[3]) * 0.5f; // ø¿∏•¬  ∞°øÓµ•
+            Vector3 worldPoint = (corners[2] + corners[3]) * 0.5f;
 
-            Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(
-                canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera,
-                worldPoint
-            );
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                canvasRect,
-                screenPoint,
-                canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera,
-                out Vector2 localPoint
-            );
+            Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera,
+                                                                          worldPoint);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect,
+                                                                    screenPoint,
+                                                                    canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera,
+                                                                    out Vector2 localPoint);
             panel.anchoredPosition = localPoint + offset;
-        }
-
-
-        public void Refresh()
-        {
-            Debug.Log("[StatusPanel] Refresh called");
-            GameObject root = currentBuilding.transform.root.gameObject;
-            Debug.Log($"[StatusPanel] target={currentBuilding.name}, root={root.name}");
-            Debug.Log($"[StatusPanel] hasProducer={root.TryGetComponent<ItemProducer>(out _)} hasConsumer={root.TryGetComponent<ItemConsumer>(out _)}");
-
-
-
-            if (currentBuilding == null) return;
-
-            ClearContent();
-
-            // Header
-            if (nameText != null)
-                nameText.text = currentMeta != null ? currentMeta.uniqueName : root.name;
-
-            if (descText != null)
-            {
-                // metaø° ∞«π∞ º≥∏Ì ¿÷¿∏∏È ªÁøÎ«œ±‚ ¿ß«œø© ≥≤∞‹≥ı¿Ω
-                // descText.text = currentMeta.description;
-                descText.text = "";
-            }
-
-            if (iconImage != null)
-            {
-                iconImage.sprite = (currentMeta != null) ? currentMeta.icon : null;
-                iconImage.enabled = iconImage.sprite != null;
-            }
-
-            Debug.Log($"[StatusPanel] contentRoot={(contentRoot != null)} rowPrefab={(rowPrefab != null)} titlePrefab={(sectionTitlePrefab != null)}");
-
-            //  Producer 
-            if (root.TryGetComponent<ItemProducer>(out var producer))
-            {
-                AddSection("ª˝ªÍ");
-                AddRow("Ticks Needed", producer.TicksNeeded.ToString());
-
-                if (producer.ItemsProduced != null && producer.ItemsProduced.Count > 0)
-                {
-                    foreach (var item in producer.ItemsProduced)
-                        AddRow(item.item.ToString(), $"+{item.amount}");
-                }
-
-                AddRow("Range", producer.Range.ToString("0.##"));
-
-                var provided = producer.RangeResourcesProvided;
-                if (provided != null && provided.Count > 0)
-                {
-                    foreach (var (res, dur) in provided)
-                        AddRow($"Provides ({res})", $"{dur} ticks");
-                }
-            }
-
-            //  Consumer («ˆ¿Á/« ø‰ «•Ω√)
-            if (root.TryGetComponent<ItemConsumer>(out var consumer))
-            {
-                AddSection("« ø‰");
-
-                AddRow("Ready", consumer.AreItemsReady() ? "Yes" : "No");
-                AddRow("Total Required", consumer.TotalRequiredResources.ToString());
-
-                var ready = consumer.GetReadyResources();
-                var readyRanges = new HashSet<RangeResource>();
-
-                if (ready != null)
-                {
-                    foreach (var r in ready)
-                    {
-                        if (r.AnyRangeResource.HasValue)
-                            readyRanges.Add(r.AnyRangeResource.Value);
-                    }
-                }
-
-                // æ∆¿Ã≈€ ø‰±∏∑Æ: «ˆ¿Á/« ø‰ «•Ω√
-                if (consumer.ItemsUsed != null && consumer.ItemsUsed.Count > 0)
-                {
-                    AddSection("Item Requirements");
-                    foreach (var need in consumer.ItemsUsed)
-                    {
-                        int cur = consumer.GetCurrentAmount(need.item); 
-                        int req = need.amount;
-
-                        AddRow(need.item.ToString(), $"{cur} / {req}");
-                    }
-                }
-
-                // π¸¿ß ¿⁄ø¯ ø‰±∏: Provided/Missing «•Ω√
-                if (consumer.RangeResourcesUsed != null && consumer.RangeResourcesUsed.Count > 0)
-                {
-                    AddSection("Range Requirements");
-                    foreach (var rr in consumer.RangeResourcesUsed)
-                    {
-                        bool ok = readyRanges.Contains(rr);
-                        AddRow(rr.ToString(), ok ? "Provided " : "Missing ");
-                    }
-                }
-            }
-
-            // æ∆π´∞Õµµ æ¯¿∏∏È æ»≥ª
-            if (contentRoot != null && contentRoot.childCount == 0)
-            {
-                AddSection("¡§∫∏");
-                AddRow("No data", "No producer/consumer components found.");
-            }
-
-           
-
-        }
-
-        private void ClearContent()
-        {
-            if (contentRoot == null) return;
-
-            for (int i = contentRoot.childCount - 1; i >= 0; i--)
-                Destroy(contentRoot.GetChild(i).gameObject);
-        }
-
-        private void AddSection(string title)
-        {
-            if (sectionTitlePrefab == null || contentRoot == null) return;
-            var t = Instantiate(sectionTitlePrefab, contentRoot);
-            t.text = title;
-        }
-
-        private void AddRow(string label, string value)
-        {
-            if (rowPrefab == null || contentRoot == null) return;
-            var row = Instantiate(rowPrefab, contentRoot);
-            row.Set(label, value);
         }
     }
 }

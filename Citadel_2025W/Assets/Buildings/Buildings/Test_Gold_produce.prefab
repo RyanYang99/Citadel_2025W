@@ -125,7 +125,8 @@ MonoBehaviour:
     amount: 100
   range: 0
   rangeResourceProvided: []
-  oneTimeItemProduced: []
+  oneTimeItemsProduced: []
+  permanentItemsAdded: []
 --- !u!114 &2654169496394782198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,7 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResourcePopupSpawner
   popupPrefab: {fileID: 1080480347363611842, guid: 1073e24adbd14e146be2727d27615e4a, type: 3}
-  iconTable: {fileID: 0}
+  iconTable: {fileID: 11400000, guid: 51ae489bbbe362b488822fb893ef5975, type: 2}
   spawnOffset: {x: 0, y: 2, z: 0}
 --- !u!114 &6541547112872306003
 MonoBehaviour:
@@ -157,6 +158,8 @@ MonoBehaviour:
   - item: 0
     amount: 0
   rangeResourcesUsed: 
+  satisfactionItemUsed: []
+  satisfactionRangeResourceUsed: 
 --- !u!114 &-6991640246430307877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,12 +172,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c5e08e347dec0d4888ffc69612c08fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.SatisfactionProvider
-  category: 2
-  inventory: {fileID: 0}
-  bonusManager: {fileID: 0}
   itemConsumer: {fileID: 6541547112872306003}
-  satisfactionImportance: {fileID: 11400000, guid: d3cf9430aff82b0498af23810d6d4b22, type: 2}
-  satisfactionImportanceOverride: {fileID: 0}
-  threshold: 0.4
+  category: 2
+  itemImportances: []
+  rangeResourceImportances: []
   itemBonuses: []
   rangeResourceBonuses: []
+  threshold: 0.4
+  readyDelayTicks: 0

@@ -8,7 +8,7 @@ namespace Citadel
     public sealed class ItemProducer : MonoBehaviour
     {
         [Serializable]
-        private sealed class RangeResourceAmount
+        public sealed class RangeResourceAmount
         {
             public RangeResource rangeResource;
             public int tickDuration;
@@ -56,13 +56,19 @@ namespace Citadel
 
         public Action<ItemAmount> OnItemProduced;
 
-        //Status 판넬에 데이터를 넘기기 위한 , 읽기 전용
+        public int Ticks => _ticks;
+        
         public int TicksNeeded => ticksNeeded;
-        public IReadOnlyList<ItemAmount> ItemsProduced => itemsProduced;
+        
         public float Range => range;
-
-        public IReadOnlyList<(RangeResource resource, int tickDuration)> RangeResourcesProvided =>
-            rangeResourceProvided.Select(rangeResourceAmount => (rangeResourceAmount.rangeResource, rangeResourceAmount.tickDuration)).ToList();
+        
+        public IReadOnlyList<ItemAmount> ItemsProduced => itemsProduced;
+        
+        public IReadOnlyList<ItemAmount> OneTimeItemsProduced => oneTimeItemsProduced;
+        
+        public IReadOnlyList<(RangeResource resource, int tickDuration)> RangeResourcesProvided => rangeResourceProvided.Select(rangeResourceAmount => (rangeResourceAmount.rangeResource, rangeResourceAmount.tickDuration)).ToList();
+        
+        public IReadOnlyList<RangeResourceAmount> RangeResourceDurations => _rangeResourceDurations;
 
         private void Awake()
         {
@@ -111,12 +117,14 @@ namespace Citadel
                 return;
 
             _ticks = 0;
-            
-            if (itemConsumer == null || itemConsumer.AreItemsReady())
+
+            if (itemConsumer == null)
                 Produce();
-            
-            if (itemConsumer)
+            else if (itemConsumer.AreItemsReady())
+            {
                 itemConsumer.ConsumeReadyItems();
+                Produce();
+            }
         }
 
         private void UpdateRange()
