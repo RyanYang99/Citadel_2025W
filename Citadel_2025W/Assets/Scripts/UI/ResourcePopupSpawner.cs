@@ -1,20 +1,37 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Citadel
 {
     public class ResourcePopupSpawner : MonoBehaviour
     {
-        [Header("References")] [SerializeField]
-        private ResourcePopupUI popupPrefab;
-
+        [Header("References")]
+        [SerializeField] private GameObject popupPrefab; // 멀티 프리팹 참조
         [SerializeField] private IconTable iconTable;
 
-        [Header("Spawn Option")] [SerializeField]
-        private Vector3 spawnOffset = Vector3.up * 2f;
+        [Header("Spawn Option")]
+        [SerializeField] private Vector3 spawnOffset = Vector3.up * 2f; 
+
+        [Header("Batching")]
+        [Tooltip("시간 안에 들어온 생산 이벤트는 한 팝업으로 묶음")]
+        [SerializeField] private float burstWindow = 0.08f;
+
+        [Tooltip("겹침 방지용 랜덤 위치")]
+        [SerializeField] private float horizontalJitter = 0.2f;
 
         private ItemProducer producer;
 
-        private void Awake() => producer = GetComponent<ItemProducer>();
+        //같은 아이템은 합산
+        private readonly Dictionary<Item, int> _buffer = new();
+        private Coroutine _flushCo;
+
+        private void Awake()
+        {
+            producer = GetComponent<ItemProducer>();
+            if (iconTable == null)
+                iconTable = FindFirstObjectByType<IconTable>();
+        }
 
         private void OnEnable()
         {
@@ -33,11 +50,53 @@ namespace Citadel
             if (popupPrefab == null || iconTable == null)
                 return;
 
-            ResourcePopupUI popup = Instantiate(popupPrefab,
-                                                transform.position + spawnOffset,
-                                                Quaternion.identity);
+            if (_buffer.ContainsKey(itemAmount.item))
+                _buffer[itemAmount.item] += itemAmount.amount;
+            else
+                _buffer[itemAmount.item] = itemAmount.amount;
 
-            popup.Init(iconTable.Find(itemAmount.item), itemAmount.amount);
+            // 타이머 리셋
+            if (_flushCo != null) StopCoroutine(_flushCo);
+            _flushCo = StartCoroutine(FlushAfterDelay());
+        }
+
+        private IEnumerator FlushAfterDelay()
+        {
+            yield return new WaitForSecondsRealtime(burstWindow);
+
+            // 팝업 스폰 위치
+            Vector3 basePos = transform.position + spawnOffset;
+            Vector2 rand = Random.insideUnitCircle * horizontalJitter;
+            Vector3 spawnPos = basePos + new Vector3(rand.x, 0f, rand.y);
+
+            var popup = Instantiate(popupPrefab, spawnPos, Quaternion.identity)
+                .GetComponent<ResourcePopupUIMulti>();
+
+            // entries 구성
+            var entries = new List<(Sprite icon, int amount)>();
+            foreach (var kv in _buffer)
+            {
+                Sprite icon = iconTable.Find(kv.Key);
+                if (icon == null) continue;
+
+                entries.Add((icon, kv.Value));
+            }
+
+            if (entries.Count == 0)
+            {
+                _buffer.Clear();
+                _flushCo = null;
+                yield break;
+            }
+
+            // 1개면 단일, 2개 이상 멀티
+            if (entries.Count == 1)
+                popup.InitSingle(entries[0].icon, entries[0].amount);
+            else
+                popup.InitMany(entries);
+
+            _buffer.Clear();
+            _flushCo = null;
         }
     }
 }

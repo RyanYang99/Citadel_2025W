@@ -13,6 +13,9 @@ namespace Citadel
         Copper,
         Iron,
         
+        CopperOre,
+        IronOre,
+
         Cotton,
         Clothes,
 

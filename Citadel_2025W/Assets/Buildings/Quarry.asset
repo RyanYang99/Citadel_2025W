@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Quarry
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.BuildingMetaData
   uniqueName: Quarry
-  prefab: {fileID: 2710871837090424155, guid: c18f622e974cd0c4092f32189b5b717a, type: 3}
+  prefab: {fileID: 2710871837090424155, guid: 31298b9a9d5062a4794f41767f8bf715, type: 3}
   icon: {fileID: 8762629302928376982, guid: 669e3ef0940391845bcdabcf10caf646, type: 3}
   category: 2
   subCategory: 6
