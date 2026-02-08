@@ -147,11 +147,11 @@ MonoBehaviour:
   itemsProduced: []
   range: 12
   rangeResourceProvided:
-  - rangeResource: 3
-    tickDuration: 99999
-  - rangeResource: 6
+  - rangeResource: 4
     tickDuration: 99999
   - rangeResource: 7
+    tickDuration: 99999
+  - rangeResource: 8
     tickDuration: 99999
   oneTimeItemsProduced: []
   permanentItemsAdded: []

@@ -247,7 +247,7 @@ MonoBehaviour:
   itemsProduced: []
   range: 10
   rangeResourceProvided:
-  - rangeResource: 2
+  - rangeResource: 3
     tickDuration: 99999
   oneTimeItemsProduced: []
   permanentItemsAdded: []
