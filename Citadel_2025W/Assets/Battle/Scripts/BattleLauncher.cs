@@ -10,7 +10,10 @@ public class BattleLauncher : MonoBehaviour
     public void EnterBattle(int zoneId, int castleLevel)
     {
         if (inventory == null)
+        {
             inventory = FindFirstObjectByType<Inventory>();
+            Debug.Log($"[BattleLauncher] inventory found? {(inventory != null)}", this);
+        }
 
         int soldierCount = 0;
 
@@ -18,6 +21,8 @@ public class BattleLauncher : MonoBehaviour
             soldierCount = inventory.GetAmount(Item.Soldier);
         else
             Debug.LogError("[BattleLauncher] Inventory not found in MainScene.");
+
+        Debug.Log($"[BattleLauncher] zoneId={zoneId}, castleLevel={castleLevel}, soldierCount={soldierCount}", this);
 
         BattleSession.SetRequest(new BattleSession.BattleRequest
         {

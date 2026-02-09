@@ -1,10 +1,12 @@
 using Citadel;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public sealed class TileClickBattleOpener : MonoBehaviour
 {
     [Header("Refs")]
     [SerializeField] private BattleLauncher battleLauncher;
+
 
     [Header("Raycast")]
     [SerializeField] private Camera cam;
@@ -20,6 +22,10 @@ public sealed class TileClickBattleOpener : MonoBehaviour
     private void Update()
     {
         if (!Input.GetMouseButtonDown(0)) return;
+
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            return;
+
 
         if (cam == null || battleLauncher == null) return;
 

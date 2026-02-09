@@ -23,6 +23,7 @@ public class BattleManager : MonoBehaviour
         {
             castleLevel = req.castleLevel;
             soldierCount = req.playerSoldierCount;
+            Debug.Log($"[BattleScene] Received Request: zoneId={req.zoneId}, castleLevel={req.castleLevel}, playerSoldierCount={req.playerSoldierCount}");
         }
 
         _cfg = BattleRuntimeConfig.Build(balance, castleLevel);
@@ -31,7 +32,7 @@ public class BattleManager : MonoBehaviour
 
         spawner.Configure(_cfg);
 
-        spawner.SetPlayerPool(soldierCount);
+        spawner.SetPlayerTotalSupply(req.playerSoldierCount);
 
         spawner.Begin();
     }
