@@ -6,7 +6,7 @@ namespace Citadel
     public sealed class UnitRuleData : ScriptableObject
     {
         [Header("Soldier Production")]
-        public int soldierMoneyCost = 10;
+        public int soldierMoneyCost = 100;
         public int soldierHoursPerUnit = 3;
 
         [Header("Limits")]

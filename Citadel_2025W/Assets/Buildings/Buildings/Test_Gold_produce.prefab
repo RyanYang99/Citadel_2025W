@@ -121,7 +121,7 @@ MonoBehaviour:
   itemConsumer: {fileID: 6541547112872306003}
   ticksNeeded: 1
   itemsProduced:
-  - item: 0
+  - item: 1
     amount: 100
   range: 0
   rangeResourceProvided: []
@@ -139,9 +139,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12c17ec025645aa4c9c3edc95f75c1ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResourcePopupSpawner
-  popupPrefab: {fileID: 1080480347363611842, guid: 1073e24adbd14e146be2727d27615e4a, type: 3}
+  popupPrefab: {fileID: 0}
   iconTable: {fileID: 11400000, guid: 51ae489bbbe362b488822fb893ef5975, type: 2}
   spawnOffset: {x: 0, y: 2, z: 0}
+  burstWindow: 0.08
+  horizontalJitter: 0.2
 --- !u!114 &6541547112872306003
 MonoBehaviour:
   m_ObjectHideFlags: 0
