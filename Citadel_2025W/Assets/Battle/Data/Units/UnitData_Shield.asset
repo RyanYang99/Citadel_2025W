@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aeba8584fb7b4b4bb845f7721f5b4a3, type: 3}
+  m_Name: UnitData_Shield
+  m_EditorClassIdentifier: Assembly-CSharp::UnitData
+  type: 2
+  prefab: {fileID: 6379001904922694409, guid: c9acc8c98641f7640b10d3d935bed4d0, type: 3}
+  maxHp: 150
+  damage: 5
+  range: 1.5
+  moveSpeed: 3.5
+  attackInterval: 1

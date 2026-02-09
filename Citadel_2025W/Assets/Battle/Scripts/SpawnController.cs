@@ -12,6 +12,16 @@ public class SpawnController : MonoBehaviour
     [SerializeField] private List<Transform> playerSpawnPoints;
     [SerializeField] private List<Transform> enemySpawnPoints;
 
+    [Header("Spawn Weights (%) - Both Teams")]
+    [Range(0, 100)][SerializeField] private int wInfantry = 40;
+    [Range(0, 100)][SerializeField] private int wArcher = 20;
+    [Range(0, 100)][SerializeField] private int wShield = 40;
+
+    [Header("Ground Snap (optional)")]
+    [SerializeField] private LayerMask groundMask;
+    [SerializeField] private float raycastHeight = 50f;
+    [SerializeField] private float groundOffsetY = 0f;
+
     private BattleRuntimeConfig _cfg;
     private Coroutine _playerCo;
     private Coroutine _enemyCo;
@@ -19,9 +29,18 @@ public class SpawnController : MonoBehaviour
     private int _playerAlive;
     private int _enemyAlive;
 
+    private int _playerSupplyRemaining;
+
     public void Configure(BattleRuntimeConfig cfg)
     {
         _cfg = cfg;
+    }
+
+    // BattleManager에서 req.playerSoldierCount 넣어주는 용도
+    public void SetPlayerTotalSupply(int total)
+    {
+        _playerSupplyRemaining = Mathf.Max(0, total);
+        Debug.Log($"[SpawnController] PlayerTotalSupply={_playerSupplyRemaining}");
     }
 
     public void Begin()
@@ -29,7 +48,6 @@ public class SpawnController : MonoBehaviour
         Stop();
         _playerAlive = 0;
         _enemyAlive = 0;
-
         _playerCo = StartCoroutine(PlayerLoop());
         _enemyCo = StartCoroutine(EnemyLoop());
     }
@@ -45,19 +63,39 @@ public class SpawnController : MonoBehaviour
     {
         while (true)
         {
-            if (_playerAlive < _cfg.playerMaxAlive)
+            // 총량이 남아있고, 동시 생존 제한도 통과해야 스폰
+            if (_playerSupplyRemaining > 0 && _playerAlive < _cfg.playerMaxAlive)
             {
+                if (playerSpawnPoints == null || playerSpawnPoints.Count == 0)
+                {
+                    Debug.LogError("[SpawnController] playerSpawnPoints is empty.");
+                    yield break;
+                }
+
                 Transform sp = playerSpawnPoints[Random.Range(0, playerSpawnPoints.Count)];
-                Vector3 pos = sp.position;
-                pos.y = 0f; // Ground 높이가 0이 아니라면 그 값으로
-                var go = factory.Spawn(UnitType.Infantry, pos, unitsRoot);
+                UnitType t = RollUnitType_40_20_40();
+                Vector3 pos = SnapToGround(sp.position);
+
+                var go = factory.Spawn(t, pos, unitsRoot);
                 if (go != null)
                 {
-                    _playerAlive++;
                     var u = go.GetComponent<UnitRuntime>();
-                    u.Init(team: Team.Player, onDied: () => _playerAlive--);
+                    if (u == null) u = go.GetComponentInChildren<UnitRuntime>();
+
+                    if (u != null)
+                    {
+                        _playerAlive++;
+                        _playerSupplyRemaining--;
+                        u.Init(team: Team.Player, onDied: () => _playerAlive--);
+                    }
+                    else
+                    {
+                        Destroy(go);
+                        Debug.LogError($"[Spawn] UnitRuntime missing on spawned player unit: {go.name}");
+                    }
                 }
             }
+
             yield return new WaitForSeconds(_cfg.playerInterval);
         }
     }
@@ -68,27 +106,46 @@ public class SpawnController : MonoBehaviour
         {
             if (_enemyAlive < _cfg.enemyMaxAlive)
             {
+                if (enemySpawnPoints == null || enemySpawnPoints.Count == 0)
+                {
+                    Debug.LogError("[SpawnController] enemySpawnPoints is empty.");
+                    yield break;
+                }
+
                 Transform sp = enemySpawnPoints[Random.Range(0, enemySpawnPoints.Count)];
-                UnitType t = RollEnemyType();
-                Vector3 pos = sp.position;
-                pos.y = 0f; // Ground 높이로 고정
+                UnitType t = RollUnitType_40_20_40();
+                Vector3 pos = SnapToGround(sp.position);
+
                 var go = factory.Spawn(t, pos, unitsRoot);
                 if (go != null)
                 {
-                    _enemyAlive++;
                     var u = go.GetComponent<UnitRuntime>();
-                    u.Init(team: Team.Enemy, onDied: () => _enemyAlive--);
+                    if (u == null) u = go.GetComponentInChildren<UnitRuntime>();
+
+                    if (u != null)
+                    {
+                        _enemyAlive++;
+                        u.Init(team: Team.Enemy, onDied: () => _enemyAlive--);
+                    }
+                    else
+                    {
+                        Destroy(go);
+                        Debug.LogError($"[Spawn] UnitRuntime missing on spawned enemy unit: {go.name}");
+                    }
                 }
             }
+
             yield return new WaitForSeconds(_cfg.enemyInterval);
         }
     }
 
-    private UnitType RollEnemyType()
+    private UnitType RollUnitType_40_20_40()
     {
-        int a = Mathf.Max(0, _cfg.wInfantry);
-        int b = Mathf.Max(0, _cfg.wArcher);
-        int sum = a + b;
+        int a = Mathf.Max(0, wInfantry);
+        int b = Mathf.Max(0, wArcher);
+        int c = Mathf.Max(0, wShield);
+
+        int sum = a + b + c;
         if (sum <= 0) return UnitType.Infantry;
 
         int r = Random.Range(0, sum);
@@ -97,4 +154,23 @@ public class SpawnController : MonoBehaviour
         if (r < b) return UnitType.Archer;
         return UnitType.Shield;
     }
+
+    private Vector3 SnapToGround(Vector3 p)
+    {
+        if (groundMask.value == 0)
+        {
+            p.y = groundOffsetY;
+            return p;
+        }
+
+        Vector3 origin = new Vector3(p.x, p.y + raycastHeight, p.z);
+        if (Physics.Raycast(origin, Vector3.down, out RaycastHit hit, raycastHeight * 2f, groundMask))
+            return hit.point + Vector3.up * groundOffsetY;
+
+        p.y = groundOffsetY;
+        return p;
+    }
+
+    // 디버그 확인용
+    public int GetPlayerSupplyRemaining() => _playerSupplyRemaining;
 }

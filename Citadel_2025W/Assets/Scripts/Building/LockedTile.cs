@@ -39,7 +39,11 @@ namespace Citadel
         [SerializeField] private int level = 1;
         public int Level => level;
 
+        [SerializeField] private int zoneId;
+        public int ZoneId => zoneId;
+
         [Header("Original Materials")]
+
         [SerializeField] private Material originalMaterial;
         [SerializeField] private Material originalTopFill;
 
