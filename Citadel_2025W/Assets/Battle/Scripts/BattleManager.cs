@@ -17,7 +17,7 @@ public class BattleManager : MonoBehaviour
     private void Start()
     {
         int castleLevel = 1;
-        int soldierCount = 20;
+        int soldierCount = 0;
 
         if (BattleSession.TryGetRequest(out var req))
         {
@@ -35,6 +35,7 @@ public class BattleManager : MonoBehaviour
 
         spawner.Begin();
     }
+
 
     public void NotifyEnemyKilled()
     {

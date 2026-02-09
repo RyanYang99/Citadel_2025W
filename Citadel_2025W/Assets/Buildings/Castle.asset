@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1061112a5eea7b340bc45808d88f5b6f, type: 3}
-  m_Name: ArcherTrainingCenter
+  m_Name: Castle
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.BuildingMetaData
-  uniqueName: 
-  prefab: {fileID: 5022529660583280007, guid: c834ba2d0b82b1c468da45195488e55d, type: 3}
-  icon: {fileID: -3538814815693244587, guid: bb20077efddd19d44b5324c1b78c121d, type: 3}
+  uniqueName: Castle
+  prefab: {fileID: 7139894311771784360, guid: b24bd879e8f7f0d42827ac397857ee8d, type: 3}
+  icon: {fileID: 6877549984006902814, guid: 831c38e392ce71a438a468e41393bd1e, type: 3}
   category: 2
   subCategory: 2
-  yOffset: 0
-  maxBuildCount: 1
+  yOffset: 1
+  maxBuildCount: -1

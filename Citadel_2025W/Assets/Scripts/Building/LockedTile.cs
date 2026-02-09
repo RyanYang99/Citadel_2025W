@@ -8,7 +8,7 @@ namespace Citadel
         public static readonly List<LockedTile> LockedTiles = new();
         
         [SerializeField] private MeshRenderer meshRenderer;
-        
+
         [SerializeField] private bool locked;
         public bool Locked
         {
@@ -28,6 +28,9 @@ namespace Citadel
 
         [SerializeField] private int level = 1;
         public int Level => level;
+
+        [SerializeField] private int zoneId;
+        public int ZoneId => zoneId;
 
         [SerializeField] private Material originalMaterial;
 

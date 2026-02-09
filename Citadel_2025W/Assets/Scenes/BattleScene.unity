@@ -221,7 +221,7 @@ Transform:
   m_GameObject: {fileID: 426092836}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 40.30371, y: -60.16305, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -624,6 +624,7 @@ MonoBehaviour:
   unitDatabase:
   - {fileID: 11400000, guid: a1fc0393a2ba3ca4cb706dde9dbf54aa, type: 2}
   - {fileID: 11400000, guid: 5294ba5513836a54486cb57b58e63e25, type: 2}
+  - {fileID: 11400000, guid: e779b55e76452d14d8a69cfca5f1c1de, type: 2}
 --- !u!114 &1768530525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -657,9 +658,9 @@ MonoBehaviour:
   - {fileID: 346480090}
   enemySpawnPoints:
   - {fileID: 1951841434}
-  wInfantry: 0
-  wArcher: 100
-  wShield: 0
+  wInfantry: 40
+  wArcher: 20
+  wShield: 30
   groundMask:
     serializedVersion: 2
     m_Bits: 8
@@ -693,11 +694,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7555412864048309021, guid: 7f66e9b0771fc9b48bbdb4d97208c778, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -40.30371
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7555412864048309021, guid: 7f66e9b0771fc9b48bbdb4d97208c778, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 60.16305
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7555412864048309021, guid: 7f66e9b0771fc9b48bbdb4d97208c778, type: 3}
       propertyPath: m_LocalPosition.z

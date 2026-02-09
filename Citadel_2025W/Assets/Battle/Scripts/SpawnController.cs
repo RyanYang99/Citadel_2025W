@@ -47,7 +47,6 @@ public class SpawnController : MonoBehaviour
         _playerAlive = 0;
         _enemyAlive = 0;
 
-        _playerCo = StartCoroutine(PlayerLoop());
         _enemyCo = StartCoroutine(EnemyLoop());
     }
 
@@ -62,7 +61,7 @@ public class SpawnController : MonoBehaviour
     {
         while (true)
         {
-            // 남은 병력이 0이면 더 이상 스폰 안 함
+            // 남은 병력이 0이면 더 이상 스폰 X
             if (_playerRemaining <= 0)
             {
                 yield return new WaitForSeconds(0.2f);
@@ -85,7 +84,7 @@ public class SpawnController : MonoBehaviour
                     if (u != null)
                     {
                         _playerAlive++;
-                        _playerRemaining--; // 스폰할 때 총량 감소
+                        _playerRemaining--; //스폰할 때 총량 감소
 
                         u.Init(team: Team.Player, onDied: () => _playerAlive--);
                     }
@@ -167,6 +166,30 @@ public class SpawnController : MonoBehaviour
         return p;
     }
 
-    // UI/디버그용
+    public void SpawnPlayerInitial(int totalCount)
+    {
+        if (totalCount <= 0) return;
+
+        // 현재 필드에 이미 있는 플레이어 수 카운트도 같이 맞춤
+        for (int i = 0; i < totalCount; i++)
+        {
+            if (_playerAlive >= _cfg.playerMaxAlive) break;
+
+            Transform sp = playerSpawnPoints[Random.Range(0, playerSpawnPoints.Count)];
+            UnitType t = RollUnitType_40_20_40();
+            Vector3 pos = SnapToGround(sp.position);
+
+            var go = factory.Spawn(t, pos, unitsRoot);
+            if (go == null) continue;
+
+            var u = go.GetComponent<UnitRuntime>();
+            if (u == null) u = go.GetComponentInChildren<UnitRuntime>();
+            if (u == null) { Destroy(go); continue; }
+
+            _playerAlive++;
+            u.Init(team: Team.Player, onDied: () => _playerAlive--);
+        }
+    }
+
     public int GetPlayerRemaining() => _playerRemaining;
 }
