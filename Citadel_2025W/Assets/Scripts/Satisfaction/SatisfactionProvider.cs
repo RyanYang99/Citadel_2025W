@@ -72,7 +72,7 @@ namespace Citadel
         private void OnDisable()
         {
             _inventory.OnTick -= OnTick;
-
+            
             if (SatisfactionManager.Instance != null)
                 SatisfactionManager.Instance.Unregister(this);
 

@@ -81,6 +81,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 030af7617f96ed047bd74694b0bf853f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1453912848386705883}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 030af7617f96ed047bd74694b0bf853f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1416993694813613042}
   m_SourcePrefab: {fileID: 100100000, guid: 030af7617f96ed047bd74694b0bf853f, type: 3}
 --- !u!1 &7513788861091225518 stripped
 GameObject:
@@ -123,11 +126,14 @@ MonoBehaviour:
   itemConsumer: {fileID: 0}
   ticksNeeded: 0
   itemsProduced:
-  - item: 7
-    amount: 9
+  - item: 10
+    amount: 15
   range: 0
   rangeResourceProvided: []
-  oneTimeItemProduced: []
+  oneTimeItemsProduced:
+  - item: 14
+    amount: 15
+  permanentItemsAdded: []
 --- !u!114 &1453912848386705883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,3 +149,20 @@ MonoBehaviour:
   npcPrefab: {fileID: 4100060174313281956, guid: efcbc4c574114214da36d826d6ae2942, type: 3}
   npcCount: 5
   moveSpeed: 1
+--- !u!114 &1416993694813613042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7513788861091225518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12c17ec025645aa4c9c3edc95f75c1ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResourcePopupSpawner
+  popupPrefab: {fileID: 6855747750897945392, guid: ff56abcd1e28acf4580fbcbf89f925c4, type: 3}
+  iconTable: {fileID: 11400000, guid: 51ae489bbbe362b488822fb893ef5975, type: 2}
+  spawnOffset: {x: 0, y: 5, z: 0}
+  burstWindow: 0.08
+  horizontalJitter: 0.2

@@ -77,10 +77,16 @@ PrefabInstance:
       addedObject: {fileID: -1096987627809107455}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b24d25e24ac0f2a4e887d41d90b96de7, type: 3}
       insertIndex: -1
+      addedObject: {fileID: -7028838911748487605}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b24d25e24ac0f2a4e887d41d90b96de7, type: 3}
+      insertIndex: -1
       addedObject: {fileID: -7113565975445105977}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b24d25e24ac0f2a4e887d41d90b96de7, type: 3}
       insertIndex: -1
       addedObject: {fileID: -1272175336242143952}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b24d25e24ac0f2a4e887d41d90b96de7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4434296792267562666}
   m_SourcePrefab: {fileID: 100100000, guid: b24d25e24ac0f2a4e887d41d90b96de7, type: 3}
 --- !u!1 &3581141966575942417 stripped
 GameObject:
@@ -108,6 +114,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-7028838911748487605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3581141966575942417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75d5a6d561ecce4085de6e0f0b00c55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemConsumer
+  itemsUsed: []
+  rangeResourcesUsed: 
+  satisfactionItemUsed: []
+  satisfactionRangeResourceUsed: 
 --- !u!114 &-7113565975445105977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,14 +142,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 652f762aed6f39f45a6a5835a2105e5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemProducer
-  itemConsumer: {fileID: 0}
+  itemConsumer: {fileID: -7028838911748487605}
   ticksNeeded: 1
   itemsProduced:
-  - item: 7
-    amount: 1
+  - item: 10
+    amount: 3
   range: 0
   rangeResourceProvided: []
-  oneTimeItemProduced: []
+  oneTimeItemsProduced:
+  - item: 14
+    amount: 3
+  permanentItemsAdded: []
 --- !u!114 &-1272175336242143952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,3 +168,20 @@ MonoBehaviour:
   npcPrefab: {fileID: 4100060174313281956, guid: efcbc4c574114214da36d826d6ae2942, type: 3}
   npcCount: 2
   moveSpeed: 1
+--- !u!114 &4434296792267562666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3581141966575942417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12c17ec025645aa4c9c3edc95f75c1ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResourcePopupSpawner
+  popupPrefab: {fileID: 6855747750897945392, guid: ff56abcd1e28acf4580fbcbf89f925c4, type: 3}
+  iconTable: {fileID: 11400000, guid: 51ae489bbbe362b488822fb893ef5975, type: 2}
+  spawnOffset: {x: 0, y: 5, z: 0}
+  burstWindow: 0.08
+  horizontalJitter: 0.2

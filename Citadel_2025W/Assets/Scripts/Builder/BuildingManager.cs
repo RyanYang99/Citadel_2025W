@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-//실제 배치 / 회전 / 제거 / 데이터 관리
 namespace Citadel
 {
     public class PlacedBuilding
@@ -25,8 +24,7 @@ namespace Citadel
     {
         public bool IsReady { get; private set; }
 
-        public event Action OnBuildingChanged;
-        public event Action OnPlacedBuildingChanged;
+        public event Action OnBuildingChanged, OnPlacedBuildingChanged;
         private int _currentIndex = -1;
         
         [SerializeField] private LayerMask groundLayer;
@@ -40,13 +38,6 @@ namespace Citadel
             get => buildings;
             private set => buildings = value;
         }
-
-        private void Awake()
-        {
-            if (!sfxLooper)
-                sfxLooper = FindAnyObjectByType<SFXLooper>();
-        }
-
 
         public BuildingMetaData CurrentBuilding
         {
@@ -110,8 +101,7 @@ namespace Citadel
 
         }
 
-        public PlacedBuilding FindPlacedBuilding(GameObject _gameObject) =>
-            PlacedBuildings.Find(placedBuilding => placedBuilding._GameObject == _gameObject);
+        public PlacedBuilding FindPlacedBuilding(GameObject _gameObject) => PlacedBuildings.Find(placedBuilding => placedBuilding._GameObject == _gameObject);
 
         private void AddPlacedBuilding(PlacedBuilding placedBuilding)
         {
@@ -130,19 +120,17 @@ namespace Citadel
             PlacedBuilding placedBuilding = FindPlacedBuilding(_gameObject);
             if (placedBuilding == null)
                 return;
-
-                PlacedBuildings.Remove(placedBuilding);
-                OnPlacedBuildingChanged?.Invoke();
+            
+            PlacedBuildings.Remove(placedBuilding); 
+            OnPlacedBuildingChanged?.Invoke();
 
             if (playSfx&&sfxLooper)
                 sfxLooper.PlayOneSecond();
-
         }
 
-        private void PlaceInternal(
-    BuildingMetaData meta,
-    Vector3 position,
-    Quaternion rotation)
+        private void PlaceInternal(BuildingMetaData meta,
+                                   Vector3 position,
+                                   Quaternion rotation)
         {
             position.y += meta.yOffset;
 
@@ -150,6 +138,7 @@ namespace Citadel
                 if (placed.Position == position)
                     return;
             GameObject obj = Instantiate(meta.prefab, position, rotation);
+            obj.AddComponent<BuildingMetaDataHolder>().buildingMetaData = meta;
             //초기화
 
             AddPlacedBuilding(
@@ -164,14 +153,13 @@ namespace Citadel
 
         public bool CanBuild(BuildingMetaData meta)
         {
-            if (meta == null)
+            if (meta == null || meta.costItems.Any(itemAmount => inventory.GetAmount(itemAmount.item) < itemAmount.amount))
                 return false;
 
             if (meta.maxBuildCount < 0)
                 return true;
-
-            int current = GetPlacedCount(meta.uniqueName);
-            return current < meta.maxBuildCount;
+            
+            return GetPlacedCount(meta.uniqueName) < meta.maxBuildCount;
         }
 
         //설치 전용
@@ -180,27 +168,22 @@ namespace Citadel
             if (CurrentBuilding == null)
                 return;
 
-            PlaceInternal(
-                CurrentBuilding,
-                position,
-                CurrentBuilding.prefab.transform.rotation
-            );
+            PlaceInternal(CurrentBuilding,
+                          position,
+                          CurrentBuilding.prefab.transform.rotation);
         }
 
         //로드 전용 
         public void PlaceBuilding(string uniqueName, Vector3 position, Vector3 rotation)
         {
-            BuildingMetaData meta =
-                buildings.list.Find(bmd => bmd.uniqueName == uniqueName);
+            BuildingMetaData meta = buildings.list.Find(bmd => bmd.uniqueName == uniqueName);
 
             if (meta == null)
                 return;
 
-            PlaceInternal(
-                meta,
-                position,
-                Quaternion.Euler(rotation)
-            );
+            PlaceInternal(meta,
+                          position,
+                          Quaternion.Euler(rotation));
         }
 
 
@@ -210,29 +193,15 @@ namespace Citadel
             if (CurrentBuilding == null)
                 return;
 
-            PlaceInternal(
-                CurrentBuilding,
-                position,
-                rotation
-            );
+            PlaceInternal(CurrentBuilding,
+                          position,
+                          rotation);
         }
-
-        /*
-        public bool CanPlaceBuildingAt(Vector3 position)
-        {
-            foreach (PlacedBuilding placed in PlacedBuildings)
-            {
-                if (placed.Position == position)
-                    return false;
-            }
-
-            return true;
-        }
-        */
 
         public void RotateBuilding(GameObject _gameObject)
         {
-            if (!_gameObject) return;
+            if (!_gameObject)
+                return;
 
             GameObject root = _gameObject.transform.root.gameObject;
 
@@ -243,7 +212,7 @@ namespace Citadel
                 placedBuilding.Rotation = root.transform.eulerAngles;
         }
 
-        public void RemoveBuilding(GameObject _gameObject,bool playSfx =true)
+        public void RemoveBuilding(GameObject _gameObject, bool playSfx = true)
         {
             RemovePlacedBuilding(_gameObject,playSfx);
             Destroy(_gameObject);
@@ -254,7 +223,6 @@ namespace Citadel
             foreach (var pb in PlacedBuildings.ToList())
                 RemoveBuilding(pb._GameObject, playSfx: false);
         }
-
 
         public void Load(List<SerializableBuilding> serializableBuildings)
         {

@@ -18,4 +18,7 @@ MonoBehaviour:
   category: 2
   subCategory: 0
   yOffset: 0
-  maxBuildCount: -1
+  maxBuildCount: 100
+  costItems:
+  - item: 1
+    amount: 10

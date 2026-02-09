@@ -78,6 +78,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3a7601919897c8c4aaf883b53d8dcf05, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2976376189443855628}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3a7601919897c8c4aaf883b53d8dcf05, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5165601850523434851}
   m_SourcePrefab: {fileID: 100100000, guid: 3a7601919897c8c4aaf883b53d8dcf05, type: 3}
 --- !u!1 &3010037280634037955 stripped
 GameObject:
@@ -120,3 +123,24 @@ MonoBehaviour:
   npcPrefab: {fileID: 6863191721370983768, guid: 42595ad0274f2d941a5a5bdef9f5f117, type: 3}
   npcCount: 1
   moveSpeed: 1
+--- !u!114 &-5165601850523434851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3010037280634037955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 652f762aed6f39f45a6a5835a2105e5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemProducer
+  itemConsumer: {fileID: 0}
+  ticksNeeded: 0
+  itemsProduced: []
+  range: 0
+  rangeResourceProvided: []
+  oneTimeItemsProduced: []
+  permanentItemsAdded:
+  - item: 9
+    amount: 4

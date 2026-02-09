@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Forge
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.BuildingMetaData
   uniqueName: Forge
-  prefab: {fileID: 7509482206287447689, guid: 065df44163abbf048af1eba8571c608f, type: 3}
+  prefab: {fileID: 7509482206287447689, guid: 33ce00cd20e24c14397f91b6575c01ab, type: 3}
   icon: {fileID: 3249190725398016324, guid: c23ffa326e72f8241b7f90c64e252df1, type: 3}
   category: 2
   subCategory: 5
   yOffset: 1
+  maxBuildCount: 5
+  costItems: []

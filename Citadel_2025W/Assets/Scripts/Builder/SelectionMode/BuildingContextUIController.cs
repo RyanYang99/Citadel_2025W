@@ -5,6 +5,10 @@ namespace Citadel
 {
     public sealed class BuildingContextUIController : MonoBehaviour
     {
+        private GameObject _current;
+
+        [SerializeField] private BuildingMetaDataList buildingMetaDataList;
+        
         [Header("Refs")]
         [SerializeField] private BuildingSelectionController selection;
         [SerializeField] private BuildingManager buildingManager;
@@ -12,107 +16,107 @@ namespace Citadel
 
         [Header("UI")]
         [SerializeField] private GameObject rootPanel;
-        [SerializeField] private Button statusButton;
-        [SerializeField] private Button upgradeButton;
-        [SerializeField] private Button rotateButton;
-        [SerializeField] private Button destroyButton;
+        [SerializeField] private Button produceButton;
+        [SerializeField] private BarracksUIPage barracksPage;
 
         [Header("Status Panel (optional)")]
         [SerializeField] private GameObject statusPanel;
         [SerializeField] private Inventory inventory;
         [SerializeField] private StatusPanelController statusPanelController;
         [SerializeField] private RectTransform statusButtonRect;
-        [SerializeField] private Vector2 statusPanelOffset = new Vector2(200f, 0f);
-
-        private GameObject current;
-
-        private void Awake()
-        {
-            if (statusPanelController != null && inventory != null)
-                statusPanelController.BindInventory(inventory);
-
-            rootPanel?.SetActive(false);
-            statusPanel?.SetActive(false);
-
-            statusButton?.onClick.AddListener(OnClickStatus);
-            upgradeButton?.onClick.AddListener(OnClickUpgrade);
-            rotateButton?.onClick.AddListener(OnClickRotate);
-            destroyButton?.onClick.AddListener(OnClickDestroy);
-        }
-
-        public void ForceHide()
-        {
-            // 패널/팔로워/선택 상태와 무관하게 UI만숨김
-            if (statusPanel != null) statusPanel.SetActive(false);
-            if (rootPanel != null) rootPanel.SetActive(false);
-            follower?.ClearTarget();
-        }
-
+        [SerializeField] private Vector2 statusPanelOffset = new(200f, 0f);
 
         private void OnEnable()
         {
             selection.OnSelected += HandleSelected;
             selection.OnDeselected += HandleDeselected;
         }
-
+        
         private void OnDisable()
         {
             selection.OnSelected -= HandleSelected;
             selection.OnDeselected -= HandleDeselected;
         }
+        
+        public void ForceHide()
+        {
+            if (statusPanel != null)
+            {
+                statusPanel.SetActive(false);
+                statusPanelController.Hide();
+            }
+
+            if (rootPanel != null)
+                rootPanel.SetActive(false);
+            
+            follower?.ClearTarget();
+        }
 
         private void HandleSelected(GameObject obj)
         {
             Debug.Log($"[ContextUI] Selected: {obj.name}");
-            current = obj;
+            _current = obj;
 
             Debug.Log($"[ContextUI] rootPanel null? {(rootPanel == null)} / activeBefore: {(rootPanel != null && rootPanel.activeSelf)}");
             rootPanel?.SetActive(true);
             Debug.Log($"[ContextUI] activeAfter: {(rootPanel != null && rootPanel.activeSelf)}");
 
-            follower?.SetTarget(current.transform);
-        }
+            follower?.SetTarget(_current.transform);
 
+            _current = obj;
+            rootPanel?.SetActive(true);
+            follower?.SetTarget(_current.transform);
+
+            bool isBarracks = _current.GetComponentInParent<BarracksProductionQueue>() != null ||
+                              _current.GetComponentInChildren<BarracksProductionQueue>() != null;
+
+            if (produceButton != null)
+                produceButton.gameObject.SetActive(isBarracks);
+        }
 
         private void HandleDeselected()
         {
-            current = null;
+            _current = null;
             statusPanel?.SetActive(false);
             rootPanel?.SetActive(false);
+            statusPanelController.Hide();
 
             if (follower != null)
                 follower.ClearTarget();
+
+            barracksPage?.Close();
         }
 
-        private void OnClickStatus()
+        public void ShowStatus()
         {
             Debug.Log("[Context] Status clicked");
 
-            if (current == null || statusPanelController == null) return;
+            if (_current == null)
+                return;
 
-            var root = current.transform.root.gameObject;
-
+            GameObject root = _current.transform.root.gameObject;
             BuildingMetaData meta = null;
-
-            var placed = buildingManager.FindPlacedBuilding(root);
+            
+            PlacedBuilding placed = buildingManager.FindPlacedBuilding(root);
             if (placed != null)
-                meta = buildingManager.Buildings.list.Find(b => b.uniqueName == placed.UniqueName);
+                meta = buildingManager.Buildings.list.Find(buildingMetaData => buildingMetaData.uniqueName == placed.UniqueName);
 
             statusPanelController.Show(root, meta);
             statusPanelController.SnapToButton(statusButtonRect, statusPanelOffset);
         }
-
-
-        private void OnClickUpgrade()
+        
+        public void Upgrade()
         {
-            if (current == null) return;
+            if (_current == null)
+                return;
 
-            var placed = buildingManager.FindPlacedBuilding(current);
-            if (placed == null) return;
+            PlacedBuilding placed = buildingManager.FindPlacedBuilding(_current);
+            if (placed == null)
+                return;
 
-            var meta = buildingManager.Buildings.list.Find(b => b.uniqueName == placed.UniqueName);
-            if (meta == null) return;
-
+            BuildingMetaData meta = buildingManager.Buildings.list.Find(buildingMetaData => buildingMetaData.uniqueName == placed.UniqueName);
+            if (meta == null)
+                return;
            
             if(BuildingUpgrade.Instance==null)
             {
@@ -122,38 +126,62 @@ namespace Citadel
 
             try
             {
-                bool ok = BuildingUpgrade.Instance.TryUpgrade(current, meta.subCategory);
-                if (!ok) return;
+                bool ok = BuildingUpgrade.Instance.TryUpgrade(_current, meta.subCategory);
+                if (!ok)
+                    return;
 
-                var newObj = placed._GameObject;
+                GameObject newObj = placed._GameObject;
                 if (newObj != null)
                 {
                     selection.ReplaceSelected(newObj);
-                    current = newObj;
+                    _current = newObj;
                     follower?.SetTarget(newObj.transform);
                 }
             }
             catch (System.ArgumentNullException)
             {
                 Debug.LogWarning("[Upgrade] Upgrade prefab not set for this level/subCategory yet.");
-                // TODO: UI에 '업그레이드 데이터 준비중' 같은 문구 표시
             }
+            
+            ForceHide();
         }
 
-        private void OnClickRotate()
+        public void Rotate()
         {
-            if (current == null) return;
-            GameObject root = current.transform.root.gameObject;
+            if (_current == null)
+                return;
+            
+            GameObject root = _current.transform.root.gameObject;
             buildingManager.RotateBuilding(root);
-            follower?.SetTarget(root.transform); 
+            
+            ForceHide();
         }
 
-        private void OnClickDestroy()
+        public void Produce()
         {
-            if (current == null) return;
+            if (_current == null || barracksPage == null)
+                return;
 
-            GameObject root= current.transform.root.gameObject;
-            buildingManager.RemoveBuilding(root,playSfx:true);
+            GameObject root = _current.transform.root.gameObject;
+            BarracksProductionQueue queue = root.GetComponent<BarracksProductionQueue>();
+            if (queue == null)
+                return;
+
+            barracksPage.Open(queue);
+            
+            ForceHide();
+        }
+
+        public void Destroy()
+        {
+            if (_current == null)
+                return;
+
+            GameObject root = _current.transform.root.gameObject;
+            buildingManager.RemoveBuilding(root);
+
+            foreach (ItemAmount itemAmount in root.GetComponent<BuildingMetaDataHolder>().buildingMetaData.costItems)
+                inventory.Add(itemAmount.item, itemAmount.amount);
 
             selection.Deselect();
             ForceHide();

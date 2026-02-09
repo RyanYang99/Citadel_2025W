@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,147 +7,85 @@ namespace Citadel
 {
     public sealed class OptionUIController : MonoBehaviour
     {
-        [Header("Master")]
-        [SerializeField] private Slider masterSlider;
-        [SerializeField] private Image masterIcon;
-        [SerializeField] private Sprite masterOnSprite;
-        [SerializeField] private Sprite masterOffSprite;
+        private class VolumeStatus
+        {
+            public bool Muted;
+            public float Volume = 1f;
+        }
+        
+        [Serializable]
+        private class VolumeControl
+        {
+            public Slider slider;
+            public Image icon;
+        }
 
+        private readonly Dictionary<VolumeType, VolumeControl> _volumeControls = new();
+        private readonly Dictionary<VolumeType, VolumeStatus> _volumeStatuses = new();
 
-        [Header("BGM")]
-        [SerializeField] private Slider bgmSlider;
-        [SerializeField] private Image bgmIcon;
-        [SerializeField] private Sprite bgmOnSprite;
-        [SerializeField] private Sprite bgmOffSprite;
+        [Header("Common"), SerializeField] private Sprite off;
+        [SerializeField] private Sprite on;
 
-        [Header("SFX")]
-        [SerializeField] private Slider sfxSlider;
-        [SerializeField] private Image sfxIcon;
-        [SerializeField] private Sprite sfxOnSprite;
-        [SerializeField] private Sprite sfxOffSprite;
-
-        private float lastBgmVolume = 1f;
-        private float lastSfxVolume = 1f;
-        private bool isBgmMuted;
-        private bool isSfxMuted;
-
+        [Header("Controls"), SerializeField] private VolumeControl master;
+        [SerializeField] private VolumeControl backgroundMusic, soundEffect;
+        
         private void Awake()
         {
-            // Slider 기본 설정
-            InitSlider(bgmSlider, 1f);
-            InitSlider(sfxSlider, 1f);
+            _volumeControls.Add(VolumeType.Master, master);
+            _volumeStatuses.Add(VolumeType.Master, new VolumeStatus());
+            
+            _volumeControls.Add(VolumeType.BackgroundMusic, backgroundMusic);
+            _volumeStatuses.Add(VolumeType.BackgroundMusic, new VolumeStatus());
+            
+            _volumeControls.Add(VolumeType.SoundEffect, soundEffect);
+            _volumeStatuses.Add(VolumeType.SoundEffect, new VolumeStatus());
 
-            isBgmMuted = false;
-            isSfxMuted = false;
-
-            // 리스너 등록
-            bgmSlider.onValueChanged.AddListener(OnChangeBGM);
-            sfxSlider.onValueChanged.AddListener(OnChangeSFX);
-
-            UpdateBgmIcon(1f);
-            UpdateSfxIcon(1f);
+            foreach (VolumeType volumeType in _volumeControls.Keys)
+                _volumeControls[volumeType].slider.value = _volumeStatuses[volumeType].Volume;
         }
+        
+        /*
+        private void UpdateBgmIcon(float value) => backgroundMusic.icon.sprite = value <= 0.001f ? off : on;
+        
+        private void UpdateSfxIcon(float value) => soundEffect.icon.sprite = value <= 0.001f ? off : on;
+        */
 
-        private void InitSlider(Slider slider, float value)
-        {
-            slider.minValue = 0f;
-            slider.maxValue = 1f;
-            slider.SetValueWithoutNotify(value);
-        }
-
-        // ================= BGM =================
-        public void OnChangeBGM(float value)
+        private void OnVolumeChange(VolumeType volumeType, float value)
         {
             if (value <= 0.001f)
-            {
-                isBgmMuted = true;
-                UpdateBgmIcon(0f);
-                return;
-            }
-
-            isBgmMuted = false;
-            lastBgmVolume = value;
-            UpdateBgmIcon(value);
-
-            // SoundManager 연동 시
+                value = 0f;
+            
+            _volumeStatuses[volumeType].Volume = value;
+            _volumeControls[volumeType].icon.sprite = value > 0f ? on : off;
+            
+            if (SoundManager.Instance != null && !_volumeStatuses[volumeType].Muted)
+                SoundManager.Instance.SetVolume(volumeType, value);
         }
 
-        public void OnClickBgmToggle()
+        private void OnToggle(VolumeType volumeType)
         {
-            if (!isBgmMuted)
-            {
-                lastBgmVolume = bgmSlider.value;
-                isBgmMuted = true;
-
-                bgmSlider.SetValueWithoutNotify(0f);
-                UpdateBgmIcon(0f);
-            }
-            else
-            {
-                isBgmMuted = false;
-                float restore = lastBgmVolume <= 0f ? 0.5f : lastBgmVolume;
-
-                bgmSlider.SetValueWithoutNotify(restore);
-                UpdateBgmIcon(restore);
-            }
+            VolumeStatus volumeStatus = _volumeStatuses[volumeType];
+            volumeStatus.Muted = !volumeStatus.Muted;
+            
+            _volumeControls[volumeType].icon.sprite = volumeStatus.Muted ? off : on;
+            if (SoundManager.Instance != null)
+                SoundManager.Instance.SetVolume(volumeType, volumeStatus.Muted ? 0f : volumeStatus.Volume);
         }
 
-        private void UpdateBgmIcon(float value)
-        {
-            bgmIcon.sprite = value <= 0.001f ? bgmOffSprite : bgmOnSprite;
-        }
+        public void OnMasterChange(float value) => OnVolumeChange(VolumeType.Master, value);
 
-        // ================= SFX =================
-        public void OnChangeSFX(float value)
-        {
-            if (value <= 0.001f)
-            {
-                isSfxMuted = true;
-                UpdateSfxIcon(0f);
-                return;
-            }
+        public void OnBackgroundMusicChange(float value) => OnVolumeChange(VolumeType.BackgroundMusic, value);
 
-            isSfxMuted = false;
-            lastSfxVolume = value;
-            UpdateSfxIcon(value);
+        public void OnSoundEffectChange(float value) => OnVolumeChange(VolumeType.SoundEffect, value);
 
-            // SoundManager 연동
-        }
+        public void OnMasterToggle() => OnToggle(VolumeType.Master);
 
-        public void OnClickSfxToggle()
-        {
-            if (!isSfxMuted)
-            {
-                lastSfxVolume = sfxSlider.value;
-                isSfxMuted = true;
+        public void OnBackgroundMusicToggle() => OnToggle(VolumeType.BackgroundMusic);
 
-                sfxSlider.SetValueWithoutNotify(0f);
-                UpdateSfxIcon(0f);
-            }
-            else
-            {
-                isSfxMuted = false;
-                float restore = lastSfxVolume <= 0f ? 0.5f : lastSfxVolume;
+        public void OnSoundEffectToggle() => OnToggle(VolumeType.SoundEffect);
+        
+        public void Open() => gameObject.SetActive(true);
 
-                sfxSlider.SetValueWithoutNotify(restore);
-                UpdateSfxIcon(restore);
-            }
-        }
-
-        private void UpdateSfxIcon(float value)
-        {
-            sfxIcon.sprite = value <= 0.001f ? sfxOffSprite : sfxOnSprite;
-        }
-
-        // ================= Panel =================
-        public void Open()
-        {
-            gameObject.SetActive(true);
-        }
-
-        public void Close()
-        {
-            gameObject.SetActive(false);
-        }
+        public void Close() => gameObject.SetActive(false);
     }
 }

@@ -19,3 +19,6 @@ MonoBehaviour:
   subCategory: 4
   yOffset: 0
   maxBuildCount: 5
+  costItems:
+  - item: 2
+    amount: 42

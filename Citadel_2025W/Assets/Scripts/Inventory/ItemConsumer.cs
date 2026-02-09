@@ -37,10 +37,16 @@ namespace Citadel
         [SerializeField] private List<RangeResource> satisfactionRangeResourceUsed = new();
         
         public int TotalRequiredResources { get; private set; }
-
-        //Status Panel 읽기 전용
+        
         public IReadOnlyList<ItemAmount> ItemsUsed => itemsUsed;
+        
+        public IReadOnlyList<ItemAmount> SatisfactionItemUsed => satisfactionItemUsed;
+        
         public IReadOnlyList<RangeResource> RangeResourcesUsed => rangeResourcesUsed;
+
+        public IReadOnlyList<RangeResource> SatisFactionRangeResourceUsed => satisfactionRangeResourceUsed;
+        
+        public IReadOnlyList<AnyResource> Snapshot => _readyResourcesSnapshot;
 
         private void Awake()
         {

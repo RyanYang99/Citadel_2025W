@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3964d9090d60e1642873afef9f9e64ba, type: 3}
+  m_Name: BattleBalanceSettings
+  m_EditorClassIdentifier: Assembly-CSharp::BattleBalanceSettings
+  baseTargetKills: 20
+  killsPerCastleLevel: 2
+  playerBaseInterval: 1.4
+  playerIntervalPerLevel: -0.05
+  playerBaseMaxAlive: 10
+  playerMaxAlivePerLevel: 1
+  enemyBaseInterval: 1.8
+  enemyIntervalPerLevel: -0.03
+  enemyBaseMaxAlive: 8
+  enemyMaxAlivePerLevel: 1
+  enemyHpMulBase: 1
+  enemyHpMulPerLevel: 0.08
+  enemyDmgMulBase: 1
+  enemyDmgMulPerLevel: 0.06
+  infantryWeightBase: 70
+  archerWeightBase: 30
+  shieldUnlockLevel: 3
+  shieldWeightAfterUnlock: 25
+  minSpawnInterval: 0.35
+  maxMaxAliveCap: 60
