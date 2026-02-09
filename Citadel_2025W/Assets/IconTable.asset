@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8146dad4f219f34429df4ce03eeee4d9, type: 3}
+  m_Name: IconTable
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.IconTable
+  itemIcons:
+  - item: 1
+    sprite: {fileID: 21300000, guid: 53831ffd2c1064d07b3fcc10982b1e0d, type: 3}
+  - item: 2
+    sprite: {fileID: 21300000, guid: e0eac6b76fdd842e88a7f8c75ecffaf4, type: 3}
+  - item: 3
+    sprite: {fileID: 6049605792901559095, guid: d3f1803bd2a80324d9cfe551ec156099, type: 3}
+  - item: 4
+    sprite: {fileID: 6768481765403260889, guid: 0440c07346de4fd4c92167a97f94a1ea, type: 3}
+  - item: 5
+    sprite: {fileID: 8634410035482476504, guid: 70f2440eb73feff4da55bbcfea1a0766, type: 3}
+  - item: 6
+    sprite: {fileID: -918064735591450277, guid: eeb34c701f9cba24aa94873d2e444278, type: 3}
+  - item: 7
+    sprite: {fileID: 21300000, guid: 7e082cc2cf2a4433d85e388c6bf94234, type: 3}
+  - item: 8
+    sprite: {fileID: 21300000, guid: 93576b32eb4334f4e99865d73451918a, type: 3}
+  - item: 9
+    sprite: {fileID: 21300000, guid: b0bae5b228e1d574e8b8bf3ba2e6e0a5, type: 3}
+  - item: 10
+    sprite: {fileID: 4724042872251489789, guid: 4bc54fc8d1ae88b40b44cbacd8858e33, type: 3}
+  - item: 11
+    sprite: {fileID: -6435622482184411031, guid: 8ab34bd6af495df4b8978dba5711f88e, type: 3}
+  - item: 12
+    sprite: {fileID: 21300000, guid: 32fb7e0aee1614fe8ac38467a139e9a6, type: 3}
+  - item: 13
+    sprite: {fileID: 21300000, guid: 6a1552e61c0b7fb4cad48d95dc691368, type: 3}
+  - item: 14
+    sprite: {fileID: 21300000, guid: d17c238d68735cf47979c594d126153b, type: 3}
+  rangeResourceIcons: []

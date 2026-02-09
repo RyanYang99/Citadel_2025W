@@ -2,6 +2,7 @@ namespace Citadel
 {
     public enum Item
     {
+        None,
         Money,
         
         Wood,
@@ -12,9 +13,11 @@ namespace Citadel
         Copper,
         Iron,
         
+        CopperOre,
+        IronOre,
+
         Cotton,
         Clothes,
-
 
         ResearchPoint,
         Soldier,

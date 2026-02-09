@@ -148,10 +148,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b6feaf19f8b6a34c8760b6670e04391, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.BuildItemButton
-  index: 0
-  buildingManager: {fileID: 0}
-  buildingPlacer: {fileID: 0}
-  previewController: {fileID: 0}
   icon: {fileID: 3144001107136377071}
   countText: {fileID: 3977616141228771713}
 --- !u!1 &2298961582104830339
@@ -296,8 +292,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0/0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 79201cb226f918345b9016b990b62a25, type: 2}
-  m_sharedMaterial: {fileID: -4212372435320894504, guid: 79201cb226f918345b9016b990b62a25, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: aace4398c935ba74b9befbd1f5a7b6f6, type: 2}
+  m_sharedMaterial: {fileID: -4212372435320894504, guid: aace4398c935ba74b9befbd1f5a7b6f6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

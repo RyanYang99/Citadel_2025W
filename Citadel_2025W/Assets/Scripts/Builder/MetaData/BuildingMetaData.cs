@@ -11,12 +11,13 @@ namespace Citadel
         public GameObject prefab;
         public Sprite icon;
         public BuildingCategory category;
-        public BuildingSubCategory subCategory; // 건물종류 카테고리 추가
+        public BuildingSubCategory subCategory;
 
         public float yOffset = 1f;
 
         [Header("Build Limit")]
-        [Tooltip("-1 == 무제한")]
         public int maxBuildCount = -1;
+
+        [Header("Cost")] public ItemAmount[] costItems;
     }
 }

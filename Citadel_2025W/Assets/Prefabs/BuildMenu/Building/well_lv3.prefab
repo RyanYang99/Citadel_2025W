@@ -151,9 +151,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12c17ec025645aa4c9c3edc95f75c1ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResourcePopupSpawner
-  popupPrefab: {fileID: 1080480347363611842, guid: 1073e24adbd14e146be2727d27615e4a, type: 3}
+  popupPrefab: {fileID: 6855747750897945392, guid: ff56abcd1e28acf4580fbcbf89f925c4, type: 3}
   iconTable: {fileID: 0}
   spawnOffset: {x: 0, y: 5, z: 0}
+  burstWindow: 0.08
+  horizontalJitter: 0.2
 --- !u!1001 &7216546883245539352
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -217,6 +219,10 @@ PrefabInstance:
     - target: {fileID: 2260815186330331355, guid: d056b76e94f9cb344aa11c92b244ebcc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6830946526958603395, guid: d056b76e94f9cb344aa11c92b244ebcc, type: 3}
+      propertyPath: popupPrefab
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8951411983261773922, guid: d056b76e94f9cb344aa11c92b244ebcc, type: 3}
       propertyPath: m_Size.x
