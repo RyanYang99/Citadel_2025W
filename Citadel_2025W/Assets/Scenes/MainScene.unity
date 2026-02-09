@@ -2405,6 +2405,9 @@ MonoBehaviour:
   dustEffectPrefab: {fileID: 3465997599740297606, guid: dfca61498282f7b4bab12d6b6bf8ba18, type: 3}
   buildTime: 2.5
   workersCount: 4
+  fireEffectPrefab: {fileID: 7056353396218332746, guid: 18e47cd25ad174a4b96c7025cd472200, type: 3}
+  smokeEffectPrefab: {fileID: 7056353396218332746, guid: 8cf2a9b5470da7946b65e9ef4ae654c1, type: 3}
+  dustScale: {x: 0.5, y: 0.5, z: 0.5}
 --- !u!4 &337322663
 Transform:
   m_ObjectHideFlags: 0
@@ -13582,7 +13585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 478dd59248e76bf43a6ab137155b114d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.BuildingUpgrade
-  inventory: {fileID: 191902318}
+  inventory: {fileID: 0}
   upgradeParticlePrefab: {fileID: 3762134679150181828, guid: e44d4379aeca53444a570bab3c233dba, type: 3}
   bounceDuration: 0.15
   bounceScaleMultiplier: 1.2
@@ -13607,12 +13610,35 @@ MonoBehaviour:
     - {fileID: 4834367476569116104, guid: b66ef6ca6b10ae548ab01746ec4f5694, type: 3}
     - {fileID: 2010554625136600686, guid: 8b035004d7ae17a4ba8ddbef7f9eb5e9, type: 3}
     - {fileID: 7694144497664926429, guid: 88d35bef0de959547815487ef410ff23, type: 3}
-    - {fileID: 4860598323427668412, guid: 78647136400fcc643b373fb578145ab7, type: 3}
+    - {fileID: 4860598323427668412, guid: 296d820999bdc1b45ad4e2981bd914f2, type: 3}
   - subCategory: 4
     levelPrefabs:
     - {fileID: 2051219031347337195, guid: e7b6b2518e0e8da4d9533f463ac794c5, type: 3}
     - {fileID: 1453492539938533985, guid: d056b76e94f9cb344aa11c92b244ebcc, type: 3}
     - {fileID: 6597436425152099881, guid: 6e9c851fddb236e4a9005c5d9f9f14e1, type: 3}
+    - {fileID: 1135909410750135030, guid: 4f273ddc428fc8c4581dbf40a770115a, type: 3}
+    - {fileID: 1135909410750135030, guid: 4f273ddc428fc8c4581dbf40a770115a, type: 3}
+  - subCategory: 5
+    levelPrefabs:
+    - {fileID: 7509482206287447689, guid: 33ce00cd20e24c14397f91b6575c01ab, type: 3}
+    - {fileID: 7509482206287447689, guid: 33ce00cd20e24c14397f91b6575c01ab, type: 3}
+    - {fileID: 7509482206287447689, guid: 33ce00cd20e24c14397f91b6575c01ab, type: 3}
+    - {fileID: 7509482206287447689, guid: 33ce00cd20e24c14397f91b6575c01ab, type: 3}
+    - {fileID: 7509482206287447689, guid: 33ce00cd20e24c14397f91b6575c01ab, type: 3}
+  - subCategory: 6
+    levelPrefabs:
+    - {fileID: 2710871837090424155, guid: 31298b9a9d5062a4794f41767f8bf715, type: 3}
+    - {fileID: 2710871837090424155, guid: 31298b9a9d5062a4794f41767f8bf715, type: 3}
+    - {fileID: 2710871837090424155, guid: 31298b9a9d5062a4794f41767f8bf715, type: 3}
+    - {fileID: 2710871837090424155, guid: 31298b9a9d5062a4794f41767f8bf715, type: 3}
+    - {fileID: 2710871837090424155, guid: 31298b9a9d5062a4794f41767f8bf715, type: 3}
+  - subCategory: 7
+    levelPrefabs:
+    - {fileID: 8687711422617295190, guid: bfa5fefb3b43a9e42aa0e8e331beaf5d, type: 3}
+    - {fileID: 8687711422617295190, guid: bfa5fefb3b43a9e42aa0e8e331beaf5d, type: 3}
+    - {fileID: 8687711422617295190, guid: bfa5fefb3b43a9e42aa0e8e331beaf5d, type: 3}
+    - {fileID: 8687711422617295190, guid: bfa5fefb3b43a9e42aa0e8e331beaf5d, type: 3}
+    - {fileID: 8687711422617295190, guid: bfa5fefb3b43a9e42aa0e8e331beaf5d, type: 3}
 --- !u!1 &1385389819
 GameObject:
   m_ObjectHideFlags: 0
