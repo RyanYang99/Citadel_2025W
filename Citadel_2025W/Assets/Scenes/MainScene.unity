@@ -1649,7 +1649,9 @@ MonoBehaviour:
   workerPrefab: {fileID: 1583176579727440567, guid: d6b75e455b17f4e42b2b7714ea064dde, type: 3}
   dustEffectPrefab: {fileID: 3465997599740297606, guid: dfca61498282f7b4bab12d6b6bf8ba18, type: 3}
   buildTime: 2.5
-  workersCount: 4
+  workersCount: 1
+  fireEffectPrefab: {fileID: 7056353396218332746, guid: 18e47cd25ad174a4b96c7025cd472200, type: 3}
+  smokeEffectPrefab: {fileID: 7056353396218332746, guid: 8cf2a9b5470da7946b65e9ef4ae654c1, type: 3}
 --- !u!4 &337322663
 Transform:
   m_ObjectHideFlags: 0
@@ -10457,8 +10459,8 @@ MonoBehaviour:
     - {fileID: 2051219031347337195, guid: e7b6b2518e0e8da4d9533f463ac794c5, type: 3}
     - {fileID: 1453492539938533985, guid: d056b76e94f9cb344aa11c92b244ebcc, type: 3}
     - {fileID: 6597436425152099881, guid: 6e9c851fddb236e4a9005c5d9f9f14e1, type: 3}
-    - {fileID: 6597436425152099881, guid: 6e9c851fddb236e4a9005c5d9f9f14e1, type: 3}
-    - {fileID: 6597436425152099881, guid: 6e9c851fddb236e4a9005c5d9f9f14e1, type: 3}
+    - {fileID: 1135909410750135030, guid: 4f273ddc428fc8c4581dbf40a770115a, type: 3}
+    - {fileID: 1135909410750135030, guid: 4f273ddc428fc8c4581dbf40a770115a, type: 3}
   - subCategory: 5
     levelPrefabs:
     - {fileID: 7509482206287447689, guid: 065df44163abbf048af1eba8571c608f, type: 3}

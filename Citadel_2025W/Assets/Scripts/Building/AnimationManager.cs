@@ -14,6 +14,30 @@ namespace Citadel
         [SerializeField] private float buildTime = 2.5f;
         [SerializeField] private int workersCount = 3;
 
+        [Header("VFX Prefabs")]
+        [SerializeField] private GameObject fireEffectPrefab;
+        [SerializeField] private GameObject smokeEffectPrefab;
+
+        // 물레방아 회전
+        public class WheelRotator : MonoBehaviour
+        {
+            public float rotationSpeed = 50f;
+            void Update()
+            {
+                transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
+            }
+        }
+
+        // 창고 톱니바퀴 회전
+        public class SawRotator : MonoBehaviour
+        {
+            public float rotationSpeed = 100f;
+            void Update()
+            {
+                transform.Rotate(Vector3.right * rotationSpeed * Time.deltaTime);
+            }
+        }
+
         public void ApplyConstructionEffect(GameObject building)
         {
             if (building == null) return;
@@ -40,6 +64,7 @@ namespace Citadel
             Vector3 targetPos = building.transform.position;
             Vector3 finalScale = building.transform.localScale;
 
+            // 시작 시 건물을 납작하게
             building.transform.localScale = new Vector3(finalScale.x, 0.01f, finalScale.z);
 
             float buildingWidth = 1.0f;
@@ -54,6 +79,7 @@ namespace Citadel
             GameObject dust = null;
             if (dustEffectPrefab) dust = Instantiate(dustEffectPrefab, targetPos, Quaternion.identity);
 
+            // 일꾼 생성
             List<GameObject> workers = new List<GameObject>();
             for (int i = 0; i < workersCount; i++)
             {
@@ -69,6 +95,7 @@ namespace Citadel
                 workers.Add(worker);
             }
 
+            // 건설 애니메이션 진행
             float elapsed = 0;
             float totalRotation = 360f * 0.5f;
 
@@ -97,9 +124,80 @@ namespace Citadel
                 yield return null;
             }
 
+            // 건설 완료 처리
             building.transform.localScale = finalScale;
             if (dust) Destroy(dust);
             foreach (var w in workers) if (w != null) Destroy(w);
+
+            ActivateWaterwheel(building.transform);
+            ActivateSawWheel(building.transform);
+            ActivateForgeFire(building.transform);
+            ActivateSmoke(building.transform);
+        }
+
+        private void ActivateWaterwheel(Transform buildingTransform)
+        {
+            //  wheel 오브젝트를 찾기
+            Transform wheel = FindChildRecursive(buildingTransform, "wheel");
+
+            if (wheel != null)
+            {
+                if (wheel.gameObject.GetComponent<WheelRotator>() == null)
+                {
+                    wheel.gameObject.AddComponent<WheelRotator>();
+                }
+            }
+        }
+
+        private void ActivateSawWheel(Transform buildingTransform)
+        {
+            //  saw 오브젝트를 찾기
+            Transform wheel = FindChildRecursive(buildingTransform, "saw");
+
+            if (wheel != null)
+            {
+                if (wheel.gameObject.GetComponent<SawRotator>() == null)
+                {
+                    wheel.gameObject.AddComponent<SawRotator>();
+                }
+            }
+        }
+
+        private void ActivateForgeFire(Transform buildingTransform)
+        {
+            // FirePos 오브젝트 찾기
+            Transform firePos = FindChildRecursive(buildingTransform, "FirePos");
+
+            if (firePos != null && fireEffectPrefab != null)
+            {
+                GameObject fire = Instantiate(fireEffectPrefab, firePos.position, firePos.rotation);
+                fire.transform.SetParent(firePos);
+            }
+        }
+
+        private void ActivateSmoke(Transform buildingTransform)
+        {
+            // SmokePos 오브젝트 찾기
+            Transform smokePos = FindChildRecursive(buildingTransform, "SmokePos");
+
+            if (smokePos != null && smokeEffectPrefab != null)
+            {
+                GameObject smoke = Instantiate(smokeEffectPrefab, smokePos.position, smokePos.rotation);
+                smoke.transform.SetParent(smokePos);
+            }
+        }
+
+        private Transform FindChildRecursive(Transform parent, string nameSnippet)
+        {
+            foreach (Transform child in parent)
+            {
+                if (child.name.ToLower().Contains(nameSnippet.ToLower()))
+                    return child;
+
+                Transform found = FindChildRecursive(child, nameSnippet);
+                if (found != null) return found;
+            }
+            return null;
         }
     }
 }
