@@ -1652,6 +1652,7 @@ MonoBehaviour:
   workersCount: 1
   fireEffectPrefab: {fileID: 7056353396218332746, guid: 18e47cd25ad174a4b96c7025cd472200, type: 3}
   smokeEffectPrefab: {fileID: 7056353396218332746, guid: 8cf2a9b5470da7946b65e9ef4ae654c1, type: 3}
+  dustScale: {x: 1.7, y: 1.7, z: 1.7}
 --- !u!4 &337322663
 Transform:
   m_ObjectHideFlags: 0
