@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8597278423003012016}
   - component: {fileID: -8040941944361293710}
+  - component: {fileID: 4107868276314209574}
+  - component: {fileID: -5736345845630232466}
+  - component: {fileID: -2239087150943586115}
   m_Layer: 0
   m_Name: Colosseum
   m_TagString: Untagged
@@ -54,6 +57,63 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4107868276314209574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368272776463629875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75d5a6d561ecce4085de6e0f0b00c55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemConsumer
+  itemsUsed: []
+  rangeResourcesUsed: 
+  satisfactionItemUsed: []
+  satisfactionRangeResourceUsed: 
+--- !u!114 &-5736345845630232466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368272776463629875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 652f762aed6f39f45a6a5835a2105e5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.ItemProducer
+  itemConsumer: {fileID: 0}
+  ticksNeeded: 0
+  itemsProduced: []
+  range: 0
+  rangeResourceProvided:
+  - rangeResource: 0
+    tickDuration: 0
+  oneTimeItemsProduced: []
+  permanentItemsAdded: []
+--- !u!114 &-2239087150943586115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368272776463629875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c5e08e347dec0d4888ffc69612c08fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.SatisfactionProvider
+  itemConsumer: {fileID: 0}
+  category: 3
+  itemImportances: []
+  rangeResourceImportances: []
+  itemBonuses: []
+  rangeResourceBonuses: []
+  threshold: 0
+  readyDelayTicks: 0
 --- !u!1001 &6244603419691579781
 PrefabInstance:
   m_ObjectHideFlags: 0
