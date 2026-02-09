@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 //입력 처리 (마우스 클릭 , 모드 전환)
@@ -13,6 +14,8 @@ namespace Citadel
 
     public class BuildingPlacer : MonoBehaviour
     {
+        private Inventory _inventory;
+        
         [SerializeField] private Camera _camera;
         [SerializeField] private GameObject buildScrollView;
         [SerializeField] private BuildingManager buildingManager;
@@ -25,8 +28,10 @@ namespace Citadel
         [SerializeField] private BuildingSelectionController selectionController;
         [SerializeField] private BuildingContextUIController contextUI;
 
-
         private BuildMode currentMode = BuildMode.Build;
+
+        private void Awake() => _inventory = FindAnyObjectByType<Inventory>();
+
         private void Update()
         {
             if (currentMode == BuildMode.None)
@@ -121,6 +126,9 @@ namespace Citadel
                 }
             }
 
+            foreach (ItemAmount itemAmount in buildingManager.CurrentBuilding.costItems)
+                _inventory.Consume(itemAmount.item, itemAmount.amount);
+            
             SFXLooper.PlayLoop(1.5f, 2.0f);
         }
 

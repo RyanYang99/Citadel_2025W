@@ -6,6 +6,8 @@ namespace Citadel
     public sealed class BuildingContextUIController : MonoBehaviour
     {
         private GameObject _current;
+
+        [SerializeField] private BuildingMetaDataList buildingMetaDataList;
         
         [Header("Refs")]
         [SerializeField] private BuildingSelectionController selection;
@@ -175,8 +177,11 @@ namespace Citadel
             if (_current == null)
                 return;
 
-            GameObject root= _current.transform.root.gameObject;
-            buildingManager.RemoveBuilding(root,playSfx:true);
+            GameObject root = _current.transform.root.gameObject;
+            buildingManager.RemoveBuilding(root);
+
+            foreach (ItemAmount itemAmount in root.GetComponent<BuildingMetaDataHolder>().buildingMetaData.costItems)
+                inventory.Add(itemAmount.item, itemAmount.amount);
 
             selection.Deselect();
             ForceHide();

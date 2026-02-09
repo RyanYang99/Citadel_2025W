@@ -138,6 +138,7 @@ namespace Citadel
                 if (placed.Position == position)
                     return;
             GameObject obj = Instantiate(meta.prefab, position, rotation);
+            obj.AddComponent<BuildingMetaDataHolder>().buildingMetaData = meta;
             //초기화
 
             AddPlacedBuilding(
@@ -152,14 +153,13 @@ namespace Citadel
 
         public bool CanBuild(BuildingMetaData meta)
         {
-            if (meta == null)
+            if (meta == null || meta.costItems.Any(itemAmount => inventory.GetAmount(itemAmount.item) < itemAmount.amount))
                 return false;
 
             if (meta.maxBuildCount < 0)
                 return true;
-
-            int current = GetPlacedCount(meta.uniqueName);
-            return current < meta.maxBuildCount;
+            
+            return GetPlacedCount(meta.uniqueName) < meta.maxBuildCount;
         }
 
         //설치 전용
