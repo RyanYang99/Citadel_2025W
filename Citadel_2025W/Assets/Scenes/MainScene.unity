@@ -1699,6 +1699,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c80b6e843a6ccfd48812f04f8a0baaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.Inventory
+  startingResources:
+  - item: 1
+    amount: 10000
+  - item: 2
+    amount: 100
+  - item: 3
+    amount: 100
+  - item: 4
+    amount: 50
+  - item: 14
+    amount: 10
   log: 1
 --- !u!4 &191902319
 Transform:
@@ -9858,7 +9869,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -4.999939, y: 0}
+  m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1038780133
