@@ -77,7 +77,7 @@ public class UnitRuntime : MonoBehaviour
 
     private UnitRuntime FindClosestEnemy()
     {
-        UnitRuntime[] all = FindObjectsOfType<UnitRuntime>();
+        UnitRuntime[] all = FindObjectsByType<UnitRuntime>(FindObjectsSortMode.None);
         UnitRuntime best = null;
         float bestD = float.MaxValue;
 

@@ -10,6 +10,8 @@ public class BattleManager : MonoBehaviour
     private BattleRuntimeConfig _cfg;
     private int _enemyKills;
 
+    private int _zoneId;
+    private bool _battleEnded;
     public void DebugForceWin()
     {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -24,6 +26,12 @@ public class BattleManager : MonoBehaviour
         if (spawner != null)
             spawner.Stop();
 
+        BattleSession.SetResult(new BattleSession.BattleResult
+        {
+            zoneId = _zoneId,
+            victory = true
+        });
+
         SceneManager.LoadScene("MainScene");
     }
 
@@ -35,8 +43,15 @@ public class BattleManager : MonoBehaviour
         if (spawner != null)
             spawner.Stop();
 
+        BattleSession.SetResult(new BattleSession.BattleResult
+        {
+            zoneId = _zoneId,
+            victory = true
+        });
         SceneManager.LoadScene("MainScene");
     }
+
+
 
     private void Awake()
     {
@@ -48,11 +63,20 @@ public class BattleManager : MonoBehaviour
         int castleLevel = 1;
         int soldierCount = 0;
 
-        if (BattleSession.TryGetRequest(out var req))
+        BattleSession.BattleRequest req = default;
+
+        if (BattleSession.TryGetRequest(out req))
         {
+            _zoneId = req.zoneId;
             castleLevel = req.castleLevel;
             soldierCount = req.playerSoldierCount;
+
             Debug.Log($"[BattleScene] Received Request: zoneId={req.zoneId}, castleLevel={req.castleLevel}, playerSoldierCount={req.playerSoldierCount}");
+        }
+        else
+        {
+            Debug.LogWarning("[BattleScene] No BattleRequest found. Using defaults.");
+            _zoneId = 0;
         }
 
         _cfg = BattleRuntimeConfig.Build(balance, castleLevel);
@@ -69,14 +93,29 @@ public class BattleManager : MonoBehaviour
 
     public void NotifyEnemyKilled()
     {
+        if (_battleEnded) return;
+
         _enemyKills++;
+
+
         // UI 붙일 거면 여기서 갱신
+
         if (_enemyKills >= _cfg.targetKills)
         {
-            Debug.Log("[Battle] Victory!");
+            _battleEnded = true;
             spawner.Stop();
+
+            Debug.Log("[Battle] Victory!");
+
+            BattleSession.SetResult(new BattleSession.BattleResult
+            {
+                zoneId = _zoneId,
+                victory = true
+            });
 
             SceneManager.LoadScene("MainScene");
         }
     }
+
+
 }
