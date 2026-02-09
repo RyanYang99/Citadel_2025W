@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class BattleManager : MonoBehaviour
 
     private BattleRuntimeConfig _cfg;
     private int _enemyKills;
+
+    private int _zoneId;
+    private bool _battleEnded;
 
     private void Awake()
     {
@@ -19,11 +23,20 @@ public class BattleManager : MonoBehaviour
         int castleLevel = 1;
         int soldierCount = 0;
 
-        if (BattleSession.TryGetRequest(out var req))
+        BattleSession.BattleRequest req = default;
+
+        if (BattleSession.TryGetRequest(out req))
         {
+            _zoneId = req.zoneId;
             castleLevel = req.castleLevel;
             soldierCount = req.playerSoldierCount;
+
             Debug.Log($"[BattleScene] Received Request: zoneId={req.zoneId}, castleLevel={req.castleLevel}, playerSoldierCount={req.playerSoldierCount}");
+        }
+        else
+        {
+            Debug.LogWarning("[BattleScene] No BattleRequest found. Using defaults.");
+            _zoneId = 0;
         }
 
         _cfg = BattleRuntimeConfig.Build(balance, castleLevel);
@@ -31,21 +44,33 @@ public class BattleManager : MonoBehaviour
         UnitRuntime.SetBattleManager(this);
 
         spawner.Configure(_cfg);
-
-        spawner.SetPlayerTotalSupply(req.playerSoldierCount);
-
+        spawner.SetPlayerTotalSupply(soldierCount);
         spawner.Begin();
     }
 
 
     public void NotifyEnemyKilled()
     {
+        if (_battleEnded) return;
+
         _enemyKills++;
-        // UI 붙일 거면 여기서 갱신
+
         if (_enemyKills >= _cfg.targetKills)
         {
-            Debug.Log("[Battle] Victory!");
+            _battleEnded = true;
             spawner.Stop();
+
+            Debug.Log("[Battle] Victory!");
+
+            BattleSession.SetResult(new BattleSession.BattleResult
+            {
+                zoneId = _zoneId,
+                victory = true
+            });
+
+            SceneManager.LoadScene("MainScene");
         }
     }
+
+
 }
