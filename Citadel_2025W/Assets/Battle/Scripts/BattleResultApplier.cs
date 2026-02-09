@@ -5,23 +5,34 @@ public sealed class BattleResultApplier : MonoBehaviour
 {
     private void Start()
     {
-        if (!BattleSession.TryGetResult(out var res)) return;
-
-        Debug.Log($"[MainScene] BattleResult: victory={res.victory}, zoneId={res.zoneId}");
-
-        if (res.victory)
+        if (BattleSession.TryGetResult(out var res))
         {
-            // zoneId가 같은 타일 전부 해제
-            for (int i = LockedTile.LockedTiles.Count - 1; i >= 0; i--)
-            {
-                var t = LockedTile.LockedTiles[i];
-                if (t == null) continue;
+            Debug.Log($"[MainScene] BattleResult: victory={res.victory}, zoneId={res.zoneId}");
 
-                if (t.ZoneId == res.zoneId)
-                    t.Locked = false;
+            if (res.victory)
+                ZoneUnlockState.Add(res.zoneId);
+
+            BattleSession.ClearResult();
+        }
+        ApplyAllUnlockedZones();
+    }
+
+    private void ApplyAllUnlockedZones()
+    {
+        int unlocked = 0;
+
+        for (int i = LockedTile.LockedTiles.Count - 1; i >= 0; i--)
+        {
+            var t = LockedTile.LockedTiles[i];
+            if (t == null) continue;
+
+            if (ZoneUnlockState.IsUnlocked(t.ZoneId))
+            {
+                t.Locked = false;
+                unlocked++;
             }
         }
 
-        BattleSession.ClearResult();
+        Debug.Log($"[MainScene] Applied unlocked zones. count={unlocked}");
     }
 }
