@@ -14,8 +14,8 @@ namespace Citadel
         
         private float _timer;
         private readonly Dictionary<Item, int> _resourcesCount = new();
-        
-        private List<ItemAmount> startingResources = new();
+
+        [SerializeField, Tooltip("게임을 처음 시작할 때 플레이어가 가지는 것")] private List<ItemAmount> startingResources = new();
 
         [SerializeField] private bool log;
 
