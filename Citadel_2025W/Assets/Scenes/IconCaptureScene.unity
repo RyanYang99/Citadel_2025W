@@ -451,7 +451,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2
+  orthographic size: 1.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -476,7 +476,7 @@ Transform:
   m_GameObject: {fileID: 708657946}
   serializedVersion: 2
   m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
-  m_LocalPosition: {x: -960, y: -539.7, z: -3}
+  m_LocalPosition: {x: -960, y: -538.5, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -767,9 +767,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PrefabIconRenderer
   iconCamera: {fileID: 708657948}
   renderTexture: {fileID: 8400000, guid: cebcfbba00771464ca0d34e6db2e66a8, type: 2}
-  prefabs:
-  - {fileID: 4813123497557339669, guid: f6d2c15a73522a74b8caad087d7ebd3a, type: 3}
-  saveFolder: Assets/Icons/Building_icons/
+  prefabs: []
+  saveFolder: Assets/Icons/Resource_icons/function_icons/
 --- !u!4 &1606620453
 Transform:
   m_ObjectHideFlags: 0

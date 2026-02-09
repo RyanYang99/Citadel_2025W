@@ -18,3 +18,11 @@ MonoBehaviour:
   category: 2
   subCategory: 7
   yOffset: 1
+  maxBuildCount: 10
+  costItems:
+  - item: 2
+    amount: 10
+  - item: 4
+    amount: 10
+  - item: 4
+    amount: 10
