@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1061112a5eea7b340bc45808d88f5b6f, type: 3}
+  m_Name: rock-pillar
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.BuildingMetaData
+  uniqueName: rock-pillar
+  prefab: {fileID: 4580511216166027582, guid: 63189f684924e134da23931e0eba2dd6, type: 3}
+  icon: {fileID: -8810877264367360467, guid: d3d1c0c954b0893458f87b5083ae2ba2, type: 3}
+  category: 1
+  subCategory: 0
+  yOffset: 1
+  maxBuildCount: -1
+  costItems:
+  - item: 4
+    amount: 10
+  - item: 5
+    amount: 2

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1061112a5eea7b340bc45808d88f5b6f, type: 3}
+  m_Name: arrow
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.BuildingMetaData
+  uniqueName: arrow
+  prefab: {fileID: 6741867249046085421, guid: d898a2e4d19fbee4f8e08749bf0d10ae, type: 3}
+  icon: {fileID: -1942816204231386249, guid: 835d0ef3c6d8d70478892f11d2cc336b, type: 3}
+  category: 3
+  subCategory: 0
+  yOffset: 1
+  maxBuildCount: -1
+  costItems:
+  - item: 2
+    amount: 2

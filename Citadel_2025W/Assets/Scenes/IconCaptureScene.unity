@@ -767,10 +767,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PrefabIconRenderer
   iconCamera: {fileID: 708657948}
   renderTexture: {fileID: 8400000, guid: cebcfbba00771464ca0d34e6db2e66a8, type: 2}
-  prefabs:
-  - {fileID: 919132149155446097, guid: dde61789e5b2f9f4eadb9096bd463fbd, type: 3}
-  - {fileID: 919132149155446097, guid: bb35903f80dd56a4e8475f74d4a978bc, type: 3}
-  saveFolder: Assets/Icons/Resource_icons/
+  prefabs: []
+  saveFolder: Assets/Icons/Resource_icons/function_icons/
 --- !u!4 &1606620453
 Transform:
   m_ObjectHideFlags: 0

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1061112a5eea7b340bc45808d88f5b6f, type: 3}
+  m_Name: platform-ramp
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.BuildingMetaData
+  uniqueName: platform-ramp
+  prefab: {fileID: 6156670674860955050, guid: cccd6500da10f20408c7a91a308e449e, type: 3}
+  icon: {fileID: -7077656374546163116, guid: ad52d3ca34aaabf4abd8d81e7a5a7b8c, type: 3}
+  category: 3
+  subCategory: 0
+  yOffset: 1
+  maxBuildCount: -1
+  costItems:
+  - item: 2
+    amount: 5

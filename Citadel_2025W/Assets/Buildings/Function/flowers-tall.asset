@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1061112a5eea7b340bc45808d88f5b6f, type: 3}
+  m_Name: flowers-tall
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.BuildingMetaData
+  uniqueName: flowers-tall
+  prefab: {fileID: 8318478412947313926, guid: 6f5524fed4bd53e49ab3486b250c1f12, type: 3}
+  icon: {fileID: 7254078751346950134, guid: d6d6b6a68732fd2478d6d63ff6b983e0, type: 3}
+  category: 3
+  subCategory: 0
+  yOffset: 1
+  maxBuildCount: -1
+  costItems: []
