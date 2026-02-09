@@ -6,8 +6,6 @@ public enum Team { Player, Enemy }
 
 namespace Citadel
 {
-
-
 public class UnitRuntime : MonoBehaviour
 {
     private static BattleManager _battle;
