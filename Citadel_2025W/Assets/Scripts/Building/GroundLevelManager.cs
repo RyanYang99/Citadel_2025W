@@ -41,7 +41,8 @@ namespace Citadel
         }
 
         private void Update()
-        {
+        { 
+
             if (Input.GetKeyUp(KeyCode.Keypad1))
             {
                 Debug.Log("1");

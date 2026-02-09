@@ -217,6 +217,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   meshRenderer: {fileID: 2337831004884371134}
+  topFillRenderer: {fileID: 5491219585718384909}
   locked: 1
   level: 6
   originalMaterial: {fileID: -6538903991835684241, guid: 849a3caf201d3864d98f5e348ef7343a, type: 3}
+  originalTopFill: {fileID: 2100000, guid: 11c298cd56c96ae49a800752d2b2c0b5, type: 2}

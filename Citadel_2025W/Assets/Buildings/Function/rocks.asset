@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1061112a5eea7b340bc45808d88f5b6f, type: 3}
+  m_Name: rocks
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.BuildingMetaData
+  uniqueName: rock
+  prefab: {fileID: 8192160748794417163, guid: 7f75d5717b8d38347877a8d176be9b6c, type: 3}
+  icon: {fileID: -5539709118967405087, guid: a3a76a0a8b61ccf4087b0ee976a73b70, type: 3}
+  category: 3
+  subCategory: 0
+  yOffset: 1
+  maxBuildCount: -1
+  costItems:
+  - item: 4
+    amount: 2

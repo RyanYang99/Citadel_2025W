@@ -144,7 +144,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: f25eb83b6cec39f44ba98665db617b5e, type: 2}
     - target: {fileID: 919132149155446097, guid: 849a3caf201d3864d98f5e348ef7343a, type: 3}
       propertyPath: m_Name
-      value: LockedGrass6 1
+      value: LockedGrass7
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 849a3caf201d3864d98f5e348ef7343a, type: 3}
       propertyPath: m_Layer
@@ -217,6 +217,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   meshRenderer: {fileID: 2337831004884371134}
+  topFillRenderer: {fileID: 5491219585718384909}
   locked: 1
   level: 7
   originalMaterial: {fileID: -6538903991835684241, guid: 849a3caf201d3864d98f5e348ef7343a, type: 3}
+  originalTopFill: {fileID: 2100000, guid: 11c298cd56c96ae49a800752d2b2c0b5, type: 2}
