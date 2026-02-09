@@ -3239,7 +3239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.ResourceUI
   iconTable: {fileID: 11400000, guid: 51ae489bbbe362b488822fb893ef5975, type: 2}
-  item: 10
+  item: 12
   rangeResource: 0
   amountText: {fileID: 740372209}
   iconImage: {fileID: 0}
@@ -6539,7 +6539,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 20
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: aace4398c935ba74b9befbd1f5a7b6f6, type: 2}
   m_sharedMaterial: {fileID: -4212372435320894504, guid: aace4398c935ba74b9befbd1f5a7b6f6, type: 2}
