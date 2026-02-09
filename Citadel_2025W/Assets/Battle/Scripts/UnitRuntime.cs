@@ -4,6 +4,10 @@ using UnityEngine;
 
 public enum Team { Player, Enemy }
 
+namespace Citadel
+{
+
+
 public class UnitRuntime : MonoBehaviour
 {
     private static BattleManager _battle;
@@ -137,7 +141,7 @@ public class UnitRuntime : MonoBehaviour
     }
 
     public void ApplyData(UnitData data)
-    {
+        {
         hp = data.maxHp;
         damage = data.damage;
         range = data.range;
@@ -145,5 +149,6 @@ public class UnitRuntime : MonoBehaviour
         attackInterval = data.attackInterval;
 
         _nextAtk = 0f;
+        }
     }
 }

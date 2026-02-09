@@ -41,7 +41,7 @@ public sealed class TileClickBattleOpener : MonoBehaviour
 
         if (!tile.Locked) return;
 
-        battleLauncher.EnterBattle(tile.Level, 1);
+        //battleLauncher.EnterBattle(tile.Level, 1);
 
         popup.Show(battleLauncher, tile.ZoneId, tile.Level);
     }

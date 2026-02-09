@@ -1,3 +1,4 @@
+using Citadel;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -50,7 +51,6 @@ public class BattleManager : MonoBehaviour
         });
         SceneManager.LoadScene("MainScene");
     }
-
 
 
     private void Awake()

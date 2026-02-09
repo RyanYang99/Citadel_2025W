@@ -1,5 +1,9 @@
 using UnityEngine;
 
+namespace Citadel
+{
+
+
 public struct BattleRuntimeConfig
 {
     public int targetKills;
@@ -37,5 +41,6 @@ public struct BattleRuntimeConfig
         c.wShield = (L >= s.shieldUnlockLevel) ? Mathf.Clamp(s.shieldWeightAfterUnlock, 0, 100) : 0;
 
         return c;
+        }
     }
 }

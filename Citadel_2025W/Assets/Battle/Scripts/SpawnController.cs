@@ -1,3 +1,4 @@
+using Citadel;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,7 +37,7 @@ public class SpawnController : MonoBehaviour
         _cfg = cfg;
     }
 
-    // BattleManager¿¡¼­ req.playerSoldierCount ³Ö¾îÁÖ´Â ¿ëµµ
+    // BattleManagerì—ì„œ req.playerSoldierCount ë„£ì–´ì£¼ëŠ” ìš©ë„
     public void SetPlayerTotalSupply(int total)
     {
         _playerSupplyRemaining = Mathf.Max(0, total);
@@ -63,7 +64,7 @@ public class SpawnController : MonoBehaviour
     {
         while (true)
         {
-            // ÃÑ·®ÀÌ ³²¾ÆÀÖ°í, µ¿½Ã »ýÁ¸ Á¦ÇÑµµ Åë°úÇØ¾ß ½ºÆù
+            // ì´ëŸ‰ì´ ë‚¨ì•„ìžˆê³ , ë™ì‹œ ìƒì¡´ ì œí•œë„ í†µê³¼í•´ì•¼ ìŠ¤í°
             if (_playerSupplyRemaining > 0 && _playerAlive < _cfg.playerMaxAlive)
             {
                 if (playerSpawnPoints == null || playerSpawnPoints.Count == 0)
@@ -171,6 +172,6 @@ public class SpawnController : MonoBehaviour
         return p;
     }
 
-    // µð¹ö±× È®ÀÎ¿ë
+    // ë””ë²„ê·¸ í™•ì¸ìš©
     public int GetPlayerSupplyRemaining() => _playerSupplyRemaining;
 }
