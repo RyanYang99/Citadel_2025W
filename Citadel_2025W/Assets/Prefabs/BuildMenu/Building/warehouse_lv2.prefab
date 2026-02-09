@@ -61,6 +61,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8576619655382739593, guid: 4bb0084675ac13744a6b0611bf64a52f, type: 3}
+      propertyPath: m_Name
+      value: building_lumbermill_saw_green
+      objectReference: {fileID: 0}
+    - target: {fileID: -8576619655382739593, guid: 4bb0084675ac13744a6b0611bf64a52f, type: 3}
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
