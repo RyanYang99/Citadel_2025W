@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
@@ -8,6 +9,34 @@ public class BattleManager : MonoBehaviour
 
     private BattleRuntimeConfig _cfg;
     private int _enemyKills;
+
+    public void DebugForceWin()
+    {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        VictoryAndExit();
+#endif
+    }
+
+    private void VictoryAndExit()
+    {
+        Debug.Log("[Battle] Victory (Forced)");
+
+        if (spawner != null)
+            spawner.Stop();
+
+        SceneManager.LoadScene("MainScene");
+    }
+
+    //í…ŒìŠ¤íŠ¸ ë””ë²„ê·¸ exe ìš©
+    public void ForceWinAndExit()
+    {
+        Debug.Log("[Battle] Force Win (Test)");
+
+        if (spawner != null)
+            spawner.Stop();
+
+        SceneManager.LoadScene("MainScene");
+    }
 
     private void Awake()
     {
@@ -32,7 +61,7 @@ public class BattleManager : MonoBehaviour
 
         spawner.Configure(_cfg);
 
-        spawner.SetPlayerTotalSupply(req.playerSoldierCount);
+        spawner.SetPlayerTotalSupply(soldierCount);
 
         spawner.Begin();
     }
@@ -41,11 +70,13 @@ public class BattleManager : MonoBehaviour
     public void NotifyEnemyKilled()
     {
         _enemyKills++;
-        // UI ºÙÀÏ °Å¸é ¿©±â¼­ °»½Å
+        // UI ë¶™ì¼ ê±°ë©´ ì—¬ê¸°ì„œ ê°±ì‹ 
         if (_enemyKills >= _cfg.targetKills)
         {
             Debug.Log("[Battle] Victory!");
             spawner.Stop();
+
+            SceneManager.LoadScene("MainScene");
         }
     }
 }

@@ -4,6 +4,9 @@ using UnityEngine.EventSystems;
 
 public sealed class TileClickBattleOpener : MonoBehaviour
 {
+    [Header("UI")]
+    [SerializeField] private BattleConfirmPopup popup;
+
     [Header("Refs")]
     [SerializeField] private BattleLauncher battleLauncher;
 
@@ -12,6 +15,7 @@ public sealed class TileClickBattleOpener : MonoBehaviour
     [SerializeField] private Camera cam;
     [SerializeField] private LayerMask tileMask;
     [SerializeField] private float maxDistance = 500f;
+
 
     private void Awake()
     {
@@ -37,6 +41,6 @@ public sealed class TileClickBattleOpener : MonoBehaviour
 
         if (!tile.Locked) return;
 
-        battleLauncher.EnterBattle(tile.ZoneId, tile.Level);
+        popup.Show(battleLauncher, tile.ZoneId, tile.Level);
     }
 }
