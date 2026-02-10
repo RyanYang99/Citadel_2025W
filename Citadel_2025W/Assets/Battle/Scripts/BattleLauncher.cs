@@ -33,4 +33,11 @@ public class BattleLauncher : MonoBehaviour
 
         SceneManager.LoadScene("BattleScene");
     }
+
+
+    public void ExitBattleToMain()
+    {
+        SceneManager.LoadScene("MainScene");
+    }
+
 }

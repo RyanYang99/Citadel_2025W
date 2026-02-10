@@ -78,6 +78,15 @@ namespace Citadel
 
         private void OnEnable()
         {
+            if (!Application.isPlaying) return;
+
+            if (_inventory == null)
+            {
+                Debug.LogError($"[ItemProducer] Inventory가 씬에 없음: {name}", this);
+                enabled = false;
+                return;
+            }
+
             _inventory.OnTick += OnTick;
             
             foreach (ItemAmount itemAmount in oneTimeItemsProduced)
@@ -86,6 +95,7 @@ namespace Citadel
 
         private void Start()
         {
+            if (_inventory == null) return;
             foreach (RangeResourceAmount rangeResourceAmount in rangeResourceProvided)
             {
                 _originalRangeResourceDurations.Add(new RangeResourceAmount(rangeResourceAmount));
@@ -98,6 +108,11 @@ namespace Citadel
 
         private void OnDisable()
         {
+            if (_inventory != null)
+                _inventory.OnTick -= OnTick;
+
+            if (_inventory == null) return;
+
             _inventory.OnTick -= OnTick;
             
             foreach (ItemAmount itemAmount in oneTimeItemsProduced)

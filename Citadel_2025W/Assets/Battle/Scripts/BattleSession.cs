@@ -4,13 +4,15 @@ public static class BattleSession
     {
         public int zoneId;
         public int castleLevel;
-
         // 메인에서 넘어오는 총 병력수(Soldier)
         public int playerSoldierCount;
     }
 
     private static bool _hasRequest;
     private static BattleRequest _request;
+
+    private static bool _hasResult;
+    private static BattleResult _result;
 
     public static void SetRequest(BattleRequest req)
     {
@@ -29,4 +31,30 @@ public static class BattleSession
         _hasRequest = false;
         _request = default;
     }
+
+    public struct BattleResult
+    {
+        public int zoneId;
+        public bool victory;
+    }
+
+    public static void SetResult(BattleResult r)
+    {
+        _result = r;
+        _hasResult = true;
+    }
+
+    public static bool TryGetResult(out BattleResult r)
+    {
+        r = _result;
+        return _hasResult;
+    }
+
+    public static void ClearResult()
+    {
+        _hasResult = false;
+        _result = default;
+    }
+
+
 }
