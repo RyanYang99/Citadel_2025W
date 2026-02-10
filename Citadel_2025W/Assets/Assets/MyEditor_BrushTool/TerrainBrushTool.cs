@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 
@@ -193,3 +194,4 @@ public class TerrainBrushTool : EditorWindow
         return selected;
     }
 }
+#endif
