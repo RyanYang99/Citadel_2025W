@@ -7,6 +7,7 @@ namespace Citadel
     public sealed class BuildingMetaData : ScriptableObject
     {
         public string uniqueName;
+        [TextArea] public string description;
         
         public GameObject prefab;
         public Sprite icon;
@@ -15,9 +16,7 @@ namespace Citadel
 
         public float yOffset = 1f;
 
-        [Header("Build Limit")]
-        public int maxBuildCount = -1;
-
+        [Header("Build Limit")] public int maxBuildCount = -1;
         [Header("Cost")] public ItemAmount[] costItems;
     }
 }
