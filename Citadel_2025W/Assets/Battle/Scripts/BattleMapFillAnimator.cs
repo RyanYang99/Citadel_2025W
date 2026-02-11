@@ -6,6 +6,8 @@ namespace Citadel
 {
     public sealed class BattleMapFillAnimator : MonoBehaviour
     {
+       
+
         [Header("Tile")]
         [SerializeField] private GameObject tilePrefab;
         [SerializeField] private Transform tileParent;
@@ -92,21 +94,54 @@ namespace Citadel
             if (cells == null || cells.Count == 0)
                 GenerateBarCells();
 
-           
-            cells.Sort((a, b) => a.y == b.y ? a.x.CompareTo(b.x) : a.y.CompareTo(b.y));
+            int minY = int.MaxValue, maxY = int.MinValue;
+            int maxAbsX = 0;
 
-            foreach (var c in cells)
+            for (int k = 0; k < cells.Count; k++)
             {
-                var pos = origin + new Vector3(c.x * cellSize, 0f, c.y * cellSize);
-                var go = Instantiate(tilePrefab, pos, Quaternion.identity, tileParent);
-                _spawned.Add(go);
+                var c = cells[k];
+                if (c.y < minY) minY = c.y;
+                if (c.y > maxY) maxY = c.y;
+                maxAbsX = Mathf.Max(maxAbsX, Mathf.Abs(c.x));
+            }
 
-                go.transform.localScale = Vector3.zero;
-                StartCoroutine(Pop(go.transform));
+            var set = new HashSet<Vector2Int>(cells);
 
+            for (int d = 0; d <= maxAbsX; d++)
+            {
+          
+                for (int y = minY; y <= maxY; y++)
+                {
+                    if (d == 0)
+                    {
+                        var c0 = new Vector2Int(0, y);
+                        if (set.Contains(c0))
+                            SpawnCell(c0);
+                    }
+                    else
+                    {
+                        var cl = new Vector2Int(-d, y);
+                        if (set.Contains(cl))
+                            SpawnCell(cl);
+
+                        var cr = new Vector2Int(+d, y);
+                        if (set.Contains(cr))
+                            SpawnCell(cr);
+                    }
+                }
                 if (spawnInterval > 0f)
                     yield return new WaitForSeconds(spawnInterval);
             }
+        }
+
+        private void SpawnCell(Vector2Int c)
+        {
+            var pos = origin + new Vector3((c.x - 0.5f) * cellSize, 0f, (c.y - 0.5f) * cellSize);
+            var go = Instantiate(tilePrefab, pos, Quaternion.identity, tileParent);
+            _spawned.Add(go);
+
+            go.transform.localScale = Vector3.zero;
+            StartCoroutine(Pop(go.transform));
         }
 
         private IEnumerator Pop(Transform t)
