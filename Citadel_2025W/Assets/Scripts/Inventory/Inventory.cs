@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,8 @@ namespace Citadel
         
         private float _timer;
         private readonly Dictionary<Item, int> _resourcesCount = new();
-        
+
+        [SerializeField] 
         private List<ItemAmount> startingResources = new();
 
         [SerializeField] private bool log;
