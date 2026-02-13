@@ -24,6 +24,7 @@ namespace Citadel
 
         public void Show(BattleLauncher battleLauncher, int zoneId, int tileLevel)
         {
+
             if (!ZoneUnlockState.IsNextAllowed(zoneId))
                 return;
 

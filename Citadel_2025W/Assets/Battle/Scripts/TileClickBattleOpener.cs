@@ -42,6 +42,8 @@ public sealed class TileClickBattleOpener : MonoBehaviour
         if (!tile.Locked) return;
 
         //battleLauncher.EnterBattle(tile.Level, 1);
+        //Debug.Log($"popup is null? {popup == null}");
+        //Debug.Log($"CLICK tile zone={tile.ZoneId} level={tile.Level} locked={tile.Locked}");
 
         popup.Show(battleLauncher, tile.ZoneId, tile.Level);
     }
