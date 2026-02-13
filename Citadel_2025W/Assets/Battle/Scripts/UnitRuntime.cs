@@ -4,6 +4,8 @@ using UnityEngine;
 
 public enum Team { Player, Enemy }
 
+namespace Citadel
+{
 public class UnitRuntime : MonoBehaviour
 {
     private static BattleManager _battle;
@@ -17,7 +19,7 @@ public class UnitRuntime : MonoBehaviour
     [SerializeField] private float attackInterval = 1.0f;
 
     [Header("Animation")]
-    [Tooltip("Á×´Â ¾Ö´Ï¸ŞÀÌ¼Ç Àç»ı ÈÄ Destroy±îÁö ±â´Ù¸± ½Ã°£(Å¬¸³ ±æÀÌ¿¡ ¸ÂÃç Á¶Àı)")]
+    [Tooltip("ì£½ëŠ” ì• ë‹ˆë©”ì´ì…˜ ì¬ìƒ í›„ Destroyê¹Œì§€ ê¸°ë‹¤ë¦´ ì‹œê°„(í´ë¦½ ê¸¸ì´ì— ë§ì¶° ì¡°ì ˆ)")]
     [SerializeField] private float deathDestroyDelay = 1.2f;
 
     private Team _team;
@@ -32,7 +34,7 @@ public class UnitRuntime : MonoBehaviour
         _team = team;
         _onDied = onDied;
 
-        // Knight ÇÁ¸®ÆÕ ·çÆ®¿¡ UnitAnimDriver¸¦ ºÙ¿´´Ù´Â ÀüÁ¦
+        // Knight í”„ë¦¬íŒ¹ ë£¨íŠ¸ì— UnitAnimDriverë¥¼ ë¶™ì˜€ë‹¤ëŠ” ì „ì œ
         _anim = GetComponent<UnitAnimDriver>();
         if (_anim == null)
             Debug.LogWarning("[UnitRuntime] UnitAnimDriver not found on this GameObject.", this);
@@ -42,7 +44,7 @@ public class UnitRuntime : MonoBehaviour
     {
         if (_isDead) return;
 
-        // °¡Àå °¡±î¿î Àû Ã£±â
+        // ê°€ì¥ ê°€ê¹Œìš´ ì  ì°¾ê¸°
         UnitRuntime target = FindClosestEnemy();
         if (target == null)
         {
@@ -54,7 +56,7 @@ public class UnitRuntime : MonoBehaviour
 
         if (d > range)
         {
-            // ÀÌµ¿
+            // ì´ë™
             _anim?.SetMove(true);
 
             Vector3 dir = (target.transform.position - transform.position).normalized;
@@ -62,7 +64,7 @@ public class UnitRuntime : MonoBehaviour
         }
         else
         {
-            // °ø°İ ¹üÀ§ ¾È: Á¤Áö + °ø°İ
+            // ê³µê²© ë²”ìœ„ ì•ˆ: ì •ì§€ + ê³µê²©
             _anim?.SetMove(false);
 
             if (Time.time >= _nextAtk)
@@ -104,7 +106,7 @@ public class UnitRuntime : MonoBehaviour
 
         hp -= amount;
 
-        // ÇÇ°İ ¾Ö´Ï¸ŞÀÌ¼Ç(¿øÇÏ¸é)
+        // í”¼ê²© ì• ë‹ˆë©”ì´ì…˜(ì›í•˜ë©´)
         _anim?.PlayHit();
 
         if (hp <= 0f)
@@ -116,17 +118,17 @@ public class UnitRuntime : MonoBehaviour
         if (_isDead) return;
         _isDead = true;
 
-        // ½ºÆù Ä«¿îÆ® °¨¼Ò Äİ¹é
+        // ìŠ¤í° ì¹´ìš´íŠ¸ ê°ì†Œ ì½œë°±
         _onDied?.Invoke();
 
-        // ÀûÀÌ Á×¾ú°í & Å³·¯°¡ Player¶ó¸é Å³ Ä«¿îÆ® »ó½Â
+        // ì ì´ ì£½ì—ˆê³  & í‚¬ëŸ¬ê°€ Playerë¼ë©´ í‚¬ ì¹´ìš´íŠ¸ ìƒìŠ¹
         if (_team == Team.Enemy && killer == Team.Player)
             _battle?.NotifyEnemyKilled();
 
-        // Á×´Â ¾Ö´Ï¸ŞÀÌ¼Ç
+        // ì£½ëŠ” ì• ë‹ˆë©”ì´ì…˜
         _anim?.PlayDead();
 
-        // Á×´Â µ¿¾È ÀÌµ¿/°ø°İ Áß´Ü + ÀÏÁ¤ ½Ã°£ ÈÄ Á¦°Å
+        // ì£½ëŠ” ë™ì•ˆ ì´ë™/ê³µê²© ì¤‘ë‹¨ + ì¼ì • ì‹œê°„ í›„ ì œê±°
         StartCoroutine(DieRoutine());
     }
 
@@ -137,7 +139,7 @@ public class UnitRuntime : MonoBehaviour
     }
 
     public void ApplyData(UnitData data)
-    {
+        {
         hp = data.maxHp;
         damage = data.damage;
         range = data.range;
@@ -145,5 +147,6 @@ public class UnitRuntime : MonoBehaviour
         attackInterval = data.attackInterval;
 
         _nextAtk = 0f;
+        }
     }
 }
