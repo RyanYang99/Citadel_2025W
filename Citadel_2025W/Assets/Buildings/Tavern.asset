@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1061112a5eea7b340bc45808d88f5b6f, type: 3}
+  m_Name: Tavern
+  m_EditorClassIdentifier: Assembly-CSharp::Citadel.BuildingMetaData
+  uniqueName: Tavern
+  prefab: {fileID: 4813123497557339669, guid: f6d2c15a73522a74b8caad087d7ebd3a, type: 3}
+  icon: {fileID: 5574322658079509981, guid: 9c3c5c3887ee5674399df9ec2ee3c718, type: 3}
+  category: 2
+  subCategory: 8
+  yOffset: 0
+  maxBuildCount: 2

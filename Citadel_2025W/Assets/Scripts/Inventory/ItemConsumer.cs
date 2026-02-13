@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -100,7 +100,7 @@ namespace Citadel
 
         private List<Item> GetProvidedItems() => GetProvidedItemsFrom(itemsUsed);
 
-        private List<Item> GetProvidedSatisfactionItems() => GetProvidedItemsFrom(satisfactionItemUsed);
+        public List<Item> GetProvidedSatisfactionItems() => GetProvidedItemsFrom(satisfactionItemUsed);
 
         private List<RangeResource> GetProvidedRangeResources()
         {
