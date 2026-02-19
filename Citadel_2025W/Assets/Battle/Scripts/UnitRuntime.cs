@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public enum Team { Player, Enemy }
 
@@ -23,9 +24,24 @@ public class UnitRuntime : MonoBehaviour
     private Team _team;
     private Action _onDied;
     private float _nextAtk;
+    private NavMeshAgent agent;
 
     private UnitAnimDriver _anim;
     private bool _isDead;
+
+    private void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        if (agent == null)
+        {
+            Debug.LogError("[UnitRuntime] NavMeshAgent not found on unit.", this);
+            return;
+        }
+
+        agent.speed = moveSpeed;
+        agent.stoppingDistance = range * 0.9f;
+        agent.updateRotation = true;
+    }
 
     public void Init(Team team, Action onDied)
     {
@@ -56,9 +72,8 @@ public class UnitRuntime : MonoBehaviour
         {
             // ¿Ãµø
             _anim?.SetMove(true);
+            agent.SetDestination(target.transform.position);
 
-            Vector3 dir = (target.transform.position - transform.position).normalized;
-            transform.position += dir * moveSpeed * Time.deltaTime;
         }
         else
         {

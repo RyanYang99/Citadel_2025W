@@ -20747,6 +20747,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2531293148052597606, guid: 831f02d1c335f2c4bad79a4e50f2c098, type: 3}
+      propertyPath: bglist.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2531293148052597606, guid: 831f02d1c335f2c4bad79a4e50f2c098, type: 3}
+      propertyPath: 'bglist.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 2b10211ff694eaa44918933d8de1c683, type: 3}
     - target: {fileID: 3419040054966822363, guid: 831f02d1c335f2c4bad79a4e50f2c098, type: 3}
       propertyPath: m_Name
       value: Persistent
