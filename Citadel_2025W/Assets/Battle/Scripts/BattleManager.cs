@@ -14,6 +14,46 @@ public class BattleManager : MonoBehaviour
 
     private int _zoneId;
     private bool _battleEnded;
+    public void DebugForceWin()
+    {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        VictoryAndExit();
+#endif
+    }
+
+    private void VictoryAndExit()
+    {
+        Debug.Log("[Battle] Victory (Forced)");
+
+        if (spawner != null)
+            spawner.Stop();
+
+        BattleSession.SetResult(new BattleSession.BattleResult
+        {
+            zoneId = _zoneId,
+            victory = true
+        });
+
+        SceneManager.LoadScene("MainScene");
+    }
+
+    //테스트 디버그 exe 용
+    public void ForceWinAndExit()
+    {
+        Debug.Log("[Battle] Force Win (Test)");
+
+        if (spawner != null)
+            spawner.Stop();
+
+        BattleSession.SetResult(new BattleSession.BattleResult
+        {
+            zoneId = _zoneId,
+            victory = true
+        });
+        SceneManager.LoadScene("MainScene");
+    }
+
+
 
     private void Awake()
     {
@@ -49,7 +89,9 @@ public class BattleManager : MonoBehaviour
             SoundManager.Instance.PlaySFX("BattleStart", battleStartSfx);
 
         spawner.Configure(_cfg);
+
         spawner.SetPlayerTotalSupply(soldierCount);
+
         spawner.Begin();
     }
 
@@ -59,6 +101,9 @@ public class BattleManager : MonoBehaviour
         if (_battleEnded) return;
 
         _enemyKills++;
+
+
+        // UI 붙일 거면 여기서 갱신
 
         if (_enemyKills >= _cfg.targetKills)
         {
