@@ -15,7 +15,7 @@ public class BattleBalanceSettings : ScriptableObject
 
     [Header("Enemy Spawn")]
     public float enemyBaseInterval = 1.8f;
-    public float enemyIntervalPerLevel = -0.03f;
+    public float enemyIntervalPerLevel = -0.05f;
     public int enemyBaseMaxAlive = 8;
     public int enemyMaxAlivePerLevel = 1;
 

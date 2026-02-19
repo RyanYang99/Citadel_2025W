@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -30,7 +30,14 @@ namespace Citadel
         public void Refresh()
         { 
             if (_rangeResource == RangeResource.None)
-                text.text = $"{_itemAmount.item}: {_itemConsumer.GetCurrentAmount(_itemAmount.item)} / {_itemAmount.amount}";
+            {
+                bool isItemProvided = _itemConsumer.Snapshot.Any(anyResource =>
+                anyResource.AnyItem.HasValue && anyResource.AnyItem == _itemAmount.item);
+
+                int displayAmount = isItemProvided ? _itemAmount.amount : 0;
+                text.text = $"{_itemAmount.item}: {displayAmount} / {_itemAmount.amount}";
+            }
+                
             else
             {
                 string status = _itemConsumer.Snapshot.Any(anyResource => anyResource.AnyRangeResource.HasValue &&

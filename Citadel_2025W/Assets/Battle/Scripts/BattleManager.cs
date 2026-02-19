@@ -1,13 +1,20 @@
 using Citadel;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
+
+
+
     [SerializeField] private BattleBalanceSettings balance;
     [SerializeField] private BattleDebugConfig debugConfig;
     [SerializeField] private SpawnController spawner;
     [SerializeField] private AudioClip battleStartSfx;
+
+    [Header("Animator")]
+    [SerializeField] private Citadel.BattleMapFillAnimator mapFill;
 
     private BattleRuntimeConfig _cfg;
     private int _enemyKills;
@@ -54,13 +61,12 @@ public class BattleManager : MonoBehaviour
     }
 
 
-
     private void Awake()
     {
         if (debugConfig == null) debugConfig = GetComponent<BattleDebugConfig>();
     }
 
-    private void Start()
+    private IEnumerator Start()
     {
         int castleLevel = 1;
         int soldierCount = 0;
@@ -89,11 +95,53 @@ public class BattleManager : MonoBehaviour
             SoundManager.Instance.PlaySFX("BattleStart", battleStartSfx);
 
         spawner.Configure(_cfg);
-
         spawner.SetPlayerTotalSupply(soldierCount);
 
+        // 맵 깔기 
+        if (mapFill != null)
+        {
+            mapFill.Clear();
+            yield return mapFill.PlayFill(); // 6x29 중앙 ㅡ 깔림
+        }
+        else
+        {
+            Debug.LogWarning("[BattleManager] mapFill not assigned");
+        }
+        // 전투 시작
         spawner.Begin();
     }
+
+    //private void Start()
+    //{
+    //    int castleLevel = 1;
+    //    int soldierCount = 0;
+
+    //    BattleSession.BattleRequest req = default;
+
+    //    if (BattleSession.TryGetRequest(out req))
+    //    {
+    //        _zoneId = req.zoneId;
+    //        castleLevel = req.castleLevel;
+    //        soldierCount = req.playerSoldierCount;
+
+    //        Debug.Log($"[BattleScene] Received Request: zoneId={req.zoneId}, castleLevel={req.castleLevel}, playerSoldierCount={req.playerSoldierCount}");
+    //    }
+    //    else
+    //    {
+    //        Debug.LogWarning("[BattleScene] No BattleRequest found. Using defaults.");
+    //        _zoneId = 0;
+    //    }
+
+    //    _cfg = BattleRuntimeConfig.Build(balance, castleLevel);
+
+    //    UnitRuntime.SetBattleManager(this);
+
+    //    spawner.Configure(_cfg);
+
+    //    spawner.SetPlayerTotalSupply(soldierCount);
+
+    //    spawner.Begin();
+    //}
 
 
     public void NotifyEnemyKilled()

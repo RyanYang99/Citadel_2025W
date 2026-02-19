@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -111,8 +111,7 @@ namespace Citadel
                 foreach (RangeResource rangeResource in itemConsumer.RangeResourcesUsed)
                     CreateConsumerStatusItemController(consumerPart).Initialize(itemConsumer, new ItemAmount(), rangeResource);
 
-                if (_currentBuilding.TryGetComponent(out _satisfactionProvider) &&
-                    (itemConsumer.SatisfactionItemUsed.Count > 0 || itemConsumer.SatisFactionRangeResourceUsed.Count > 0))
+                if (_currentBuilding.TryGetComponent(out _satisfactionProvider))
                 {
                     satisfactionText.gameObject.SetActive(true);
                     satisfactionStatusText.gameObject.SetActive(true);
@@ -167,7 +166,14 @@ namespace Citadel
         private void RefreshSatisfactionStatusText()
         {
             if (_satisfactionProvider != null)
-                satisfactionStatusText.text = $"만족도: {_satisfactionProvider.Satisfaction * 100f}%";
+            {
+                float total = _satisfactionProvider.Satisfaction * 100f;
+                float internalPt = _satisfactionProvider.InternalScore;
+                float externalPt = _satisfactionProvider.ExternalScore;
+
+                // ex. 만족도: 85% (내실 50 + 환경 35)
+                satisfactionStatusText.text = $"만족도: {total:F0}% <size=70%>(내실 {internalPt:F0} + 환경 {externalPt:F0})</size>";
+            }
         }
 
         public void Hide()

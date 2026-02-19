@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -42,7 +42,7 @@ namespace Citadel
         
         private bool _hasBonus;
         private float _totalWeight;
-        private int _currentTickCount;
+
         private readonly Dictionary<ItemConsumer.AnyResource, float> _mappedImportance = new();
         
         [SerializeField] private ItemConsumer itemConsumer;
@@ -57,7 +57,12 @@ namespace Citadel
         [SerializeField] private List<RangeResourceBonus> rangeResourceBonuses = new();
 
         [Header("수치"), SerializeField] private float threshold;
-        [SerializeField, Tooltip("만족도가 반영되기까지 몇 틱을 기다릴지 설정")] private int readyDelayTicks;
+
+        private float _lastInternalScore;
+        private float _lastExternalScore;
+
+        public float InternalScore => _lastInternalScore;
+        public float ExternalScore => _lastExternalScore;
 
         public float Satisfaction { get; private set; }
 
@@ -65,8 +70,6 @@ namespace Citadel
         {
             _inventory.OnTick += OnTick;
             SatisfactionManager.Instance.Register(this);
-
-            IsReady = false;
         }
 
         private void OnDisable()
@@ -76,7 +79,6 @@ namespace Citadel
             if (SatisfactionManager.Instance != null)
                 SatisfactionManager.Instance.Unregister(this);
 
-            IsReady = false;
             _hasBonus = false;
             _bonusManager.RemoveBonus(this);
         }
@@ -94,30 +96,55 @@ namespace Citadel
             
             foreach (float weight in _mappedImportance.Values)
                 _totalWeight += weight;
+
         }
 
         private void OnTick()
         {
-            if (!IsReady)
+            // 내실 만족도 계산
+            if (_totalWeight <= 0f)
             {
-                if (++_currentTickCount < readyDelayTicks)
-                    return;
-                
-                IsReady = true;
+                _lastInternalScore = 50f;
+            }
+            else
+            {
+                var snapshot = itemConsumer.Snapshot;
+                float currentWeightSum = 0f;
+
+                foreach (var kvp in _mappedImportance)
+                {
+                    bool isResourceReady = snapshot.Any(res =>
+                        (kvp.Key.AnyItem.HasValue && res.AnyItem == kvp.Key.AnyItem) ||
+                        (kvp.Key.AnyRangeResource.HasValue && res.AnyRangeResource == kvp.Key.AnyRangeResource)
+                    );
+
+                    if (isResourceReady)
+                    {
+                        currentWeightSum += kvp.Value;
+                    }
+                }
+
+                _lastInternalScore = (currentWeightSum / _totalWeight) * 50f;
             }
 
-            if (_totalWeight == 0f)
+            // 문화 건물 만족도 계산
+            float externalRawSum = 0f;
+            var allInfluences = SatisfactionManager.Instance.AllInfluences;
+
+            foreach (var influence in allInfluences)
             {
-                Satisfaction = 1f;
-                IsReady = true;
-                return;
+                float distance = Vector3.Distance(transform.position, influence.transform.position);
+                if (distance <= influence.Range)
+                {
+                    externalRawSum += influence.Score;
+                }
             }
+            _lastExternalScore = Mathf.Min(externalRawSum, 50f);
 
-            float sum = itemConsumer.GetReadyResources().Where(anyResource => _mappedImportance.ContainsKey(anyResource))
-                                    .Sum(anyResource => _mappedImportance[anyResource]);
-            Satisfaction = sum / _totalWeight;
+            // 최종 만족도 합산 (0.0 ~ 1.0)
+            // (50 + 0) / 100 = 0.5 (50%)가 되어야 함
+            Satisfaction = (_lastInternalScore + _lastExternalScore) / 100f;
 
-            IsReady = true;
 
             if (Satisfaction >= threshold)
             {
@@ -134,8 +161,11 @@ namespace Citadel
             }
             else
             {
-                _hasBonus = false;
-                _bonusManager.RemoveBonus(this);
+                if (_hasBonus)
+                {
+                    _hasBonus = false;
+                    _bonusManager.RemoveBonus(this);
+                }
             }
         }
     }

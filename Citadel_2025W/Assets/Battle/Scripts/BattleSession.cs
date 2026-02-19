@@ -1,10 +1,11 @@
+
 public static class BattleSession
 {
     public struct BattleRequest
     {
         public int zoneId;
         public int castleLevel;
-        // ¸ŞÀÎ¿¡¼­ ³Ñ¾î¿À´Â ÃÑ º´·Â¼ö(Soldier)
+        // ë©”ì¸ì—ì„œ ë„˜ì–´ì˜¤ëŠ” ì´ ë³‘ë ¥ìˆ˜(Soldier)
         public int playerSoldierCount;
     }
 
@@ -55,6 +56,4 @@ public static class BattleSession
         _hasResult = false;
         _result = default;
     }
-
-
-}
+    }

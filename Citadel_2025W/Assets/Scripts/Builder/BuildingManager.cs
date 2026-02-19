@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -33,6 +33,9 @@ namespace Citadel
         [SerializeField] private Inventory inventory;
 
         [SerializeField] private SFXLooper sfxLooper;
+
+
+
         public BuildingMetaDataList Buildings
         {
             get => buildings;
@@ -72,6 +75,7 @@ namespace Citadel
 
         private void Start()
         {
+
             IsReady = true;
         }
 
