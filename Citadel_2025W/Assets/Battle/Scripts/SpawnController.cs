@@ -8,6 +8,7 @@ public class SpawnController : MonoBehaviour
     [SerializeField] private UnitFactory factory;
     [SerializeField] private Transform unitsRoot;
 
+
     [Header("Spawn Points")]
     [SerializeField] private List<Transform> playerSpawnPoints;
     [SerializeField] private List<Transform> enemySpawnPoints;
@@ -21,6 +22,9 @@ public class SpawnController : MonoBehaviour
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private float raycastHeight = 50f;
     [SerializeField] private float groundOffsetY = 0f;
+
+    [SerializeField] private float startDelay = 3f;
+
 
     private BattleRuntimeConfig _cfg;
     private Coroutine _playerCo;
@@ -61,6 +65,7 @@ public class SpawnController : MonoBehaviour
 
     private IEnumerator PlayerLoop()
     {
+        yield return new WaitForSeconds(startDelay);
         while (true)
         {
             // 총량이 남아있고, 동시 생존 제한도 통과해야 스폰
@@ -104,6 +109,7 @@ public class SpawnController : MonoBehaviour
     {
         while (true)
         {
+            yield return new WaitForSeconds(startDelay);
             if (_enemyAlive < _cfg.enemyMaxAlive)
             {
                 if (enemySpawnPoints == null || enemySpawnPoints.Count == 0)
