@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6232940451100261785}
   - component: {fileID: 6352848666052028670}
   - component: {fileID: 3164282503325128747}
+  - component: {fileID: 4399425591399464243}
   m_Layer: 0
   m_Name: church
   m_TagString: Untagged
@@ -128,6 +129,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Citadel.NightLight
   lights:
   - {fileID: 8214388499585444899}
+--- !u!114 &4399425591399464243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5584223986731048012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d319dc9047c56a7479f52aaaef191142, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SatisfactionInfluence
+  score: 10
+  range: 5
 --- !u!1 &8876998089105553123
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3739295415322773723}
   - component: {fileID: 22447001398545663}
   - component: {fileID: 4396777256146626260}
+  - component: {fileID: 1306223351942365333}
   m_Layer: 0
   m_Name: museum
   m_TagString: Untagged
@@ -131,3 +132,17 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 18.197105, y: 11.973376, z: 10.717616}
   m_Center: {x: 0, y: 5.986688, z: 1.7329979}
+--- !u!114 &1306223351942365333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5289840118248388486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d319dc9047c56a7479f52aaaef191142, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SatisfactionInfluence
+  score: 10
+  range: 5
