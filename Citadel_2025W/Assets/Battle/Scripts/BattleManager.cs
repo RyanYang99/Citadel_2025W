@@ -11,6 +11,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private BattleBalanceSettings balance;
     [SerializeField] private BattleDebugConfig debugConfig;
     [SerializeField] private SpawnController spawner;
+    [SerializeField] private AudioClip battleStartSfx;
 
     [Header("Animator")]
     [SerializeField] private Citadel.BattleMapFillAnimator mapFill;
@@ -89,6 +90,9 @@ public class BattleManager : MonoBehaviour
         _cfg = BattleRuntimeConfig.Build(balance, castleLevel);
 
         UnitRuntime.SetBattleManager(this);
+
+        if (SoundManager.Instance != null && battleStartSfx != null)
+            SoundManager.Instance.PlaySFX("BattleStart", battleStartSfx);
 
         spawner.Configure(_cfg);
         spawner.SetPlayerTotalSupply(soldierCount);

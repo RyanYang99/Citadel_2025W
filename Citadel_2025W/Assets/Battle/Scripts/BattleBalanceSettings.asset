@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleBalanceSettings
   baseTargetKills: 20
   killsPerCastleLevel: 2
-  playerBaseInterval: 1.4
-  playerIntervalPerLevel: -0.05
-  playerBaseMaxAlive: 10
+  playerBaseInterval: 2.5
+  playerIntervalPerLevel: 0.03
+  playerBaseMaxAlive: 8
   playerMaxAlivePerLevel: 1
-  enemyBaseInterval: 1.8
-  enemyIntervalPerLevel: -0.03
+  enemyBaseInterval: 2
+  enemyIntervalPerLevel: 0.06
   enemyBaseMaxAlive: 8
   enemyMaxAlivePerLevel: 1
   enemyHpMulBase: 1

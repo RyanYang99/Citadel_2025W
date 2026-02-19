@@ -24,7 +24,7 @@ namespace Citadel
                     BgSoundPlay(audioClip);
         }
 
-        private void SFXXPlay(string sfxName, AudioClip clip)
+        private void SFXPlay(string sfxName, AudioClip clip)
         {
             GameObject go = new GameObject(sfxName + "Sound");
             AudioSource audioSource = go.AddComponent<AudioSource>();
@@ -42,6 +42,12 @@ namespace Citadel
             bgSound.loop = true;
             bgSound.volume = 1.0f;
             bgSound.Play();
+        }
+
+        public void PlaySFX(string sfxName, AudioClip clip)
+        {
+            if (clip == null) return;
+            SFXPlay(sfxName, clip);
         }
 
         private void MasterVolume(float volume) => mixer.SetFloat("Master", GetValueFromVolume(volume));
@@ -71,6 +77,6 @@ namespace Citadel
             }
         }
 
-        public void PlayButtonClick() => SFXXPlay("Button", buttonClickClip);
+        public void PlayButtonClick() => SFXPlay("Button", buttonClickClip);
     }
 }
